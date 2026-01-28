@@ -133,9 +133,16 @@ def hole_veranstaltungen(jahr: int, monat: int) -> list[Veranstaltung]:
         if not events:
             break
 
+        monats_start = datetime(jahr, monat, 1)
         for event in events:
             v = _parse_event(event)
-            if v:
+            if not v:
+                continue
+            # Laufende Events aus Vormonaten: Datum auf Monatsanfang setzen
+            if v.datum < monats_start:
+                v.datum = monats_start
+                v.uhrzeit = 'laufend'
+            if v.datum.year == jahr and v.datum.month == monat:
                 veranstaltungen.append(v)
 
         # Wenn weniger als PAGE_SIZE zurückkommen, war es die letzte Seite
