@@ -28,7 +28,7 @@ def generiere_kalender(jahr: int, monat: int, tage_mit_events: set[int]) -> str:
     cal = calendar.Calendar(firstweekday=0)  # Montag = 0
     wochen = cal.monthdayscalendar(jahr, monat)
 
-    html = '<table class="kalender">\n'
+    html = '<table class="kalender" id="kalender">\n'
     html += '<tr>'
     for tag_name in ['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So']:
         html += f'<th>{tag_name}</th>'
@@ -115,6 +115,7 @@ def generiere_html(veranstaltungen: list[Veranstaltung], jahr: int, monat: int,
 
         termine_html += '''
             </div>
+            <div class="zurueck-link"><a href="#kalender">↑ Kalender</a></div>
         </div>
         '''
 
@@ -402,6 +403,22 @@ def generiere_html(veranstaltungen: list[Veranstaltung], jahr: int, monat: int,
             display: block;
             -webkit-line-clamp: unset;
             overflow: visible;
+        }}
+
+        .zurueck-link {{
+            text-align: right;
+            padding: 6px 15px;
+            font-size: 13px;
+        }}
+
+        .zurueck-link a {{
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: 500;
+        }}
+
+        .zurueck-link a:hover {{
+            color: var(--accent-color);
         }}
 
         .keine-termine {{
