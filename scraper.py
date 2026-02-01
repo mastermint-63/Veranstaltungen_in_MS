@@ -1,4 +1,4 @@
-"""API-Client für Veranstaltungen aus dem Münsterland (muensterland.com)."""
+"""API-Client für Veranstaltungen aus dem Münsterland (muensterland.com + Digital Hub)."""
 
 import re
 import requests
@@ -10,6 +10,10 @@ from html import unescape
 
 API_URL = "https://www.muensterland.com/dpms/"
 PAGE_SIZE = 100
+
+# Digital Hub API
+DIGITALHUB_API_URL = "https://www.digitalhub.ms/api/events"
+DIGITALHUB_API_KEY = "089d362b33ef053d7fcd241d823d27d1"  # Öffentlicher Demo-Key
 
 HEADERS = {
     'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36'
@@ -26,6 +30,8 @@ class Veranstaltung:
     stadt: str
     link: str
     beschreibung: str = ''
+    quelle: str = 'muensterland'  # 'muensterland' oder 'digitalhub'
+    kategorie: str = ''  # z.B. 'Workshop', 'Meetup', 'Pitch'
 
     def datum_formatiert(self) -> str:
         """Formatiert das Datum als 'Mo 02.02.2026'."""
@@ -80,16 +86,14 @@ def _parse_event(event: dict) -> Veranstaltung | None:
         ort_teile.append(f"{strasse} {hausnr}".strip())
     ort = ', '.join(t for t in ort_teile if t)
 
-    # Link: external_link oder muensterland.com Event-Seite
+    # Link: nur external_link verwenden (muensterland.com hat keine Event-Detailseiten)
     link = event.get('external_link') or ''
-    if not link:
-        event_id = event.get('id')
-        if event_id:
-            link = f"https://www.muensterland.com/tourismus/service/veranstaltungen-im-muensterland/?id={event_id}"
 
     # Beschreibung
     beschreibung_html = event.get('description_text', '')
-    beschreibung = _html_zu_text(beschreibung_html)[:300]
+    beschreibung = _html_zu_text(beschreibung_html)
+    if link:
+        beschreibung = beschreibung[:300]
 
     return Veranstaltung(
         name=name[:150],
@@ -152,4 +156,95 @@ def hole_veranstaltungen(jahr: int, monat: int) -> list[Veranstaltung]:
         seite += 1
 
     veranstaltungen.sort()
+    return veranstaltungen
+
+
+def hole_digitalhub_events(jahr: int, monat: int) -> list[Veranstaltung]:
+    """Holt Digital Hub Events für einen bestimmten Monat."""
+    params = {
+        'api_token': DIGITALHUB_API_KEY
+    }
+
+    try:
+        response = requests.get(DIGITALHUB_API_URL, params=params, headers=HEADERS, timeout=30)
+        response.raise_for_status()
+        daten = response.json()
+    except (requests.RequestException, ValueError) as e:
+        print(f"  Digital Hub API-Fehler: {e}")
+        return []
+
+    # Events sind im "data"-Array
+    events = daten.get('data', [])
+    if not events:
+        return []
+
+    veranstaltungen = []
+    monats_start = datetime(jahr, monat, 1)
+    letzter_tag = monthrange(jahr, monat)[1]
+    monats_ende = datetime(jahr, monat, letzter_tag, 23, 59, 59)
+
+    for event in events:
+        # Datum parsen
+        start_date = event.get('start_date', '')
+        if not start_date:
+            continue
+
+        try:
+            datum = datetime.strptime(start_date, '%Y-%m-%d')
+        except ValueError:
+            continue
+
+        # Nur Events im gewünschten Monat
+        if datum < monats_start or datum > monats_ende:
+            continue
+
+        # Uhrzeit
+        start_time = event.get('start_time', '').strip()
+        end_time = event.get('end_time', '').strip()
+        if start_time:
+            uhrzeit = f"{start_time} Uhr"
+            if end_time:
+                uhrzeit = f"{start_time}-{end_time} Uhr"
+            # Datum mit Uhrzeit
+            try:
+                stunde, minute = map(int, start_time.split(':'))
+                datum = datum.replace(hour=stunde, minute=minute)
+            except (ValueError, AttributeError):
+                pass
+        else:
+            uhrzeit = 'ganztägig'
+
+        # Ort und Stadt
+        address = event.get('address', '')
+        stadt = event.get('city', '')
+
+        # Name und Link
+        name = event.get('title', '').strip()
+        if not name:
+            continue
+
+        link = event.get('link_url', '') or f"https://www.digitalhub.ms/events"
+
+        # Beschreibung
+        beschreibung = event.get('desc', '').strip()[:300]
+
+        # Kategorie
+        mode = event.get('mode', '')
+        flag = event.get('flag', '')
+        kategorie = f"{mode}" if mode else ''
+        if flag:
+            kategorie = f"{flag} · {kategorie}" if kategorie else flag
+
+        veranstaltungen.append(Veranstaltung(
+            name=name[:150],
+            datum=datum,
+            uhrzeit=uhrzeit,
+            ort=address[:150],
+            stadt=stadt,
+            link=link,
+            beschreibung=beschreibung,
+            quelle='digitalhub',
+            kategorie=kategorie
+        ))
+
     return veranstaltungen

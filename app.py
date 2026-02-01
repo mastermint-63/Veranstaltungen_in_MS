@@ -12,14 +12,42 @@ Verwendung:
 
 import os
 import webbrowser
+import calendar
 from datetime import datetime
 
-from scraper import hole_veranstaltungen, Veranstaltung
+from scraper import hole_veranstaltungen, hole_digitalhub_events, Veranstaltung
 
 
 def dateiname_fuer_monat(jahr: int, monat: int) -> str:
     """Generiert den Dateinamen für einen Monat."""
     return f"veranstaltungen_{jahr}_{monat:02d}.html"
+
+
+def generiere_kalender(jahr: int, monat: int, tage_mit_events: set[int]) -> str:
+    """Generiert ein Kalenderblatt als HTML-Tabelle."""
+    cal = calendar.Calendar(firstweekday=0)  # Montag = 0
+    wochen = cal.monthdayscalendar(jahr, monat)
+
+    html = '<table class="kalender">\n'
+    html += '<tr>'
+    for tag_name in ['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So']:
+        html += f'<th>{tag_name}</th>'
+    html += '</tr>\n'
+
+    for woche in wochen:
+        html += '<tr>'
+        for tag in woche:
+            if tag == 0:
+                html += '<td></td>'
+            elif tag in tage_mit_events:
+                datum_key = f"{jahr}-{monat:02d}-{tag:02d}"
+                html += f'<td><a href="#datum-{datum_key}" class="kal-link">{tag}</a></td>'
+            else:
+                html += f'<td class="kal-leer">{tag}</td>'
+        html += '</tr>\n'
+
+    html += '</table>'
+    return html
 
 
 def generiere_html(veranstaltungen: list[Veranstaltung], jahr: int, monat: int,
@@ -48,20 +76,35 @@ def generiere_html(veranstaltungen: list[Veranstaltung], jahr: int, monat: int,
         datum_formatiert = tage[0].datum_formatiert()
 
         termine_html += f'''
-        <div class="datum-gruppe">
+        <div class="datum-gruppe" id="datum-{datum_key}">
             <div class="datum-header">{datum_formatiert}</div>
             <div class="termine-liste">
         '''
 
         for v in sorted(tage, key=lambda x: (x.uhrzeit == 'ganztägig', x.uhrzeit, x.name)):
-            beschreibung_escaped = v.beschreibung.replace('"', '&quot;').replace('\n', ' ')[:200]
+            beschreibung_raw = v.beschreibung.replace('"', '&quot;').replace('\n', ' ')
+            beschreibung_escaped = beschreibung_raw[:200] if v.link else beschreibung_raw
+
+            # Badge für Digital Hub Events
+            badge_html = ''
+            if v.quelle == 'digitalhub':
+                badge_html = '<span class="badge badge-digitalhub">🚀 Digital Hub</span>'
+                if v.kategorie:
+                    badge_html += f' <span class="badge badge-kategorie">{v.kategorie}</span>'
+
+            # Name: als Link oder aufklappbar
+            if v.link:
+                name_html = f'<a href="{v.link}" target="_blank">{v.name}</a>'
+            else:
+                name_html = f'<span class="termin-toggle" onclick="this.closest(\'.termin\').classList.toggle(\'expanded\')">{v.name}</span>'
 
             termine_html += f'''
-                <div class="termin" data-stadt="{v.stadt}">
+                <div class="termin" data-stadt="{v.stadt}" data-quelle="{v.quelle}">
                     <div class="termin-zeit">{v.uhrzeit}</div>
                     <div class="termin-info">
                         <div class="termin-name">
-                            <a href="{v.link}" target="_blank">{v.name}</a>
+                            {name_html}
+                            {badge_html}
                         </div>
                         <div class="termin-stadt">{v.stadt}</div>
                         {f'<div class="termin-ort">{v.ort}</div>' if v.ort else ''}
@@ -94,6 +137,10 @@ def generiere_html(veranstaltungen: list[Veranstaltung], jahr: int, monat: int,
 
     prev_class = "" if prev_verfuegbar else " disabled"
     next_class = "" if next_verfuegbar else " disabled"
+
+    # Kalenderblatt generieren
+    tage_mit_events = set(int(k.split('-')[2]) for k in nach_datum.keys())
+    kalender_html = generiere_kalender(jahr, monat, tage_mit_events)
 
     html = f'''<!DOCTYPE html>
 <html lang="de">
@@ -197,6 +244,14 @@ def generiere_html(veranstaltungen: list[Veranstaltung], jahr: int, monat: int,
             background: var(--card-bg);
             border-radius: 10px;
             border: 1px solid var(--border-color);
+            flex-wrap: wrap;
+            gap: 10px;
+        }}
+
+        .filter-group {{
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
         }}
 
         .filter-bar select {{
@@ -262,6 +317,10 @@ def generiere_html(veranstaltungen: list[Veranstaltung], jahr: int, monat: int,
         .termin-name {{
             font-weight: 500;
             margin-bottom: 2px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
         }}
 
         .termin-name a {{
@@ -272,6 +331,26 @@ def generiere_html(veranstaltungen: list[Veranstaltung], jahr: int, monat: int,
         .termin-name a:hover {{
             color: var(--accent-color);
             text-decoration: underline;
+        }}
+
+        .badge {{
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 500;
+            white-space: nowrap;
+        }}
+
+        .badge-digitalhub {{
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }}
+
+        .badge-kategorie {{
+            background: var(--hover-color);
+            color: var(--text-secondary);
+            border: 1px solid var(--border-color);
         }}
 
         .termin-stadt {{
@@ -295,6 +374,36 @@ def generiere_html(veranstaltungen: list[Veranstaltung], jahr: int, monat: int,
             overflow: hidden;
         }}
 
+        .termin-toggle {{
+            cursor: pointer;
+            color: var(--text-color);
+            border-bottom: 1px dashed var(--text-secondary);
+        }}
+
+        .termin-toggle:hover {{
+            color: var(--accent-color);
+        }}
+
+        .termin-toggle::after {{
+            content: ' ▸';
+            font-size: 11px;
+            color: var(--text-secondary);
+        }}
+
+        .termin.expanded .termin-toggle::after {{
+            content: ' ▾';
+        }}
+
+        .termin:has(.termin-toggle) .termin-beschreibung {{
+            display: none;
+        }}
+
+        .termin.expanded .termin-beschreibung {{
+            display: block;
+            -webkit-line-clamp: unset;
+            overflow: visible;
+        }}
+
         .keine-termine {{
             text-align: center;
             padding: 40px;
@@ -316,6 +425,48 @@ def generiere_html(veranstaltungen: list[Veranstaltung], jahr: int, monat: int,
         footer a {{
             color: var(--text-secondary);
         }}
+
+        .kalender {{
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto 25px;
+            border-collapse: collapse;
+            text-align: center;
+        }}
+
+        .kalender th {{
+            padding: 6px;
+            font-size: 13px;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }}
+
+        .kalender td {{
+            padding: 6px;
+            font-size: 14px;
+            border-radius: 6px;
+        }}
+
+        .kalender .kal-leer {{
+            color: var(--text-secondary);
+            opacity: 0.5;
+        }}
+
+        .kalender .kal-link {{
+            display: inline-block;
+            width: 32px;
+            height: 32px;
+            line-height: 32px;
+            border-radius: 50%;
+            background: var(--accent-color);
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+        }}
+
+        .kalender .kal-link:hover {{
+            opacity: 0.8;
+        }}
     </style>
 </head>
 <body>
@@ -329,10 +480,19 @@ def generiere_html(veranstaltungen: list[Veranstaltung], jahr: int, monat: int,
             </div>
         </header>
 
+        {kalender_html}
+
         <div class="filter-bar">
-            <select id="stadt-filter" onchange="filterTermine()">
-                {filter_html}
-            </select>
+            <div class="filter-group">
+                <select id="stadt-filter" onchange="filterTermine()">
+                    {filter_html}
+                </select>
+                <select id="quelle-filter" onchange="filterTermine()">
+                    <option value="">Alle Quellen</option>
+                    <option value="muensterland">Münsterland</option>
+                    <option value="digitalhub">Digital Hub</option>
+                </select>
+            </div>
             <div class="stats">
                 <span id="termine-count">{len(veranstaltungen)}</span> Veranstaltungen in <span id="staedte-count">{len(alle_staedte)}</span> Orten
             </div>
@@ -350,12 +510,16 @@ def generiere_html(veranstaltungen: list[Veranstaltung], jahr: int, monat: int,
 
     <script>
         function filterTermine() {{
-            const filter = document.getElementById('stadt-filter').value;
+            const stadtFilter = document.getElementById('stadt-filter').value;
+            const quelleFilter = document.getElementById('quelle-filter').value;
             const termine = document.querySelectorAll('.termin');
             let sichtbar = 0;
 
             termine.forEach(t => {{
-                if (!filter || t.dataset.stadt === filter) {{
+                const stadtMatch = !stadtFilter || t.dataset.stadt === stadtFilter;
+                const quelleMatch = !quelleFilter || t.dataset.quelle === quelleFilter;
+
+                if (stadtMatch && quelleMatch) {{
                     t.classList.remove('hidden');
                     sichtbar++;
                 }} else {{
@@ -415,9 +579,18 @@ def main():
                        'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dez']
         print(f"\n[{idx+1}/{anzahl_monate}] {monatsnamen[m]} {j}:")
 
+        # Münsterland Events
         veranstaltungen = hole_veranstaltungen(j, m)
+        print(f"  → {len(veranstaltungen)} Veranstaltungen von muensterland.com")
+
+        # Digital Hub Events
+        digitalhub_events = hole_digitalhub_events(j, m)
+        if digitalhub_events:
+            print(f"  → {len(digitalhub_events)} Digital Hub Events")
+            veranstaltungen.extend(digitalhub_events)
+
         staedte = len(set(v.stadt for v in veranstaltungen if v.stadt))
-        print(f"  → {len(veranstaltungen)} Veranstaltungen in {staedte} Orten")
+        print(f"  → Gesamt: {len(veranstaltungen)} Veranstaltungen in {staedte} Orten")
 
         html = generiere_html(veranstaltungen, j, m, monate_liste)
 
