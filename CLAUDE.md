@@ -146,7 +146,7 @@ Response-Format:
 Generierte Dateien (`veranstaltungen_YYYY_MM.html`) sind vollständig standalone:
 - **Keine externen Dependencies**: CSS und JavaScript sind eingebettet
 - **Dark Mode**: Automatische Anpassung an System-Präferenz via `prefers-color-scheme`
-- **Kalenderblatt**: Monatskalender (Mo–So) oberhalb der Events, Tage mit Events als grüne Kreise anklickbar, springt per Anker (`#datum-YYYY-MM-DD`) zum jeweiligen Datum
+- **Kalenderblatt**: Monatskalender (Mo–So) oberhalb der Events (`id="kalender"`), Tage mit Events als grüne Kreise anklickbar, springt per Anker (`#datum-YYYY-MM-DD`) zum jeweiligen Datum; jede Datumsgruppe hat einen „↑ Kalender"-Rücksprunglink
 - **Zwei Filter**: Stadt (Dropdown) + Quelle (Münsterland/Digital Hub)
 - **Event-Badges**: Digital Hub Events haben visuell unterscheidbare Badges (🚀 + Kategorie)
 - **Aufklappbare Details**: Events ohne externen Link zeigen den Namen mit ▸-Pfeil; Klick klappt die vollständige Beschreibung auf (statt auf nicht-funktionierende URLs zu verlinken)
