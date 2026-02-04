@@ -1,0 +1,78 @@
+name: Test API-Zugriff
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test-apis:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Test muensterland.com API
+        run: |
+          echo "=== muensterland.com API ==="
+          curl -s -o /dev/null -w "HTTP Status: %{http_code}\n" \
+            -X POST "https://www.muensterland.com/dpms/" \
+            -d "endpoint=events&page[size]=1&page[number]=1&from=2026-02-01&to=2026-02-28&returnFormat=json"
+
+      - name: Test digitalhub.ms API
+        run: |
+          echo "=== digitalhub.ms API ==="
+          curl -s -o /dev/null -w "HTTP Status: %{http_code}\n" \
+            "https://www.digitalhub.ms/api/events?api_token=089d362b33ef053d7fcd241d823d27d1"
+
+      - name: Test Halle Münsterland Website
+        run: |
+          echo "=== mcc-halle-muensterland.de ==="
+          curl -s -o /dev/null -w "HTTP Status: %{http_code}\n" \
+            "https://www.mcc-halle-muensterland.de/veranstaltungen"
+
+      - name: Vollständiger Scraper-Test
+        run: |
+          echo "=== Vollständiger Test mit Python ==="
+          pip install requests beautifulsoup4 lxml -q
+
+          python3 << 'EOF'
+          import requests
+          from datetime import datetime
+
+          results = []
+
+          # Test 1: muensterland.com
+          try:
+              r = requests.post("https://www.muensterland.com/dpms/", data={
+                  "endpoint": "events",
+                  "page[size]": "5",
+                  "page[number]": "1",
+                  "from": "2026-02-01",
+                  "to": "2026-02-28",
+                  "returnFormat": "json"
+              }, timeout=30)
+              data = r.json()
+              count = len(data.get("items", []))
+              results.append(f"✅ muensterland.com: {r.status_code} - {count} Events")
+          except Exception as e:
+              results.append(f"❌ muensterland.com: {e}")
+
+          # Test 2: digitalhub.ms
+          try:
+              r = requests.get("https://www.digitalhub.ms/api/events?api_token=089d362b33ef053d7fcd241d823d27d1", timeout=30)
+              data = r.json()
+              count = len(data.get("data", []))
+              results.append(f"✅ digitalhub.ms: {r.status_code} - {count} Events total")
+          except Exception as e:
+              results.append(f"❌ digitalhub.ms: {e}")
+
+          # Test 3: Halle Münsterland
+          try:
+              r = requests.get("https://www.mcc-halle-muensterland.de/veranstaltungen", timeout=30)
+              results.append(f"✅ Halle Münsterland: {r.status_code} - {len(r.text)} Bytes")
+          except Exception as e:
+              results.append(f"❌ Halle Münsterland: {e}")
+
+          print("\n" + "="*50)
+          print("ERGEBNIS:")
+          print("="*50)
+          for r in results:
+              print(r)
+          EOF
