@@ -239,7 +239,7 @@ def hole_digitalhub_events(jahr: int, monat: int) -> list[Veranstaltung]:
             name=name[:150],
             datum=datum,
             uhrzeit=uhrzeit,
-            ort=address[:150],
+            ort=(address or '')[:150],
             stadt=stadt,
             link=link,
             beschreibung=beschreibung,

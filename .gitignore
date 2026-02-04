@@ -1,3 +1,6 @@
 __pycache__/
 *.pyc
-veranstaltungen_*.html
+.DS_Store
+launchd.log
+# HTML-Dateien werden für GitHub Pages benötigt
+# veranstaltungen_*.html
