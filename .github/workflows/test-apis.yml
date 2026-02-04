@@ -8,37 +8,35 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Test muensterland.com API
+      - name: Test muensterland.com - Standard
         run: |
-          echo "=== muensterland.com API ==="
+          echo "=== muensterland.com API (Standard) ==="
           curl -s -o /dev/null -w "HTTP Status: %{http_code}\n" \
             -X POST "https://www.muensterland.com/dpms/" \
             -d "endpoint=events&page[size]=1&page[number]=1&from=2026-02-01&to=2026-02-28&returnFormat=json"
 
-      - name: Test digitalhub.ms API
+      - name: Test muensterland.com - Mit Browser User-Agent
         run: |
-          echo "=== digitalhub.ms API ==="
-          curl -s -o /dev/null -w "HTTP Status: %{http_code}\n" \
-            "https://www.digitalhub.ms/api/events?api_token=089d362b33ef053d7fcd241d823d27d1"
+          echo "=== muensterland.com API (Browser User-Agent) ==="
+          curl -s -X POST "https://www.muensterland.com/dpms/" \
+            -H "User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36" \
+            -H "Accept: application/json" \
+            -H "Accept-Language: de-DE,de;q=0.9" \
+            -H "Origin: https://www.muensterland.com" \
+            -H "Referer: https://www.muensterland.com/freizeit/veranstaltungen/" \
+            -d "endpoint=events&page[size]=5&page[number]=1&from=2026-02-01&to=2026-02-28&returnFormat=json" \
+            | python3 -c "import sys,json; d=json.load(sys.stdin); print(f'Events: {len(d.get(\"items\",[]))}')"
 
-      - name: Test Halle Münsterland Website
+      - name: Vollständiger Test mit verschiedenen Methoden
         run: |
-          echo "=== mcc-halle-muensterland.de ==="
-          curl -s -o /dev/null -w "HTTP Status: %{http_code}\n" \
-            "https://www.mcc-halle-muensterland.de/veranstaltungen"
-
-      - name: Vollständiger Scraper-Test
-        run: |
-          echo "=== Vollständiger Test mit Python ==="
           pip install requests beautifulsoup4 lxml -q
 
           python3 << 'EOF'
           import requests
-          from datetime import datetime
 
-          results = []
-
-          # Test 1: muensterland.com
+          print("="*60)
+          print("TEST 1: muensterland.com - Ohne spezielle Header")
+          print("="*60)
           try:
               r = requests.post("https://www.muensterland.com/dpms/", data={
                   "endpoint": "events",
@@ -50,29 +48,118 @@ jobs:
               }, timeout=30)
               data = r.json()
               count = len(data.get("items", []))
-              results.append(f"✅ muensterland.com: {r.status_code} - {count} Events")
+              print(f"Status: {r.status_code}, Events: {count}")
           except Exception as e:
-              results.append(f"❌ muensterland.com: {e}")
+              print(f"Fehler: {e}")
 
-          # Test 2: digitalhub.ms
+          print("\n" + "="*60)
+          print("TEST 2: muensterland.com - Mit Browser-Headers")
+          print("="*60)
+          try:
+              headers = {
+                  "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+                  "Accept": "application/json, text/plain, */*",
+                  "Accept-Language": "de-DE,de;q=0.9,en;q=0.8",
+                  "Origin": "https://www.muensterland.com",
+                  "Referer": "https://www.muensterland.com/freizeit/veranstaltungen/",
+              }
+              r = requests.post("https://www.muensterland.com/dpms/", data={
+                  "endpoint": "events",
+                  "page[size]": "5",
+                  "page[number]": "1",
+                  "from": "2026-02-01",
+                  "to": "2026-02-28",
+                  "returnFormat": "json"
+              }, headers=headers, timeout=30)
+              data = r.json()
+              count = len(data.get("items", []))
+              print(f"Status: {r.status_code}, Events: {count}")
+              if count > 0:
+                  print(f"Erster Event: {data['items'][0].get('title', 'N/A')[:50]}")
+          except Exception as e:
+              print(f"Fehler: {e}")
+
+          print("\n" + "="*60)
+          print("TEST 3: muensterland.com - Mit Session + Cookies")
+          print("="*60)
+          try:
+              session = requests.Session()
+              session.headers.update({
+                  "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36",
+                  "Accept-Language": "de-DE,de;q=0.9",
+              })
+              # Erst die Hauptseite besuchen um Cookies zu bekommen
+              session.get("https://www.muensterland.com/freizeit/veranstaltungen/", timeout=10)
+              # Dann die API aufrufen
+              r = session.post("https://www.muensterland.com/dpms/", data={
+                  "endpoint": "events",
+                  "page[size]": "5",
+                  "page[number]": "1",
+                  "from": "2026-02-01",
+                  "to": "2026-02-28",
+                  "returnFormat": "json"
+              }, timeout=30)
+              data = r.json()
+              count = len(data.get("items", []))
+              print(f"Status: {r.status_code}, Events: {count}")
+              if count > 0:
+                  print(f"Erster Event: {data['items'][0].get('title', 'N/A')[:50]}")
+          except Exception as e:
+              print(f"Fehler: {e}")
+
+          print("\n" + "="*60)
+          print("TEST 4: digitalhub.ms (Referenz - sollte funktionieren)")
+          print("="*60)
           try:
               r = requests.get("https://www.digitalhub.ms/api/events?api_token=089d362b33ef053d7fcd241d823d27d1", timeout=30)
               data = r.json()
               count = len(data.get("data", []))
-              results.append(f"✅ digitalhub.ms: {r.status_code} - {count} Events total")
+              print(f"Status: {r.status_code}, Events: {count}")
           except Exception as e:
-              results.append(f"❌ digitalhub.ms: {e}")
+              print(f"Fehler: {e}")
 
-          # Test 3: Halle Münsterland
+          print("\n" + "="*60)
+          print("TEST 5: Halle Münsterland")
+          print("="*60)
           try:
-              r = requests.get("https://www.mcc-halle-muensterland.de/veranstaltungen", timeout=30)
-              results.append(f"✅ Halle Münsterland: {r.status_code} - {len(r.text)} Bytes")
+              r = requests.get("https://www.mcc-halle-muensterland.de/veranstaltungen/", timeout=30)
+              print(f"Status: {r.status_code}, Bytes: {len(r.text)}")
+              # Prüfen ob Veranstaltungen im HTML sind
+              if "event" in r.text.lower() or "veranstaltung" in r.text.lower():
+                  print("✓ HTML enthält Event-Inhalte")
           except Exception as e:
-              results.append(f"❌ Halle Münsterland: {e}")
+              print(f"Fehler: {e}")
 
-          print("\n" + "="*50)
-          print("ERGEBNIS:")
-          print("="*50)
-          for r in results:
-              print(r)
+          print("\n" + "="*60)
+          print("ZUSAMMENFASSUNG")
+          print("="*60)
+          EOF
+
+      - name: Test mit deutschem Proxy
+        run: |
+          echo "=== Test mit kostenlosem deutschen Proxy ==="
+
+          python3 << 'EOF'
+          import requests
+          import json
+
+          # Liste von kostenlosen deutschen Proxies (können unzuverlässig sein)
+          # Wir testen ob ein Proxy-Ansatz prinzipiell funktionieren würde
+
+          print("Teste muensterland.com über verschiedene Methoden...")
+
+          # Methode: Lokale IP-Info abrufen
+          try:
+              r = requests.get("https://ipinfo.io/json", timeout=10)
+              info = r.json()
+              print(f"GitHub Runner IP-Land: {info.get('country', 'Unknown')}")
+              print(f"GitHub Runner Region: {info.get('region', 'Unknown')}")
+              print(f"GitHub Runner ISP: {info.get('org', 'Unknown')}")
+          except Exception as e:
+              print(f"IP-Info Fehler: {e}")
+
+          print("\n--- Fazit ---")
+          print("Wenn muensterland.com auf deutsche IPs beschränkt ist,")
+          print("würde ein deutscher VPN/Proxy das Problem lösen.")
+          print("Kostenlose Proxies sind aber unzuverlässig für Produktion.")
           EOF
