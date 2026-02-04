@@ -15,7 +15,7 @@ import webbrowser
 import calendar
 from datetime import datetime
 
-from scraper import hole_veranstaltungen, hole_digitalhub_events, Veranstaltung
+from scraper import hole_veranstaltungen, hole_digitalhub_events, hole_halle_muensterland_events, Veranstaltung
 
 
 def dateiname_fuer_monat(jahr: int, monat: int) -> str:
@@ -85,12 +85,14 @@ def generiere_html(veranstaltungen: list[Veranstaltung], jahr: int, monat: int,
             beschreibung_raw = v.beschreibung.replace('"', '&quot;').replace('\n', ' ')
             beschreibung_escaped = beschreibung_raw[:200] if v.link else beschreibung_raw
 
-            # Badge für Digital Hub Events
+            # Badge für spezielle Quellen
             badge_html = ''
             if v.quelle == 'digitalhub':
                 badge_html = '<span class="badge badge-digitalhub">🚀 Digital Hub</span>'
                 if v.kategorie:
                     badge_html += f' <span class="badge badge-kategorie">{v.kategorie}</span>'
+            elif v.quelle == 'halle_muensterland':
+                badge_html = '<span class="badge badge-halle">🎭 Halle Münsterland</span>'
 
             # Name: als Link oder aufklappbar
             if v.link:
@@ -348,6 +350,11 @@ def generiere_html(veranstaltungen: list[Veranstaltung], jahr: int, monat: int,
             color: white;
         }}
 
+        .badge-halle {{
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            color: white;
+        }}
+
         .badge-kategorie {{
             background: var(--hover-color);
             color: var(--text-secondary);
@@ -508,6 +515,7 @@ def generiere_html(veranstaltungen: list[Veranstaltung], jahr: int, monat: int,
                     <option value="">Alle Quellen</option>
                     <option value="muensterland">Münsterland</option>
                     <option value="digitalhub">Digital Hub</option>
+                    <option value="halle_muensterland">Halle Münsterland</option>
                 </select>
             </div>
             <div class="stats">
@@ -605,6 +613,12 @@ def main():
         if digitalhub_events:
             print(f"  → {len(digitalhub_events)} Digital Hub Events")
             veranstaltungen.extend(digitalhub_events)
+
+        # Halle Münsterland Events
+        halle_events = hole_halle_muensterland_events(j, m)
+        if halle_events:
+            print(f"  → {len(halle_events)} Halle Münsterland Events")
+            veranstaltungen.extend(halle_events)
 
         staedte = len(set(v.stadt for v in veranstaltungen if v.stadt))
         print(f"  → Gesamt: {len(veranstaltungen)} Veranstaltungen in {staedte} Orten")

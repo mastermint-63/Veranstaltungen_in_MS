@@ -203,6 +203,11 @@
             color: white;
         }
 
+        .badge-halle {
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            color: white;
+        }
+
         .badge-kategorie {
             background: var(--hover-color);
             color: var(--text-secondary);
@@ -348,7 +353,7 @@
             <div class="nav">
                 <a href="#" class="nav-btn disabled">&larr; Januar</a>
                 <span class="monat-titel">Februar 2026</span>
-                <a href="veranstaltungen_2026_03.html" class="nav-btn">März &rarr;</a>
+                <a href="#" class="nav-btn disabled">März &rarr;</a>
             </div>
         </header>
 
@@ -364,16 +369,17 @@
         <div class="filter-bar">
             <div class="filter-group">
                 <select id="stadt-filter" onchange="filterTermine()">
-                    <option value="">Alle Städte</option><option value="Ahaus">Ahaus</option><option value="Altenberge">Altenberge</option><option value="Beckum">Beckum</option><option value="Billerbeck">Billerbeck</option><option value="Bocholt">Bocholt</option><option value="Borken">Borken</option><option value="Borken-Gemen">Borken-Gemen</option><option value="Coesfeld">Coesfeld</option><option value="Dorsten">Dorsten</option><option value="Dorsten-Deuten">Dorsten-Deuten</option><option value="Drensteinfurt">Drensteinfurt</option><option value="Dülmen">Dülmen</option><option value="Emsdetten">Emsdetten</option><option value="Everswinkel">Everswinkel</option><option value="Gelsenkirchen">Gelsenkirchen</option><option value="Gescher">Gescher</option><option value="Greven">Greven</option><option value="Gronau">Gronau</option><option value="Haltern am See">Haltern am See</option><option value="Heek">Heek</option><option value="Heek-Nienborg">Heek-Nienborg</option><option value="Hörstel">Hörstel</option><option value="Ibbenbüren">Ibbenbüren</option><option value="Ladbergen">Ladbergen</option><option value="Laer">Laer</option><option value="Legden">Legden</option><option value="Lengerich">Lengerich</option><option value="Lienen">Lienen</option><option value="Lippetal">Lippetal</option><option value="Lippetal-Herzfeld">Lippetal-Herzfeld</option><option value="Lüdinghausen">Lüdinghausen</option><option value="Mettingen">Mettingen</option><option value="Münster">Münster</option><option value="Nottuln">Nottuln</option><option value="Ochtrup">Ochtrup</option><option value="Oelde">Oelde</option><option value="Olfen">Olfen</option><option value="Ostbevern">Ostbevern</option><option value="Raesfeld">Raesfeld</option><option value="Recke">Recke</option><option value="Reken">Reken</option><option value="Rhede">Rhede</option><option value="Rheine">Rheine</option><option value="Saerbeck">Saerbeck</option><option value="Schermbeck">Schermbeck</option><option value="Schöppingen">Schöppingen</option><option value="Senden">Senden</option><option value="Sendenhorst">Sendenhorst</option><option value="Steinfurt">Steinfurt</option><option value="Tecklenburg">Tecklenburg</option><option value="Tecklenburg-Leeden">Tecklenburg-Leeden</option><option value="Telgte">Telgte</option><option value="Velen">Velen</option><option value="Vreden">Vreden</option><option value="Wadersloh">Wadersloh</option><option value="Warendorf">Warendorf</option><option value="Wettringen">Wettringen</option><option value="Xanten">Xanten</option>
+                    <option value="">Alle Städte</option><option value="Ahaus">Ahaus</option><option value="Altenberge">Altenberge</option><option value="Beckum">Beckum</option><option value="Billerbeck">Billerbeck</option><option value="Bocholt">Bocholt</option><option value="Borken">Borken</option><option value="Borken-Gemen">Borken-Gemen</option><option value="Coesfeld">Coesfeld</option><option value="Dorsten">Dorsten</option><option value="Dorsten-Deuten">Dorsten-Deuten</option><option value="Drensteinfurt">Drensteinfurt</option><option value="Dülmen">Dülmen</option><option value="Emsdetten">Emsdetten</option><option value="Everswinkel">Everswinkel</option><option value="Gelsenkirchen">Gelsenkirchen</option><option value="Gescher">Gescher</option><option value="Greven">Greven</option><option value="Gronau">Gronau</option><option value="Haltern am See">Haltern am See</option><option value="Heek">Heek</option><option value="Heek-Nienborg">Heek-Nienborg</option><option value="Hörstel">Hörstel</option><option value="Ibbenbüren">Ibbenbüren</option><option value="Ladbergen">Ladbergen</option><option value="Laer">Laer</option><option value="Legden">Legden</option><option value="Lengerich">Lengerich</option><option value="Lienen">Lienen</option><option value="Lippetal">Lippetal</option><option value="Lippetal-Herzfeld">Lippetal-Herzfeld</option><option value="Lüdinghausen">Lüdinghausen</option><option value="Mettingen">Mettingen</option><option value="Münster">Münster</option><option value="Nottuln">Nottuln</option><option value="Ochtrup">Ochtrup</option><option value="Oelde">Oelde</option><option value="Olfen">Olfen</option><option value="Ostbevern">Ostbevern</option><option value="Raesfeld">Raesfeld</option><option value="Recke">Recke</option><option value="Reken">Reken</option><option value="Rhede">Rhede</option><option value="Rheine">Rheine</option><option value="Saerbeck">Saerbeck</option><option value="Schermbeck">Schermbeck</option><option value="Schöppingen">Schöppingen</option><option value="Senden">Senden</option><option value="Sendenhorst">Sendenhorst</option><option value="Steinfurt">Steinfurt</option><option value="Südlohn">Südlohn</option><option value="Tecklenburg">Tecklenburg</option><option value="Tecklenburg-Leeden">Tecklenburg-Leeden</option><option value="Telgte">Telgte</option><option value="Velen">Velen</option><option value="Vreden">Vreden</option><option value="Wadersloh">Wadersloh</option><option value="Warendorf">Warendorf</option><option value="Wettringen">Wettringen</option><option value="Xanten">Xanten</option>
                 </select>
                 <select id="quelle-filter" onchange="filterTermine()">
                     <option value="">Alle Quellen</option>
                     <option value="muensterland">Münsterland</option>
                     <option value="digitalhub">Digital Hub</option>
+                    <option value="halle_muensterland">Halle Münsterland</option>
                 </select>
             </div>
             <div class="stats">
-                <span id="termine-count">519</span> Veranstaltungen in <span id="staedte-count">58</span> Orten
+                <span id="termine-count">539</span> Veranstaltungen in <span id="staedte-count">59</span> Orten
             </div>
         </div>
 
@@ -705,6 +711,19 @@
                         <div class="termin-stadt">Beckum</div>
                         <div class="termin-ort">Haus Pöpsel, Herzfelder Straße 60</div>
                         <div class="termin-beschreibung">Eisstockbahn 2025 NEUim Oberberger Winterdorf am Haus Pöpsel!Von Oktober bis März verwandelt sich unser Biergarten am Stadtrand von Beckum in ein gemütliches Winterdorf – Geselligkeit, Spaß und Genuss</div>
+                    </div>
+                </div>
+            
+                <div class="termin" data-stadt="Tecklenburg" data-quelle="muensterland">
+                    <div class="termin-zeit">laufend</div>
+                    <div class="termin-info">
+                        <div class="termin-name">
+                            <a href="https://www.tecklenburg-touristik.de/fotoausstellung-lost-places-in-der-legge-vom-31-01-22-02-2026/" target="_blank">Fotoausstellung "Lost Places"</a>
+                            
+                        </div>
+                        <div class="termin-stadt">Tecklenburg</div>
+                        <div class="termin-ort">Torhaus Legge, Markt 9</div>
+                        <div class="termin-beschreibung">Die ausgestellten Fotografien zeigen unterschiedliche Beispiele: Bauruinen, verödete Plätze, verlassene und vergessene Orte, die vor sich hinzudämmern scheinen. Gleichzeitig finden Exponate, die nur a</div>
                     </div>
                 </div>
             
@@ -2251,6 +2270,19 @@
                     </div>
                 </div>
             
+                <div class="termin" data-stadt="Coesfeld" data-quelle="muensterland">
+                    <div class="termin-zeit">11:00 Uhr</div>
+                    <div class="termin-info">
+                        <div class="termin-name">
+                            <a href="https://fko-coesfeld.de/veranstaltungen/" target="_blank">Orgelmusik zur Marktzeit in der Jakobikirche</a>
+                            
+                        </div>
+                        <div class="termin-stadt">Coesfeld</div>
+                        <div class="termin-ort">St. Jakobi, Kellerstraße 1</div>
+                        <div class="termin-beschreibung">Die monatliche &quot;Orgelmusik zur Marktzeit&quot; findet an jedem ersten Samstag im Monat statt. Sie bietet allen Besuchern eine Oase der Einkehr und der musikalischen Besinnung. Ein Kommen und Gehe</div>
+                    </div>
+                </div>
+            
                 <div class="termin" data-stadt="Gelsenkirchen" data-quelle="muensterland">
                     <div class="termin-zeit">14:00 Uhr</div>
                     <div class="termin-info">
@@ -2326,6 +2358,19 @@
                         <div class="termin-stadt">Mettingen</div>
                         <div class="termin-ort">Mineralogie Museum Mettingen, Markt 2</div>
                         <div class="termin-beschreibung">Das Mineralienmuseum präsentiert vom 01.02.2026 bis zum 01.09.2026  die Ausstellung &quot; Alles, was glitzert&quot;, die sich mit den makrokristallinen Vertretern der Quarzfamilie in Gestalt von Berg</div>
+                    </div>
+                </div>
+            
+                <div class="termin" data-stadt="Velen" data-quelle="muensterland">
+                    <div class="termin-zeit">15:00 Uhr</div>
+                    <div class="termin-info">
+                        <div class="termin-name">
+                            <a href="https://www.karneval-in-velen.de/kvv-veranstaltungen-2026/" target="_blank">Kinderkarneval</a>
+                            
+                        </div>
+                        <div class="termin-stadt">Velen</div>
+                        <div class="termin-ort">Gesamtschule Gescher - Teilstandort Velen, An der Krummen Mauer 5-9</div>
+                        <div class="termin-beschreibung">Karneval für die Kleinen. Es erwarten euch die Velener Funkenmariechen, Clown und Zauberer Pompitz, Kindertanzgruppen und eine Kostümprämierung vom Prinzenpaar.</div>
                     </div>
                 </div>
             
@@ -3055,6 +3100,19 @@
                     </div>
                 </div>
             
+                <div class="termin" data-stadt="Borken" data-quelle="muensterland">
+                    <div class="termin-zeit">20:00 Uhr</div>
+                    <div class="termin-info">
+                        <div class="termin-name">
+                            <a href="https://baukultur.nrw/artikel/kirchen-als-vierte-orte-in-der-christus-koenig-kirche-in-borken/" target="_blank">Kirchen als Vierte Orte – Perspektiven des Wandels</a>
+                            
+                        </div>
+                        <div class="termin-stadt">Borken</div>
+                        <div class="termin-ort">Christus König Kirche, Coesfelder Straße None</div>
+                        <div class="termin-beschreibung">Kirche als Klangraum Musik im Kirchenraum haben die meisten schon erlebt, in Gottesdiensten, bei Feiern oder Konzerten. Oft bleibt dabei eine besondere Atmosphäre in Erinnerung: Musik wirkt hier inten</div>
+                    </div>
+                </div>
+            
                 <div class="termin" data-stadt="Nottuln" data-quelle="muensterland">
                     <div class="termin-zeit">20:00 Uhr</div>
                     <div class="termin-info">
@@ -3484,6 +3542,32 @@
                         <div class="termin-stadt">Everswinkel</div>
                         <div class="termin-ort">Rathaus Everswinkel, Am Magnusplatz 30</div>
                         <div class="termin-beschreibung">Der diesjährige Rathaussturm und die anschließende karnevalistische Machtübernahmen durch die Möhnen findet am Altweiber-Donnerstag, 12. Februar 2026 ab 15.11 Uhr statt. Die Möhnen und ihr närrisches Gefolge werden ab 17.30 Uhr weiterziehen. Das Rathaus ist an diesem Tag nur bis 11.00 Uhr geöffnet.</div>
+                    </div>
+                </div>
+            
+                <div class="termin" data-stadt="Velen" data-quelle="muensterland">
+                    <div class="termin-zeit">15:30 Uhr</div>
+                    <div class="termin-info">
+                        <div class="termin-name">
+                            <a href="https://www.karneval-in-velen.de/kvv-veranstaltungen-2026/" target="_blank">Altweiber</a>
+                            
+                        </div>
+                        <div class="termin-stadt">Velen</div>
+                        <div class="termin-ort">Leineweberplatz, Leineweberplatz 1</div>
+                        <div class="termin-beschreibung">Auch in diesem Jahr gibt es wieder die legendäre Altweiberbütt Programm ab 15:30 Uhr und anschließend geht es direkt weiter mit der Altweiberparty ab 18 Uhr!</div>
+                    </div>
+                </div>
+            
+                <div class="termin" data-stadt="Greven" data-quelle="muensterland">
+                    <div class="termin-zeit">17:00 Uhr</div>
+                    <div class="termin-info">
+                        <div class="termin-name">
+                            <a href="https://www.kg-emspuente.de" target="_blank">Damensitzung Altweiber</a>
+                            
+                        </div>
+                        <div class="termin-stadt">Greven</div>
+                        <div class="termin-ort">Emspark Greven, Am Hallenbad 3</div>
+                        <div class="termin-beschreibung">Helau, Mädels! Es ist wieder soweit – die närrischste Zeit des Jahres steht vor der Tür, und wir feiern sie so, wie es sich gehört: laut, bunt und mit ganz viel guter Laune! 💃🥂 Am Donnerstag, 12.02.20</div>
                     </div>
                 </div>
             
@@ -3958,6 +4042,19 @@
                     </div>
                 </div>
             
+                <div class="termin" data-stadt="Südlohn" data-quelle="muensterland">
+                    <div class="termin-zeit">14:00 Uhr</div>
+                    <div class="termin-info">
+                        <div class="termin-name">
+                            <a href="http://www.suedlohn.de" target="_blank">Karnevalsumzug in Südlohn</a>
+                            
+                        </div>
+                        <div class="termin-stadt">Südlohn</div>
+                        <div class="termin-ort">Tourist-Info Südlohn, Burgring 29</div>
+                        <div class="termin-beschreibung">Buntes Narrentreiben am Samstag, dem 14. Februar, ab 14:11 Uhr. Zur besseren Organisation und Sicherheit werden in diesem Jahr erstmals zentrale Abholzonen für die Besucherinnen und Besucher eingerich</div>
+                    </div>
+                </div>
+            
                 <div class="termin" data-stadt="Ochtrup" data-quelle="muensterland">
                     <div class="termin-zeit">14:30 Uhr</div>
                     <div class="termin-info">
@@ -4036,6 +4133,19 @@
                     </div>
                 </div>
             
+                <div class="termin" data-stadt="Velen" data-quelle="muensterland">
+                    <div class="termin-zeit">18:00 Uhr</div>
+                    <div class="termin-info">
+                        <div class="termin-name">
+                            <a href="https://www.karneval-in-velen.de/kvv-veranstaltungen-2026/" target="_blank">+++Bitte Preise ergänzen+++KaSaPa</a>
+                            
+                        </div>
+                        <div class="termin-stadt">Velen</div>
+                        <div class="termin-ort">Leineweberplatz, Leineweberplatz 1</div>
+                        <div class="termin-beschreibung">Die legendäre Karnevals-Samstag-Party in Velen startet ab 18 Uhr im Festzelt auf dem Leineweberplatz und bietet ausgelassene Stimmung, Musik, Tanz und karnevalistisches Treiben bis in die späten Abend</div>
+                    </div>
+                </div>
+            
                 <div class="termin" data-stadt="Legden" data-quelle="muensterland">
                     <div class="termin-zeit">18:00 Uhr</div>
                     <div class="termin-info">
@@ -4085,6 +4195,45 @@
                         <div class="termin-stadt">Borken</div>
                         <div class="termin-ort">Mergelsberg Sporthalle, Parkstraße 9</div>
                         <div class="termin-beschreibung">Valentinstag mit Volleyball pur! Bring deine Liebsten mit und erlebe ein emotionales Münsterland-Derby zuhause gegen den USC Münster!     Details: - Einlass ab 18.00 Uhr - Spielbeginn um 19.30 Uhr - S</div>
+                    </div>
+                </div>
+            
+                <div class="termin" data-stadt="Münster" data-quelle="halle_muensterland">
+                    <div class="termin-zeit">siehe Website</div>
+                    <div class="termin-info">
+                        <div class="termin-name">
+                            <a href="https://www.eventim.de/noapp/event/da-capo-udo-juergens-die-original-show-mit-dem-orchester-pepe-lienhard-messecongress-centrum-halle-muensterland-19590987/?affiliate=HMU&utm_campaign=Messe&utm_source=HMU&utm_medium=dp" target="_blank">Da Capo Udo Jürgens</a>
+                            <span class="badge badge-halle">🎭 Halle Münsterland</span>
+                        </div>
+                        <div class="termin-stadt">Münster</div>
+                        <div class="termin-ort">Halle Münsterland</div>
+                        
+                    </div>
+                </div>
+            
+                <div class="termin" data-stadt="Münster" data-quelle="halle_muensterland">
+                    <div class="termin-zeit">siehe Website</div>
+                    <div class="termin-info">
+                        <div class="termin-name">
+                            <a href="https://www.eventim.de/noapp/event/tkkg-das-verschollene-zepter-von-gizeh-live-hoerspiel-2026-messecongress-centrum-halle-muensterland-19846418/?affiliate=HMU&utm_campaign=messeundcongress&utm_source=HMU&utm_medium=dp" target="_blank">TKKG</a>
+                            <span class="badge badge-halle">🎭 Halle Münsterland</span>
+                        </div>
+                        <div class="termin-stadt">Münster</div>
+                        <div class="termin-ort">Halle Münsterland</div>
+                        
+                    </div>
+                </div>
+            
+                <div class="termin" data-stadt="Münster" data-quelle="halle_muensterland">
+                    <div class="termin-zeit">siehe Website</div>
+                    <div class="termin-info">
+                        <div class="termin-name">
+                            <a href="https://www.eventim.de/noapp/event/tkkg-das-verschollene-zepter-von-gizeh-live-hoerspiel-2026-messecongress-centrum-halle-muensterland-19394288/?affiliate=HMU&utm_campaign=Messe&utm_source=HMU&utm_medium=dp" target="_blank">TKKG</a>
+                            <span class="badge badge-halle">🎭 Halle Münsterland</span>
+                        </div>
+                        <div class="termin-stadt">Münster</div>
+                        <div class="termin-ort">Halle Münsterland</div>
+                        
                     </div>
                 </div>
             
@@ -4210,6 +4359,19 @@
                         <div class="termin-stadt">Gelsenkirchen</div>
                         <div class="termin-ort">Prachtlamas, Feldmarkstraße 209</div>
                         <div class="termin-beschreibung">Diese Lamawanderung führt auf einem Rundweg durch die Natur des Gesundheitsparks Nienhausen mit seinem alten Baumbestand, den Rasen- und Wildblumenwiesen und der beliebten Parklandschaft. Inklusive Ei</div>
+                    </div>
+                </div>
+            
+                <div class="termin" data-stadt="Greven" data-quelle="muensterland">
+                    <div class="termin-zeit">13:00 Uhr</div>
+                    <div class="termin-info">
+                        <div class="termin-name">
+                            <a href="https://www.kg-emspuente.de" target="_blank">Grevener Karnevalsumzug</a>
+                            
+                        </div>
+                        <div class="termin-stadt">Greven</div>
+                        <div class="termin-ort">Stadt Greven, Rathausstraße 6</div>
+                        <div class="termin-beschreibung">Der große Grevener Karnevalsumzug am Karnevalssonntag startet um 13:11 Uhr an der Saerbecker Straße und zieht dann durch die Innensstadt von Greven. Anschließend findet eine Zeltparty am Hallenbad mit</div>
                     </div>
                 </div>
             
@@ -4429,6 +4591,32 @@
                     </div>
                 </div>
             
+                <div class="termin" data-stadt="Warendorf" data-quelle="muensterland">
+                    <div class="termin-zeit">13:15 Uhr</div>
+                    <div class="termin-info">
+                        <div class="termin-name">
+                            <a href="https://warendorferkarneval.de/rosenmontag/rosenmontagsumzug/" target="_blank">Rosenmontagsumzug</a>
+                            
+                        </div>
+                        <div class="termin-stadt">Warendorf</div>
+                        <div class="termin-ort">Warendorf, Markt 1</div>
+                        <div class="termin-beschreibung">Der Warendorfer Rosenmontagsumzug ist mit jährlich über 2.000 Teilnehmern und einer Zuggröße von bis zu 99 Zugnummern der größte Rosenmontagsumzug in der Region. Mit jährlich 25.000 Zuschauern ist der</div>
+                    </div>
+                </div>
+            
+                <div class="termin" data-stadt="Velen" data-quelle="muensterland">
+                    <div class="termin-zeit">13:30 Uhr</div>
+                    <div class="termin-info">
+                        <div class="termin-name">
+                            <a href="https://www.karneval-in-velen.de/kvv-veranstaltungen-2026/" target="_blank">27. Rosenmontagsumzug</a>
+                            
+                        </div>
+                        <div class="termin-stadt">Velen</div>
+                        <div class="termin-ort">Velen, Kirchplatz 1</div>
+                        <div class="termin-beschreibung">Der 27. Rosenmontagsumzug zieht wieder durch die Velener Straßen. Beginn ist um 13.30 Uhr. Anschließend geht es im Festzelt auf dem Leineweberplatz weiter.</div>
+                    </div>
+                </div>
+            
                 <div class="termin" data-stadt="Borken" data-quelle="muensterland">
                     <div class="termin-zeit">14:00 Uhr</div>
                     <div class="termin-info">
@@ -4452,6 +4640,19 @@
                         <div class="termin-stadt">Gelsenkirchen</div>
                         <div class="termin-ort">Prachtlamas, Feldmarkstraße 209</div>
                         <div class="termin-beschreibung">Ein Gemeinschaftserlebnis für Kinder & Erwachsene. Erleben Sie unsere Lamas ganz hautnah und persönlich. Ein Schnupper-Spaziergang mit den Lamas in der Nähe der Lamawiese im Park – Sie führen die Lama</div>
+                    </div>
+                </div>
+            
+                <div class="termin" data-stadt="Rheine" data-quelle="muensterland">
+                    <div class="termin-zeit">14:00 Uhr</div>
+                    <div class="termin-info">
+                        <div class="termin-name">
+                            <a href="http://www.emsgalerie.de" target="_blank">Rosenmontag in der Emsgalerie</a>
+                            
+                        </div>
+                        <div class="termin-stadt">Rheine</div>
+                        <div class="termin-ort">Emsgalerie Rheine, Emsstraße 36</div>
+                        <div class="termin-beschreibung">Ob im Kostüm oder einfach nur so - Komm vorbei, wir haben von 10 - 19 Uhr geöffnet.Von 14 - 17 Uhr kannst Du ein Foto vor unserem Ballonring machen lassen und als Erinnerung mit nach Hause nehmen.</div>
                     </div>
                 </div>
             
@@ -4897,6 +5098,19 @@
                         <div class="termin-stadt">Billerbeck</div>
                         <div class="termin-ort">Geschwister-Eichenwald-Aula, An der Kolvenburg 12</div>
                         <div class="termin-beschreibung">Eine Lesung wie ein Kurzurlaub: Mit ihrem offenen, authentischen Blick auf die Welt nimmt uns WDR- „Wunderschön“ – Moderatorin Tamina Kallert mit an die Orte ihrer Wunderschön!-Reisen – und weit darüb</div>
+                    </div>
+                </div>
+            
+                <div class="termin" data-stadt="Münster" data-quelle="halle_muensterland">
+                    <div class="termin-zeit">siehe Website</div>
+                    <div class="termin-info">
+                        <div class="termin-name">
+                            <span class="termin-toggle" onclick="this.closest('.termin').classList.toggle('expanded')">SIXX PAXX</span>
+                            <span class="badge badge-halle">🎭 Halle Münsterland</span>
+                        </div>
+                        <div class="termin-stadt">Münster</div>
+                        <div class="termin-ort">Halle Münsterland</div>
+                        
                     </div>
                 </div>
             
@@ -5587,6 +5801,19 @@
                     </div>
                 </div>
             
+                <div class="termin" data-stadt="Reken" data-quelle="muensterland">
+                    <div class="termin-zeit">10:00 Uhr</div>
+                    <div class="termin-info">
+                        <div class="termin-name">
+                            <a href="https://www.nennung-online.de/turnier/ansehen/462612023/" target="_blank">WBO-Veranstaltung</a>
+                            
+                        </div>
+                        <div class="termin-stadt">Reken</div>
+                        <div class="termin-ort">Reit- und Fahrverein Reken, Berge 12A</div>
+                        <div class="termin-beschreibung">Zweitägiges Pferdesportevent mit vielfältigen Wettbewerben gemäß der Wettbewerbsordnung WBO für Reiter und Jugendliche. Die Veranstaltung bietet Dressur- und Springprüfungen in verschiedenen Leistungs</div>
+                    </div>
+                </div>
+            
                 <div class="termin" data-stadt="Gelsenkirchen" data-quelle="muensterland">
                     <div class="termin-zeit">11:00 Uhr</div>
                     <div class="termin-info">
@@ -6008,6 +6235,19 @@
                         <div class="termin-stadt">Ochtrup</div>
                         <div class="termin-ort">Haus Welbergen, Bökerhook 5</div>
                         <div class="termin-beschreibung">Gerlint Böttcher (Klavier)  Fermín Villanueva (Violoncello) Die Kammerkonzerte finden jährlich im Winterhalbjahr im Haus Welbergen, der alten Kirche in Welbergen und in der Villa Winkel statt. Die Ver</div>
+                    </div>
+                </div>
+            
+                <div class="termin" data-stadt="Borken" data-quelle="muensterland">
+                    <div class="termin-zeit">19:00 Uhr</div>
+                    <div class="termin-info">
+                        <div class="termin-name">
+                            <a href="https://baukultur.nrw/artikel/kirchen-als-vierte-orte-in-der-christus-koenig-kirche-in-borken/" target="_blank">Kirche als Vierte Orte – Perspektive des Wandels</a>
+                            
+                        </div>
+                        <div class="termin-stadt">Borken</div>
+                        <div class="termin-ort">Christus König Kirche, Coesfelder Straße None</div>
+                        <div class="termin-beschreibung">LiederZeitEin musikalisches Abendgebet / Lieder, Gebete, Gedanken zur Kirche /In der LiederZeit tauchen wir ein in den reichhaltigen Schatz der neuen geistlichen Lieder. Sie lädt ein zum Zuhören, Nach</div>
                     </div>
                 </div>
             
@@ -6745,6 +6985,19 @@
                     </div>
                 </div>
             
+                <div class="termin" data-stadt="Wettringen" data-quelle="muensterland">
+                    <div class="termin-zeit">19:00 Uhr</div>
+                    <div class="termin-info">
+                        <div class="termin-name">
+                            <a href="http://www.wettringen-tourismus.de/veranstaltungen" target="_blank">Zusamm.n Sing`n in der Bürgerhalle</a>
+                            
+                        </div>
+                        <div class="termin-stadt">Wettringen</div>
+                        <div class="termin-ort">Bürgerhalle Wettringen, Unter den Linden 6a</div>
+                        <div class="termin-beschreibung">Wir laden alle ein, an diesem Abend einen schönen gemeinsam singenden Abend zu verleben. Es können alle vorbei, diejenigen die Singen können und die nicht Singen können. Denn nur gemeinsam singen ist </div>
+                    </div>
+                </div>
+            
                 <div class="termin" data-stadt="Münster" data-quelle="muensterland">
                     <div class="termin-zeit">20:00 Uhr</div>
                     <div class="termin-info">
@@ -6945,6 +7198,19 @@
                         <div class="termin-stadt">Borken</div>
                         <div class="termin-ort">Stadthalle Vennehof, Am Boltehof 1</div>
                         <div class="termin-beschreibung">Ein Wochenende grafische Kunst ganz nah. Seit jahrzehnten begeistert die Grafikbörse als Marktplatz für künstlerische Druckgrafik Fans und Künstlerinnen und Künstler dies- und jenseits der Grenze.Jähr</div>
+                    </div>
+                </div>
+            
+                <div class="termin" data-stadt="Sendenhorst" data-quelle="muensterland">
+                    <div class="termin-zeit">17:00 Uhr</div>
+                    <div class="termin-info">
+                        <div class="termin-name">
+                            <a href="https://www.sendenhorst.de/startseite" target="_blank">MitMischen - Deine Ideen für Sendenhorst</a>
+                            
+                        </div>
+                        <div class="termin-stadt">Sendenhorst</div>
+                        <div class="termin-ort">Haus Siekmann, Weststraße 18</div>
+                        <div class="termin-beschreibung">Wie willst Du in Sendenhorst mitreden? Was fehlt Dir hier? Wir entwickeln mit Politik, wie junge Menschen beteiligt werden können.Die Stadt Sendenhorst führt in Kooperation mit Mindful, Gemeinnützige </div>
                     </div>
                 </div>
             
@@ -7353,7 +7619,7 @@
         </main>
 
         <footer>
-            Generiert am 03.02.2026 um 17:52 Uhr<br>
+            Generiert am 04.02.2026 um 13:27 Uhr<br>
             Datenquelle: <a href="https://www.muensterland.com/tourismus/service/veranstaltungen-im-muensterland/" target="_blank">muensterland.com</a>
         </footer>
     </div>

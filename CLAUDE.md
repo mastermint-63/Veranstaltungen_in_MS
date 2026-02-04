@@ -4,11 +4,12 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Projektbeschreibung
 
-Veranstaltungs-Dashboard für das Münsterland. Sammelt Events von zwei Quellen:
+Veranstaltungs-Dashboard für das Münsterland. Sammelt Events von drei Quellen:
 - **muensterland.com** (Datenportal-API): Allgemeine Veranstaltungen
 - **Digital Hub münsterLAND** (digitalhub.ms API): Startup- und Tech-Events
+- **Halle Münsterland** (HTML-Scraping): Konzerte, Shows, Messen
 
-Generiert verlinkte HTML-Dashboards mit Monatsnavigation und Filterfunktion.
+Generiert statische HTML-Dashboards mit Kalender, Filtern und Dark Mode.
 
 ## Ausführung
 
@@ -18,158 +19,105 @@ python3 app.py 2026 2             # 3 Monate ab Feb 2026
 python3 app.py 2026 1 12          # 12 Monate (ganzes Jahr)
 python3 app.py --no-browser       # Ohne Browser öffnen
 
-./update.sh                       # Manuell aktualisieren (mit macOS-Benachrichtigung)
+./update.sh                       # Aktualisieren + Git Push + macOS-Benachrichtigung
 ./oeffne_aktuell.sh               # Aktuellen Monat im Browser öffnen
 ```
 
-## Automatische Aktualisierung
+## GitHub Pages Deployment
 
-Launchd-Job läuft täglich um 6:15 Uhr und beim Systemstart (RunAtLoad):
-- Plist: `~/Library/LaunchAgents/de.veranstaltungen-ms.update.plist`
-- Log: `launchd.log` (im Projektverzeichnis)
-- ThrottleInterval: 6 Stunden (verhindert doppelte Ausführung)
+- **Repository:** https://github.com/mastermint-63/Veranstaltungen_in_MS
+- **Pages URL:** https://mastermint-63.github.io/Veranstaltungen_in_MS/
+- **Custom Domain (geplant):** ms-veranstaltungen.reporter.ruhr
+
+**Workflow:** `update.sh` scrapt → generiert HTML → pusht zu GitHub → Actions deployt automatisch
 
 ```bash
-launchctl list | grep veranstaltungen                    # Status prüfen
-launchctl start de.veranstaltungen-ms.update             # Manuell auslösen
-launchctl unload ~/Library/LaunchAgents/de.veranstaltungen-ms.update.plist  # Deaktivieren
-launchctl load ~/Library/LaunchAgents/de.veranstaltungen-ms.update.plist    # Aktivieren
-tail -f launchd.log                                      # Live-Log anzeigen
+gh run list --workflow=deploy.yml    # Deployment-Status prüfen
 ```
 
-### Benachrichtigungen
+## Automatische Aktualisierung (launchd)
 
-`update.sh` sendet macOS-Notifications mit:
-- Event-Anzahl und Differenz zum vorherigen Stand (+X neu / -X weniger / unverändert)
-- Fehlermeldungen bei API-Timeouts (⚠️ mit Basso-Sound)
-- Erfolgsbestätigung (✅ mit Glass-Sound)
+Läuft täglich um 6:15 Uhr:
+- Plist: `~/Library/LaunchAgents/de.veranstaltungen-ms.update.plist`
+- Log: `launchd.log`
 
-Benachrichtigungen erscheinen oben rechts in der Mitteilungszentrale.
+```bash
+launchctl list | grep veranstaltungen      # Status prüfen
+launchctl start de.veranstaltungen-ms.update   # Manuell auslösen
+tail -f launchd.log                        # Live-Log anzeigen
+```
 
 ## Architektur
 
-**Datenfluss:** API → scraper.py → app.py → HTML-Dateien
+```
+API-Quellen → scraper.py → app.py → HTML-Dateien → GitHub Pages
+```
 
 ### scraper.py
-Zwei API-Clients für verschiedene Datenquellen:
 
-#### 1. `hole_veranstaltungen(jahr, monat)` - Münsterland Events
-- POST-Request an `https://www.muensterland.com/dpms/`
-- Paginierung: 100 Events/Seite, automatisches Durchlaufen aller Seiten
-- Laufende Events aus Vormonaten werden auf den 1. des Monats mit Uhrzeit "laufend" gesetzt
-- Timeout-Handling: 30 Sekunden, bricht bei Fehler ab (verhindert unvollständige Daten)
+Enthält `Veranstaltung`-Dataclass und API-Clients:
 
-#### 2. `hole_digitalhub_events(jahr, monat)` - Digital Hub Events
-- GET-Request an `https://www.digitalhub.ms/api/events?api_token=XXX`
-- Öffentlicher Demo-API-Key: `089d362b33ef053d7fcd241d823d27d1`
-- Response-Format: `{"data": [...]}`
-- Filtert Events nach Monat (API liefert alle zukünftigen Events)
-- Markiert Events mit `quelle='digitalhub'` und `kategorie` (z.B. "Hub-Event · Workshop")
+| Funktion | Quelle | Methode |
+|----------|--------|---------|
+| `hole_veranstaltungen(jahr, monat)` | muensterland.com | POST, paginiert (100/Seite) |
+| `hole_digitalhub_events(jahr, monat)` | digitalhub.ms | GET mit API-Token |
+| `hole_halle_muensterland_events(jahr, monat)` | mcc-halle-muensterland.de | HTML-Scraping (BeautifulSoup) |
 
-**Rückgabe beider Funktionen:** Liste von `Veranstaltung`-Dataclass-Objekten
+Beide geben `list[Veranstaltung]` zurück.
 
 ### app.py
-Dashboard-Generator:
-- `generiere_kalender(jahr, monat, tage_mit_events)` — erzeugt HTML-Tabelle (Mo–So) mit Anker-Links
-- Ruft `scraper.hole_veranstaltungen()` und `scraper.hole_digitalhub_events()` für jeden Monat auf
-- Kombiniert beide Datenquellen zu einer Liste
-- Gruppiert Events nach Datum (`id="datum-YYYY-MM-DD"` für Kalender-Anker), sortiert nach Uhrzeit
-- Events mit `external_link` → normaler Link; Events ohne Link → aufklappbar (Toggle mit vollständiger Beschreibung)
-- Generiert statische HTML-Dateien mit:
-  - Eingebettetem CSS (Apple-Design, Dark Mode Support)
-  - Kalenderblatt mit klickbaren Tagen
-  - JavaScript für Stadt- und Quellen-Filter
-  - Badges für Digital Hub Events (🚀 Digital Hub + Kategorie)
-  - Monatsnavigation (← →) mit Verfügbarkeitsprüfung
-  - Live-Statistik (Anzahl sichtbare Events)
+
+- Ruft beide Scraper-Funktionen auf
+- Kombiniert Events mit `.extend()`
+- Generiert standalone HTML (eingebettetes CSS/JS)
 - Dateinamen: `veranstaltungen_YYYY_MM.html`
 
 ### update.sh
-Automatisierungs-Wrapper:
-- Liest alte Event-Anzahl aus bestehenden HTML-Dateien (via grep auf `<span id="termine-count">`)
-- Führt `app.py --no-browser` aus
-- Berechnet Differenz (neu vs. alt)
-- Erkennt API-Fehler im Output (`grep "Fehler beim Abrufen"`)
-- Sendet macOS-Notification mit osascript
 
-## Datenquellen
+- Scrapt Events, generiert HTML
+- Git add/commit/push bei Änderungen
+- macOS-Notification mit Event-Statistik
 
-### 1. Münsterland Events (muensterland.com)
+## Neue Datenquelle hinzufügen
 
-JSON-API via POST an `https://www.muensterland.com/dpms/` (Proxy für Datenportal Münsterland).
+1. **Funktion in `scraper.py`** erstellen:
+   ```python
+   def hole_neue_quelle(jahr: int, monat: int) -> list[Veranstaltung]:
+       # Events abrufen, Veranstaltung-Objekte zurückgeben
+       pass
+   ```
 
-Parameter:
-- `endpoint=events`
-- `page[size]=100`, `page[number]=1`
-- `returnFormat=json`
-- `from=YYYY-MM-DD`, `to=YYYY-MM-DD`
+2. **In `app.py`** importieren und aufrufen:
+   ```python
+   from scraper import hole_neue_quelle
+   # In main():
+   neue_events = hole_neue_quelle(j, m)
+   veranstaltungen.extend(neue_events)
+   ```
 
-Response enthält: name, start_datetime, end_datetime, poi (Ort/Adresse), description_text, external_link.
+3. **`quelle`-Parameter** setzen für Filter-Dropdown
 
-**Hinweis zu Links:** Die API hat kein Feld für Event-Detailseiten auf muensterland.com. Nur `external_link` (Link zur Veranstalter-Website) ist nutzbar. Events ohne `external_link` werden im Dashboard aufklappbar dargestellt mit vollständiger Beschreibung.
+## API-Dokumentation
 
-### 2. Digital Hub münsterLAND (digitalhub.ms)
+### Münsterland Events
 
-JSON-API via GET an `https://www.digitalhub.ms/api/events`.
-
-Parameter:
-- `api_token=089d362b33ef053d7fcd241d823d27d1` (öffentlicher Demo-Key)
-- Optional: `city`, `mode`, `hub_event`, `district`, `interest`
-
-Response-Format:
-```json
-{
-  "data": [
-    {
-      "id": 2252,
-      "title": "Event-Name",
-      "start_date": "2026-03-02",
-      "start_time": "09:00",
-      "end_time": "16:00",
-      "address": "Adresse",
-      "city": "Münster",
-      "district": "MS",
-      "mode": "Workshop",
-      "flag": "Hub-Event",
-      "link_url": "https://...",
-      "desc": "Beschreibung",
-      "organizer": "Digital Hub münsterLAND"
-    }
-  ]
-}
+POST `https://www.muensterland.com/dpms/`
+```
+endpoint=events
+page[size]=100
+page[number]=1
+from=YYYY-MM-DD
+to=YYYY-MM-DD
+returnFormat=json
 ```
 
-**Dokumentation:** [digitalhub.ms/api](https://www.digitalhub.ms/api)
+### Digital Hub
 
-## HTML-Dashboard Features
+GET `https://www.digitalhub.ms/api/events?api_token=089d362b33ef053d7fcd241d823d27d1`
 
-Generierte Dateien (`veranstaltungen_YYYY_MM.html`) sind vollständig standalone:
-- **Keine externen Dependencies**: CSS und JavaScript sind eingebettet
-- **Dark Mode**: Automatische Anpassung an System-Präferenz via `prefers-color-scheme`
-- **Kalenderblatt**: Monatskalender (Mo–So) oberhalb der Events (`id="kalender"`), Tage mit Events als grüne Kreise anklickbar, springt per Anker (`#datum-YYYY-MM-DD`) zum jeweiligen Datum; jede Datumsgruppe hat einen „↑ Kalender"-Rücksprunglink
-- **Zwei Filter**: Stadt (Dropdown) + Quelle (Münsterland/Digital Hub)
-- **Event-Badges**: Digital Hub Events haben visuell unterscheidbare Badges (🚀 + Kategorie)
-- **Aufklappbare Details**: Events ohne externen Link zeigen den Namen mit ▸-Pfeil; Klick klappt die vollständige Beschreibung auf (statt auf nicht-funktionierende URLs zu verlinken)
-- **Live-Statistik**: JavaScript aktualisiert Event-Anzahl bei Filterung
-- **Monatsnavigation**: Verlinkte Pfeile (← →) mit automatischer Verfügbarkeitsprüfung
-
-## Multi-Source-Strategie
-
-Beide API-Quellen werden **parallel** abgefragt und zu einer gemeinsamen Liste zusammengeführt:
-1. `scraper.hole_veranstaltungen(jahr, monat)` läuft unabhängig
-2. `scraper.hole_digitalhub_events(jahr, monat)` läuft unabhängig
-3. `app.py` kombiniert beide Listen mit `veranstaltungen.extend(digitalhub_events)`
-4. Fehler in einer Quelle beeinflussen die andere nicht
-
-**Wichtig beim Hinzufügen neuer Quellen:**
-- Neue Funktion in `scraper.py` mit gleichem Rückgabetyp (`list[Veranstaltung]`)
-- Import in `app.py` hinzufügen
-- In der Hauptschleife von `app.py` aufrufen und mit `.extend()` anhängen
-- `quelle`-Parameter setzen für visuell unterscheidbare Darstellung
+Dokumentation: https://www.digitalhub.ms/api
 
 ## Fehlerbehandlung
 
-- **API-Timeouts**: scraper.py bricht nach 30s ab, protokolliert Fehler, generiert HTML mit bisherigen Events
-- **Unvollständige Daten**: update.sh erkennt Fehler im Output und sendet Warn-Notification
-- **Verpasste Launchd-Runs**: RunAtLoad sorgt für Nachholen beim nächsten Systemstart
-- **Partielle Fehler**: Wenn eine API fehlschlägt, werden trotzdem Events aus den anderen Quellen angezeigt
+- API-Timeout: 30s, Fehler wird geloggt, andere Quellen laufen weiter
+- `update.sh` erkennt Fehler und sendet Warn-Notification (⚠️ mit Basso-Sound)

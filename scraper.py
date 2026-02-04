@@ -1,4 +1,4 @@
-"""API-Client für Veranstaltungen aus dem Münsterland (muensterland.com + Digital Hub)."""
+"""API-Client für Veranstaltungen aus dem Münsterland (muensterland.com + Digital Hub + Halle Münsterland)."""
 
 import re
 import requests
@@ -6,6 +6,7 @@ from dataclasses import dataclass, field
 from datetime import datetime
 from calendar import monthrange
 from html import unescape
+from bs4 import BeautifulSoup
 
 
 API_URL = "https://www.muensterland.com/dpms/"
@@ -14,6 +15,9 @@ PAGE_SIZE = 100
 # Digital Hub API
 DIGITALHUB_API_URL = "https://www.digitalhub.ms/api/events"
 DIGITALHUB_API_KEY = "089d362b33ef053d7fcd241d823d27d1"  # Öffentlicher Demo-Key
+
+# Halle Münsterland
+HALLE_MUENSTERLAND_URL = "https://www.mcc-halle-muensterland.de/de/gaeste/veranstaltungen/"
 
 HEADERS = {
     'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36'
@@ -245,6 +249,92 @@ def hole_digitalhub_events(jahr: int, monat: int) -> list[Veranstaltung]:
             beschreibung=beschreibung,
             quelle='digitalhub',
             kategorie=kategorie
+        ))
+
+    return veranstaltungen
+
+
+def hole_halle_muensterland_events(jahr: int, monat: int) -> list[Veranstaltung]:
+    """Holt Events von der Halle Münsterland für einen bestimmten Monat."""
+    try:
+        response = requests.get(HALLE_MUENSTERLAND_URL, headers=HEADERS, timeout=30)
+        response.raise_for_status()
+    except requests.RequestException as e:
+        print(f"  Halle Münsterland Fehler: {e}")
+        return []
+
+    soup = BeautifulSoup(response.text, 'html.parser')
+    veranstaltungen = []
+
+    # Alle Event-Cards finden
+    cards = soup.find_all('div', class_='card', attrs={'data-date': True})
+
+    for card in cards:
+        # Datum aus data-Attributen extrahieren
+        data_month = card.get('data-month', '')
+        data_year = card.get('data-year', '')
+
+        if not data_month or not data_year:
+            continue
+
+        # Jahr ist zweistellig (26 = 2026)
+        try:
+            event_monat = int(data_month)
+            event_jahr = 2000 + int(data_year)
+        except ValueError:
+            continue
+
+        # Nur Events im gewünschten Monat
+        if event_jahr != jahr or event_monat != monat:
+            continue
+
+        # Tag aus data-date extrahieren (Format: MM-DD-YY)
+        data_date = card.get('data-date', '')
+        try:
+            parts = data_date.split('-')
+            tag = int(parts[1]) if len(parts) >= 2 else 1
+        except (ValueError, IndexError):
+            tag = 1
+
+        datum = datetime(event_jahr, event_monat, tag)
+
+        # Event-Titel aus img title extrahieren
+        img = card.find('img', attrs={'title': True})
+        if img and img.get('title'):
+            name = img['title'].strip()
+        else:
+            # Fallback: Versuche anderen Text zu finden
+            continue
+
+        if not name:
+            continue
+
+        # Eventim-Link extrahieren
+        eventim_link = card.find('a', href=lambda h: h and 'eventim.de' in h)
+        link = eventim_link['href'] if eventim_link else ''
+
+        # End-Datum prüfen (mehrtägige Events)
+        data_enddate = card.get('data-enddate', '')
+        if data_enddate:
+            try:
+                end_parts = data_enddate.split('-')
+                end_tag = int(end_parts[1])
+                uhrzeit = f"{tag:02d}.–{end_tag:02d}.{event_monat:02d}."
+            except (ValueError, IndexError):
+                uhrzeit = 'siehe Website'
+        else:
+            uhrzeit = 'siehe Website'
+
+        veranstaltungen.append(Veranstaltung(
+            name=name[:150],
+            datum=datum,
+            uhrzeit=uhrzeit,
+            ort='Halle Münsterland',
+            stadt='Münster',
+            link=link,
+            beschreibung='',
+            quelle='halle_muensterland',
+            kategorie='Konzert/Show'
         ))
 
     return veranstaltungen
