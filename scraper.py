@@ -103,10 +103,24 @@ def _parse_event(event: dict) -> Veranstaltung | None:
     # Link: nur external_link verwenden (muensterland.com hat keine Event-Detailseiten)
     link = event.get('external_link') or ''
 
+    # Hinweis für mehrtägige Veranstaltungen
+    bis_hinweis = ''
+    end_str = event.get('end_datetime', '')
+    if end_str:
+        try:
+            end_datum = datetime.fromisoformat(end_str).replace(tzinfo=None)
+            delta = (end_datum.date() - datum.replace(tzinfo=None).date()).days
+            if delta > 1:
+                bis_hinweis = f"Läuft bis {end_datum.strftime('%d.%m.%Y')}"
+        except ValueError:
+            pass
+
     # Beschreibung
     beschreibung_html = event.get('description_text', '')
     beschreibung = _html_zu_text(beschreibung_html)
-    if link:
+    if bis_hinweis:
+        beschreibung = bis_hinweis + (' · ' + beschreibung[:200] if beschreibung else '')
+    elif link:
         beschreibung = beschreibung[:300]
 
     return Veranstaltung(
@@ -156,10 +170,9 @@ def hole_veranstaltungen(jahr: int, monat: int) -> list[Veranstaltung]:
             v = _parse_event(event)
             if not v:
                 continue
-            # Laufende Events aus Vormonaten: Datum auf Monatsanfang setzen
+            # Nur Events zeigen, die in diesem Monat beginnen (Eröffnungstag)
             if v.datum < monats_start:
-                v.datum = monats_start
-                v.uhrzeit = 'laufend'
+                continue
             if v.datum.year == jahr and v.datum.month == monat:
                 veranstaltungen.append(v)
 
