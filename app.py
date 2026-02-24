@@ -18,6 +18,13 @@ from datetime import datetime
 from scraper import hole_veranstaltungen, hole_digitalhub_events, hole_halle_muensterland_events, Veranstaltung
 
 
+QUELLEN = {
+    'muensterland': 'Münsterland',
+    'digitalhub': 'Digital Hub',
+    'halle_muensterland': 'Halle Münsterland',
+}
+
+
 def dateiname_fuer_monat(jahr: int, monat: int) -> str:
     """Generiert den Dateinamen für einen Monat."""
     return f"veranstaltungen_{jahr}_{monat:02d}.html"
@@ -41,9 +48,10 @@ def generiere_kalender(jahr: int, monat: int, tage_mit_events: set[int]) -> str:
                 html += '<td></td>'
             elif tag in tage_mit_events:
                 datum_key = f"{jahr}-{monat:02d}-{tag:02d}"
-                html += f'<td><a href="#datum-{datum_key}" class="kal-link">{tag}</a></td>'
+                html += f'<td data-datum="{datum_key}"><a href="#datum-{datum_key}" class="kal-link">{tag}</a></td>'
             else:
-                html += f'<td class="kal-leer">{tag}</td>'
+                datum_key = f"{jahr}-{monat:02d}-{tag:02d}"
+                html += f'<td class="kal-leer" data-datum="{datum_key}">{tag}</td>'
         html += '</tr>\n'
 
     html += '</table>'
@@ -85,14 +93,15 @@ def generiere_html(veranstaltungen: list[Veranstaltung], jahr: int, monat: int,
             beschreibung_raw = v.beschreibung.replace('"', '&quot;').replace('\n', ' ')
             beschreibung_escaped = beschreibung_raw[:200] if v.link else beschreibung_raw
 
-            # Badge für spezielle Quellen
-            badge_html = ''
+            # Badge für Quelle
             if v.quelle == 'digitalhub':
-                badge_html = '<span class="badge badge-digitalhub">🚀 Digital Hub</span>'
+                badge_html = '<span class="badge badge-digitalhub">Digital Hub</span>'
                 if v.kategorie:
                     badge_html += f' <span class="badge badge-kategorie">{v.kategorie}</span>'
             elif v.quelle == 'halle_muensterland':
-                badge_html = '<span class="badge badge-halle">🎭 Halle Münsterland</span>'
+                badge_html = '<span class="badge badge-halle">Halle Münsterland</span>'
+            else:
+                badge_html = '<span class="badge badge-muensterland">Münsterland</span>'
 
             # Name: als Link oder aufklappbar
             if v.link:
@@ -117,14 +126,21 @@ def generiere_html(veranstaltungen: list[Veranstaltung], jahr: int, monat: int,
 
         termine_html += '''
             </div>
-            <div class="zurueck-link"><a href="#kalender">↑ Kalender</a></div>
+            <div class="zurueck-link"><a href="#kalender">&#8593; Kalender</a></div>
         </div>
         '''
 
-    # Filter-Optionen
+    # Filter-Optionen Stadt
     filter_html = '<option value="">Alle Städte</option>'
     for stadt in alle_staedte:
         filter_html += f'<option value="{stadt}">{stadt}</option>'
+
+    # Dynamischer Quellen-Filter (nur vorhandene Quellen)
+    quellen_filter = '<option value="">Alle Quellen</option>'
+    vorhandene_quellen = sorted(set(v.quelle for v in veranstaltungen))
+    for q in vorhandene_quellen:
+        label = QUELLEN.get(q, q)
+        quellen_filter += f'<option value="{q}">{label}</option>'
 
     # Monatsnavigation
     prev_monat = monat - 1 if monat > 1 else 12
@@ -244,11 +260,23 @@ def generiere_html(veranstaltungen: list[Veranstaltung], jahr: int, monat: int,
             align-items: center;
             margin-bottom: 20px;
             padding: 10px 15px;
-            background: var(--card-bg);
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
             border-radius: 10px;
             border: 1px solid var(--border-color);
             flex-wrap: wrap;
             gap: 10px;
+            position: sticky;
+            top: 8px;
+            z-index: 100;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+        }}
+
+        @media (prefers-color-scheme: dark) {{
+            .filter-bar {{
+                background: rgba(45, 45, 47, 0.6);
+            }}
         }}
 
         .filter-group {{
@@ -345,6 +373,11 @@ def generiere_html(veranstaltungen: list[Veranstaltung], jahr: int, monat: int,
             white-space: nowrap;
         }}
 
+        .badge-muensterland {{
+            background: linear-gradient(135deg, #347c3b 0%, #255c2a 100%);
+            color: white;
+        }}
+
         .badge-digitalhub {{
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
@@ -393,13 +426,13 @@ def generiere_html(veranstaltungen: list[Veranstaltung], jahr: int, monat: int,
         }}
 
         .termin-toggle::after {{
-            content: ' ▸';
+            content: ' \\25B8';
             font-size: 11px;
             color: var(--text-secondary);
         }}
 
         .termin.expanded .termin-toggle::after {{
-            content: ' ▾';
+            content: ' \\25BE';
         }}
 
         .termin:has(.termin-toggle) .termin-beschreibung {{
@@ -422,10 +455,6 @@ def generiere_html(veranstaltungen: list[Veranstaltung], jahr: int, monat: int,
             color: var(--accent-color);
             text-decoration: none;
             font-weight: 500;
-        }}
-
-        .zurueck-link a:hover {{
-            color: var(--accent-color);
         }}
 
         .keine-termine {{
@@ -491,6 +520,25 @@ def generiere_html(veranstaltungen: list[Veranstaltung], jahr: int, monat: int,
         .kalender .kal-link:hover {{
             opacity: 0.8;
         }}
+
+        .kalender .kal-heute {{
+            outline: 2px solid var(--accent-color);
+            outline-offset: -2px;
+        }}
+
+        .kalender .kal-heute .kal-link {{
+            box-shadow: 0 0 0 2px white, 0 0 0 4px var(--accent-color);
+        }}
+
+        @media (max-width: 600px) {{
+            .termin {{
+                flex-direction: column;
+                gap: 4px;
+            }}
+            .termin-zeit {{
+                width: auto;
+            }}
+        }}
     </style>
 </head>
 <body>
@@ -512,10 +560,7 @@ def generiere_html(veranstaltungen: list[Veranstaltung], jahr: int, monat: int,
                     {filter_html}
                 </select>
                 <select id="quelle-filter" onchange="filterTermine()">
-                    <option value="">Alle Quellen</option>
-                    <option value="muensterland">Münsterland</option>
-                    <option value="digitalhub">Digital Hub</option>
-                    <option value="halle_muensterland">Halle Münsterland</option>
+                    {quellen_filter}
                 </select>
             </div>
             <div class="stats">
@@ -529,16 +574,44 @@ def generiere_html(veranstaltungen: list[Veranstaltung], jahr: int, monat: int,
 
         <footer>
             Generiert am {datetime.now().strftime('%d.%m.%Y um %H:%M Uhr')}<br>
-            Datenquelle: <a href="https://www.muensterland.com/tourismus/service/veranstaltungen-im-muensterland/" target="_blank">muensterland.com</a>
+            Quellen:
+            <a href="https://www.muensterland.com/tourismus/service/veranstaltungen-im-muensterland/" target="_blank">muensterland.com</a> &middot;
+            <a href="https://www.digitalhub.ms" target="_blank">Digital Hub münsterLAND</a> &middot;
+            <a href="https://www.mcc-halle-muensterland.de" target="_blank">Halle Münsterland</a>
         </footer>
     </div>
 
     <script>
+        // Heutigen Tag im Kalender markieren + zum ersten heutigen/zukünftigen Termin springen
+        (function() {{
+            const heute = new Date();
+            const pad = n => String(n).padStart(2, '0');
+            const key = heute.getFullYear() + '-' + pad(heute.getMonth() + 1) + '-' + pad(heute.getDate());
+
+            // Kalender-Markierung
+            const td = document.querySelector('td[data-datum="' + key + '"]');
+            if (td) td.classList.add('kal-heute');
+
+            // Nur springen wenn kein Anker in der URL gesetzt ist
+            if (window.location.hash) return;
+
+            // Alle Datumsgruppen durchsuchen: heute oder danach
+            const gruppen = document.querySelectorAll('.datum-gruppe[id^="datum-"]');
+            for (const gruppe of gruppen) {{
+                const datum = gruppe.id.replace('datum-', '');
+                if (datum >= key) {{
+                    gruppe.scrollIntoView({{behavior: 'instant', block: 'start'}});
+                    break;
+                }}
+            }}
+        }})();
+
         function filterTermine() {{
             const stadtFilter = document.getElementById('stadt-filter').value;
             const quelleFilter = document.getElementById('quelle-filter').value;
             const termine = document.querySelectorAll('.termin');
             let sichtbar = 0;
+            const sichtbareStaedte = new Set();
 
             termine.forEach(t => {{
                 const stadtMatch = !stadtFilter || t.dataset.stadt === stadtFilter;
@@ -547,18 +620,23 @@ def generiere_html(veranstaltungen: list[Veranstaltung], jahr: int, monat: int,
                 if (stadtMatch && quelleMatch) {{
                     t.classList.remove('hidden');
                     sichtbar++;
+                    if (t.dataset.stadt) sichtbareStaedte.add(t.dataset.stadt);
                 }} else {{
                     t.classList.add('hidden');
                 }}
             }});
 
             document.getElementById('termine-count').textContent = sichtbar;
+            document.getElementById('staedte-count').textContent = sichtbareStaedte.size;
 
             document.querySelectorAll('.datum-gruppe').forEach(g => {{
                 const sichtbareTermine = g.querySelectorAll('.termin:not(.hidden)');
                 g.classList.toggle('hidden', sichtbareTermine.length === 0);
             }});
         }}
+
+        // Filter beim Laden anwenden (z.B. bei gesetztem Quellen-Filter)
+        filterTermine();
     </script>
 </body>
 </html>'''
@@ -606,22 +684,23 @@ def main():
 
         # Münsterland Events
         veranstaltungen = hole_veranstaltungen(j, m)
-        print(f"  → {len(veranstaltungen)} Veranstaltungen von muensterland.com")
+        print(f"  -> {len(veranstaltungen)} muensterland.com")
 
         # Digital Hub Events
         digitalhub_events = hole_digitalhub_events(j, m)
         if digitalhub_events:
-            print(f"  → {len(digitalhub_events)} Digital Hub Events")
+            print(f"  -> {len(digitalhub_events)} Digital Hub")
             veranstaltungen.extend(digitalhub_events)
 
         # Halle Münsterland Events
         halle_events = hole_halle_muensterland_events(j, m)
         if halle_events:
-            print(f"  → {len(halle_events)} Halle Münsterland Events")
+            print(f"  -> {len(halle_events)} Halle Münsterland")
             veranstaltungen.extend(halle_events)
 
+        veranstaltungen.sort()
         staedte = len(set(v.stadt for v in veranstaltungen if v.stadt))
-        print(f"  → Gesamt: {len(veranstaltungen)} Veranstaltungen in {staedte} Orten")
+        print(f"  => Gesamt: {len(veranstaltungen)} Veranstaltungen in {staedte} Orten")
 
         html = generiere_html(veranstaltungen, j, m, monate_liste)
 
@@ -632,6 +711,24 @@ def main():
 
         if idx == 0:
             erster_dateiname = ausgabe_pfad
+
+    # index.html generieren (Redirect zum aktuellen Monat)
+    erster_monat_datei = dateiname_fuer_monat(monate_liste[0][0], monate_liste[0][1])
+    index_html = f'''<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="refresh" content="0; url={erster_monat_datei}">
+    <title>Veranstaltungen Münsterland</title>
+</head>
+<body>
+    <p>Weiterleitung zu <a href="{erster_monat_datei}">{erster_monat_datei}</a>...</p>
+</body>
+</html>'''
+    index_pfad = os.path.join(basis_pfad, 'index.html')
+    with open(index_pfad, 'w', encoding='utf-8') as f:
+        f.write(index_html)
+    print(f"index.html -> {erster_monat_datei}")
 
     print("\n" + "=" * 50)
     print(f"Fertig! {anzahl_monate} Dateien generiert.")
