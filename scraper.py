@@ -20,8 +20,15 @@ DIGITALHUB_API_KEY = "089d362b33ef053d7fcd241d823d27d1"  # Öffentlicher Demo-Ke
 # Halle Münsterland
 HALLE_MUENSTERLAND_URL = "https://www.mcc-halle-muensterland.de/de/gaeste/veranstaltungen/"
 
-# regioactive Münster (City-ID 21196)
-REGIOACTIVE_MS_URL = "https://www.regioactive.de/events/21196/muenster/veranstaltungen-party-konzerte/monat/{jahr}-{monat:02d}"
+# regioactive — Städte mit City-ID und URL-Slug
+REGIOACTIVE_STAEDTE = [
+    (21196, 'muenster',  'Münster'),
+    (14632, 'bocholt',   'Bocholt'),
+    (14777, 'borken',    'Borken'),
+    (13413, 'ahaus',     'Ahaus'),
+    (17403, 'gronau',    'Gronau'),
+]
+REGIOACTIVE_URL_TEMPLATE = "https://www.regioactive.de/events/{city_id}/{slug}/veranstaltungen-party-konzerte/monat/{jahr}-{monat:02d}"
 
 # Theater Münster
 THEATER_MS_URL = "https://neu.theater-muenster.com/spielplan"
@@ -363,14 +370,15 @@ def hole_halle_muensterland_events(jahr: int, monat: int) -> list[Veranstaltung]
     return veranstaltungen
 
 
-def hole_regioactive_ms(jahr: int, monat: int) -> list[Veranstaltung]:
-    """Holt Events von regioactive.de Münster via JSON-LD."""
-    url = REGIOACTIVE_MS_URL.format(jahr=jahr, monat=monat)
+def _hole_regioactive_stadt(city_id: int, slug: str, stadt_name: str,
+                             jahr: int, monat: int) -> list[Veranstaltung]:
+    """Holt Events von regioactive.de für eine Stadt via JSON-LD."""
+    url = REGIOACTIVE_URL_TEMPLATE.format(city_id=city_id, slug=slug, jahr=jahr, monat=monat)
     try:
         response = requests.get(url, headers=HEADERS, timeout=30)
         response.raise_for_status()
     except requests.RequestException as e:
-        print(f"  regioactive MS Fehler: {e}")
+        print(f"  regioactive {stadt_name} Fehler: {e}")
         return []
 
     soup = BeautifulSoup(response.text, 'html.parser')
@@ -382,7 +390,6 @@ def hole_regioactive_ms(jahr: int, monat: int) -> list[Veranstaltung]:
         except (json.JSONDecodeError, TypeError):
             continue
 
-        # Beide Formate abdecken: ItemList und einzelne Events
         events = []
         if data.get('@type') == 'ItemList':
             for item in data.get('itemListElement', []):
@@ -424,12 +431,20 @@ def hole_regioactive_ms(jahr: int, monat: int) -> list[Veranstaltung]:
                 datum=datum,
                 uhrzeit=uhrzeit,
                 ort=ort[:150],
-                stadt='Münster',
+                stadt=stadt_name,
                 link=link,
                 beschreibung=beschreibung,
                 quelle='regioactive',
             ))
 
+    return veranstaltungen
+
+
+def hole_regioactive_ms(jahr: int, monat: int) -> list[Veranstaltung]:
+    """Holt Events von regioactive.de für Münster + Kreis-Borken-Städte."""
+    veranstaltungen = []
+    for city_id, slug, stadt_name in REGIOACTIVE_STAEDTE:
+        veranstaltungen.extend(_hole_regioactive_stadt(city_id, slug, stadt_name, jahr, monat))
     return veranstaltungen
 
 
