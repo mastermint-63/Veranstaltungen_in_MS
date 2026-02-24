@@ -11,18 +11,82 @@ Verwendung:
 """
 
 import os
+import re
 import webbrowser
 import calendar
 from datetime import datetime
 
-from scraper import hole_veranstaltungen, hole_digitalhub_events, hole_halle_muensterland_events, Veranstaltung
+from scraper import (
+    hole_veranstaltungen, hole_digitalhub_events, hole_halle_muensterland_events,
+    hole_regioactive_ms, hole_theater_muenster, hole_lwl_museum,
+    Veranstaltung,
+)
 
 
 QUELLEN = {
-    'muensterland': 'Münsterland',
-    'digitalhub': 'Digital Hub',
+    'muensterland':       'Münsterland',
+    'digitalhub':         'Digital Hub',
     'halle_muensterland': 'Halle Münsterland',
+    'regioactive':        'regioactive.de',
+    'theater_muenster':   'Theater Münster',
+    'lwl_museum':         'LWL-Museum',
 }
+
+BADGE_CONFIG = {
+    'muensterland':       ('badge-muensterland', 'Münsterland'),
+    'digitalhub':         ('badge-digitalhub',   'Digital Hub'),
+    'halle_muensterland': ('badge-halle',         'Halle Münsterland'),
+    'regioactive':        ('badge-regioactive',   'regioactive.de'),
+    'theater_muenster':   ('badge-theater',       'Theater Münster'),
+    'lwl_museum':         ('badge-lwl',           'LWL-Museum'),
+}
+
+
+def _normalisiere(name: str) -> str:
+    name = name.lower().strip()
+    name = re.sub(r'[^\w\s]', '', name)
+    name = re.sub(r'\s+', ' ', name)
+    return name
+
+
+def _veranstaltung_score(v: Veranstaltung) -> int:
+    score = 0
+    if v.link:
+        score += 2
+    if v.uhrzeit and v.uhrzeit not in ('ganztägig', 'laufend', 'siehe Website'):
+        score += 2
+    if v.beschreibung:
+        score += 1
+    if v.ort:
+        score += 1
+    return score
+
+
+def entferne_duplikate(veranstaltungen: list[Veranstaltung]) -> list[Veranstaltung]:
+    """Entfernt Duplikate: gleiches Datum + identischer oder enthaltener Name."""
+    nach_datum: dict[str, list[Veranstaltung]] = {}
+    for v in veranstaltungen:
+        key = v.datum.strftime('%Y-%m-%d')
+        nach_datum.setdefault(key, []).append(v)
+
+    ergebnis = []
+    for datum_key in sorted(nach_datum):
+        gruppe = nach_datum[datum_key]
+        gruppe.sort(key=lambda v: -_veranstaltung_score(v))
+        behalten: list[Veranstaltung] = []
+        for kandidat in gruppe:
+            norm_k = _normalisiere(kandidat.name)
+            ist_duplikat = any(
+                norm_k == _normalisiere(v.name)
+                or norm_k in _normalisiere(v.name)
+                or _normalisiere(v.name) in norm_k
+                for v in behalten
+            )
+            if not ist_duplikat:
+                behalten.append(kandidat)
+        ergebnis.extend(behalten)
+
+    return ergebnis
 
 
 def dateiname_fuer_monat(jahr: int, monat: int) -> str:
@@ -94,14 +158,10 @@ def generiere_html(veranstaltungen: list[Veranstaltung], jahr: int, monat: int,
             beschreibung_escaped = beschreibung_raw[:200] if v.link else beschreibung_raw
 
             # Badge für Quelle
-            if v.quelle == 'digitalhub':
-                badge_html = '<span class="badge badge-digitalhub">Digital Hub</span>'
-                if v.kategorie:
-                    badge_html += f' <span class="badge badge-kategorie">{v.kategorie}</span>'
-            elif v.quelle == 'halle_muensterland':
-                badge_html = '<span class="badge badge-halle">Halle Münsterland</span>'
-            else:
-                badge_html = '<span class="badge badge-muensterland">Münsterland</span>'
+            badge_cls, badge_label = BADGE_CONFIG.get(v.quelle, ('badge-muensterland', 'Münsterland'))
+            badge_html = f'<span class="badge {badge_cls}">{badge_label}</span>'
+            if v.kategorie:
+                badge_html += f' <span class="badge badge-kategorie">{v.kategorie}</span>'
 
             # Name: als Link oder aufklappbar
             if v.link:
@@ -388,6 +448,21 @@ def generiere_html(veranstaltungen: list[Veranstaltung], jahr: int, monat: int,
             color: white;
         }}
 
+        .badge-regioactive {{
+            background: linear-gradient(135deg, #d4690a 0%, #b05808 100%);
+            color: white;
+        }}
+
+        .badge-theater {{
+            background: linear-gradient(135deg, #722f37 0%, #521520 100%);
+            color: white;
+        }}
+
+        .badge-lwl {{
+            background: linear-gradient(135deg, #1a6b8a 0%, #0e4f68 100%);
+            color: white;
+        }}
+
         .badge-kategorie {{
             background: var(--hover-color);
             color: var(--text-secondary);
@@ -577,7 +652,10 @@ def generiere_html(veranstaltungen: list[Veranstaltung], jahr: int, monat: int,
             Quellen:
             <a href="https://www.muensterland.com/tourismus/service/veranstaltungen-im-muensterland/" target="_blank">muensterland.com</a> &middot;
             <a href="https://www.digitalhub.ms" target="_blank">Digital Hub münsterLAND</a> &middot;
-            <a href="https://www.mcc-halle-muensterland.de" target="_blank">Halle Münsterland</a>
+            <a href="https://www.mcc-halle-muensterland.de" target="_blank">Halle Münsterland</a> &middot;
+            <a href="https://www.regioactive.de/events/21196/muenster/veranstaltungen-party-konzerte" target="_blank">regioactive.de</a> &middot;
+            <a href="https://neu.theater-muenster.com/spielplan" target="_blank">Theater Münster</a> &middot;
+            <a href="https://www.lwl-museum-kunst-kultur.de/de/touren-workshops/termine-und-veranstaltungen/" target="_blank">LWL-Museum</a>
         </footer>
     </div>
 
@@ -698,9 +776,30 @@ def main():
             print(f"  -> {len(halle_events)} Halle Münsterland")
             veranstaltungen.extend(halle_events)
 
+        # regioactive.de Münster
+        regioactive_events = hole_regioactive_ms(j, m)
+        if regioactive_events:
+            print(f"  -> {len(regioactive_events)} regioactive.de")
+            veranstaltungen.extend(regioactive_events)
+
+        # Theater Münster
+        theater_events = hole_theater_muenster(j, m)
+        if theater_events:
+            print(f"  -> {len(theater_events)} Theater Münster")
+            veranstaltungen.extend(theater_events)
+
+        # LWL-Museum für Kunst und Kultur
+        lwl_events = hole_lwl_museum(j, m)
+        if lwl_events:
+            print(f"  -> {len(lwl_events)} LWL-Museum")
+            veranstaltungen.extend(lwl_events)
+
+        vor_dedup = len(veranstaltungen)
+        veranstaltungen = entferne_duplikate(veranstaltungen)
         veranstaltungen.sort()
+        entfernt = vor_dedup - len(veranstaltungen)
         staedte = len(set(v.stadt for v in veranstaltungen if v.stadt))
-        print(f"  => Gesamt: {len(veranstaltungen)} Veranstaltungen in {staedte} Orten")
+        print(f"  => Gesamt: {len(veranstaltungen)} Veranstaltungen in {staedte} Orten ({entfernt} Duplikate entfernt)")
 
         html = generiere_html(veranstaltungen, j, m, monate_liste)
 

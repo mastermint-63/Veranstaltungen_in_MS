@@ -225,6 +225,21 @@
             color: white;
         }
 
+        .badge-regioactive {
+            background: linear-gradient(135deg, #d4690a 0%, #b05808 100%);
+            color: white;
+        }
+
+        .badge-theater {
+            background: linear-gradient(135deg, #722f37 0%, #521520 100%);
+            color: white;
+        }
+
+        .badge-lwl {
+            background: linear-gradient(135deg, #1a6b8a 0%, #0e4f68 100%);
+            color: white;
+        }
+
         .badge-kategorie {
             background: var(--hover-color);
             color: var(--text-secondary);
@@ -385,7 +400,7 @@
             <div class="nav">
                 <a href="#" class="nav-btn disabled">&larr; Januar</a>
                 <span class="monat-titel">Februar 2026</span>
-                <a href="#" class="nav-btn disabled">März &rarr;</a>
+                <a href="veranstaltungen_2026_03.html" class="nav-btn">März &rarr;</a>
             </div>
         </header>
 
@@ -401,14 +416,14 @@
         <div class="filter-bar">
             <div class="filter-group">
                 <select id="stadt-filter" onchange="filterTermine()">
-                    <option value="">Alle Städte</option><option value="Ahaus">Ahaus</option><option value="Ahlen">Ahlen</option><option value="Altenberge">Altenberge</option><option value="Beckum">Beckum</option><option value="Billerbeck">Billerbeck</option><option value="Bocholt">Bocholt</option><option value="Borken">Borken</option><option value="Borken-Gemen">Borken-Gemen</option><option value="Coesfeld">Coesfeld</option><option value="Dorsten">Dorsten</option><option value="Dorsten-Deuten">Dorsten-Deuten</option><option value="Drensteinfurt">Drensteinfurt</option><option value="Dülmen">Dülmen</option><option value="Emsdetten">Emsdetten</option><option value="Everswinkel">Everswinkel</option><option value="Gelsenkirchen">Gelsenkirchen</option><option value="Gescher">Gescher</option><option value="Greven">Greven</option><option value="Gronau">Gronau</option><option value="Haltern am See">Haltern am See</option><option value="Heek">Heek</option><option value="Heek-Nienborg">Heek-Nienborg</option><option value="Hörstel">Hörstel</option><option value="Ibbenbüren">Ibbenbüren</option><option value="Ladbergen">Ladbergen</option><option value="Laer">Laer</option><option value="Legden">Legden</option><option value="Lengerich">Lengerich</option><option value="Lienen">Lienen</option><option value="Lippetal">Lippetal</option><option value="Lippetal-Herzfeld">Lippetal-Herzfeld</option><option value="Lüdinghausen">Lüdinghausen</option><option value="Mettingen">Mettingen</option><option value="Münster">Münster</option><option value="Nottuln">Nottuln</option><option value="Ochtrup">Ochtrup</option><option value="Oelde">Oelde</option><option value="Olfen">Olfen</option><option value="Ostbevern">Ostbevern</option><option value="Raesfeld">Raesfeld</option><option value="Recke">Recke</option><option value="Reken">Reken</option><option value="Rhede">Rhede</option><option value="Rheine">Rheine</option><option value="Saerbeck">Saerbeck</option><option value="Sassenberg">Sassenberg</option><option value="Schermbeck">Schermbeck</option><option value="Schöppingen">Schöppingen</option><option value="Senden">Senden</option><option value="Sendenhorst">Sendenhorst</option><option value="Stadtlohn">Stadtlohn</option><option value="Steinfurt">Steinfurt</option><option value="Südlohn">Südlohn</option><option value="Tecklenburg">Tecklenburg</option><option value="Tecklenburg-Leeden">Tecklenburg-Leeden</option><option value="Telgte">Telgte</option><option value="Velen">Velen</option><option value="Vreden">Vreden</option><option value="Wadersloh">Wadersloh</option><option value="Warendorf">Warendorf</option><option value="Wettringen">Wettringen</option><option value="Xanten">Xanten</option>
+                    <option value="">Alle Städte</option><option value="Ahaus">Ahaus</option><option value="Ahlen">Ahlen</option><option value="Altenberge">Altenberge</option><option value="Beckum">Beckum</option><option value="Billerbeck">Billerbeck</option><option value="Bocholt">Bocholt</option><option value="Borken">Borken</option><option value="Borken-Gemen">Borken-Gemen</option><option value="Coesfeld">Coesfeld</option><option value="Dorsten">Dorsten</option><option value="Dorsten-Deuten">Dorsten-Deuten</option><option value="Drensteinfurt">Drensteinfurt</option><option value="Dülmen">Dülmen</option><option value="Emsdetten">Emsdetten</option><option value="Everswinkel">Everswinkel</option><option value="Gelsenkirchen">Gelsenkirchen</option><option value="Gescher">Gescher</option><option value="Greven">Greven</option><option value="Gronau">Gronau</option><option value="Haltern am See">Haltern am See</option><option value="Heek">Heek</option><option value="Heek-Nienborg">Heek-Nienborg</option><option value="Hörstel">Hörstel</option><option value="Ibbenbüren">Ibbenbüren</option><option value="Ladbergen">Ladbergen</option><option value="Laer">Laer</option><option value="Legden">Legden</option><option value="Lengerich">Lengerich</option><option value="Lienen">Lienen</option><option value="Lippetal">Lippetal</option><option value="Lippetal-Herzfeld">Lippetal-Herzfeld</option><option value="Lüdinghausen">Lüdinghausen</option><option value="Mettingen">Mettingen</option><option value="Münster">Münster</option><option value="Nottuln">Nottuln</option><option value="Ochtrup">Ochtrup</option><option value="Oelde">Oelde</option><option value="Olfen">Olfen</option><option value="Ostbevern">Ostbevern</option><option value="Raesfeld">Raesfeld</option><option value="Recke">Recke</option><option value="Reken">Reken</option><option value="Rhede">Rhede</option><option value="Rheine">Rheine</option><option value="Saerbeck">Saerbeck</option><option value="Sassenberg">Sassenberg</option><option value="Schermbeck">Schermbeck</option><option value="Schöppingen">Schöppingen</option><option value="Senden">Senden</option><option value="Sendenhorst">Sendenhorst</option><option value="Steinfurt">Steinfurt</option><option value="Südlohn">Südlohn</option><option value="Tecklenburg">Tecklenburg</option><option value="Tecklenburg-Leeden">Tecklenburg-Leeden</option><option value="Telgte">Telgte</option><option value="Velen">Velen</option><option value="Vreden">Vreden</option><option value="Wadersloh">Wadersloh</option><option value="Warendorf">Warendorf</option><option value="Wettringen">Wettringen</option><option value="Xanten">Xanten</option>
                 </select>
                 <select id="quelle-filter" onchange="filterTermine()">
-                    <option value="">Alle Quellen</option><option value="muensterland">Münsterland</option>
+                    <option value="">Alle Quellen</option><option value="lwl_museum">LWL-Museum</option><option value="muensterland">Münsterland</option><option value="regioactive">regioactive.de</option><option value="theater_muenster">Theater Münster</option>
                 </select>
             </div>
             <div class="stats">
-                <span id="termine-count">570</span> Veranstaltungen in <span id="staedte-count">62</span> Orten
+                <span id="termine-count">608</span> Veranstaltungen in <span id="staedte-count">61</span> Orten
             </div>
         </div>
 
@@ -428,6 +443,19 @@
                         <div class="termin-stadt">Beckum</div>
                         <div class="termin-ort">Stadtmuseum Beckum, Markt 1</div>
                         <div class="termin-beschreibung">Farbe, Licht und Bewegung - Kinetische Lichtkunst mit EigenlebenDie Arbeiten von Herbert Pörtner kombinieren klar strukturierte Kompositionen, raffinierte elektronisch gesteuerte Lichteffekte und fein</div>
+                    </div>
+                </div>
+            
+                <div class="termin" data-stadt="Münster" data-quelle="lwl_museum">
+                    <div class="termin-zeit">10:15 - 12:15 Uhr</div>
+                    <div class="termin-info">
+                        <div class="termin-name">
+                            <a href="https://www.lwl-museum-kunst-kultur.de/de/touren-workshops/termine-und-veranstaltungen/?id=1098114" target="_blank">Minimaler: Weiße Welten</a>
+                            <span class="badge badge-lwl">LWL-Museum</span> <span class="badge badge-kategorie">Für Kinder</span>
+                        </div>
+                        <div class="termin-stadt">Münster</div>
+                        <div class="termin-ort">LWL-Museum für Kunst und Kultur</div>
+                        <div class="termin-beschreibung">In kleiner Gruppe gibt es bei diesem Workshop Raum für Entdeckungen und zum Ausprobieren: ob bei der geleiteten Tour zu einzelnen Kunstwerken oder...</div>
                     </div>
                 </div>
             
@@ -509,6 +537,19 @@
                     </div>
                 </div>
             
+                <div class="termin" data-stadt="Münster" data-quelle="lwl_museum">
+                    <div class="termin-zeit">14 - 15 Uhr</div>
+                    <div class="termin-info">
+                        <div class="termin-name">
+                            <a href="https://www.lwl-museum-kunst-kultur.de/de/touren-workshops/termine-und-veranstaltungen/?id=1098085" target="_blank">Überblick über die Sammlung</a>
+                            <span class="badge badge-lwl">LWL-Museum</span> <span class="badge badge-kategorie">Führung</span>
+                        </div>
+                        <div class="termin-stadt">Münster</div>
+                        <div class="termin-ort">LWL-Museum für Kunst und Kultur</div>
+                        <div class="termin-beschreibung">Das Kunstgespräch nimmt Highlights der Sammlung vom Mittelalter bis zur Gegenwartskunst in den Fokus....</div>
+                    </div>
+                </div>
+            
                 <div class="termin" data-stadt="Recke" data-quelle="muensterland">
                     <div class="termin-zeit">14:00 Uhr</div>
                     <div class="termin-info">
@@ -532,6 +573,19 @@
                         <div class="termin-stadt">Dülmen</div>
                         <div class="termin-ort">Heilig-Kreuz-Kirche, An der Kreuzkirche 10</div>
                         <div class="termin-beschreibung">Die Künstlerin Annette Zumkley wird mit den Besucherinnen und Besuchern ihr Gemälde Himmel philosophisch vertiefen. Himmel bezeichnet keinen fernen Ort, sondern die im Menschen verortete Ewigkeit, die</div>
+                    </div>
+                </div>
+            
+                <div class="termin" data-stadt="Münster" data-quelle="lwl_museum">
+                    <div class="termin-zeit">14:30 - 15:30 Uhr</div>
+                    <div class="termin-info">
+                        <div class="termin-name">
+                            <a href="https://www.lwl-museum-kunst-kultur.de/de/touren-workshops/termine-und-veranstaltungen/?id=1098089" target="_blank">Kulturbeuteltour</a>
+                            <span class="badge badge-lwl">LWL-Museum</span> <span class="badge badge-kategorie">Tour</span>
+                        </div>
+                        <div class="termin-stadt">Münster</div>
+                        <div class="termin-ort">LWL-Museum für Kunst und Kultur</div>
+                        <div class="termin-beschreibung">Jeden Sonntag, 14.30-15.30 Uhr   Kinder, Eltern, Großeltern sowie andere Begleitpersonen können ausgewählte Werke der Sammlung gemeinsam mit...</div>
                     </div>
                 </div>
             
@@ -808,19 +862,6 @@
                     </div>
                 </div>
             
-                <div class="termin" data-stadt="Laer" data-quelle="muensterland">
-                    <div class="termin-zeit">laufend</div>
-                    <div class="termin-info">
-                        <div class="termin-name">
-                            <a href="https://unternehmernetzwerk-laer.de/aktuelles/nachtwaechterrundgang" target="_blank">Nachtwächtertouren in Laer – Entlang des Ewaldibachs</a>
-                            <span class="badge badge-muensterland">Münsterland</span>
-                        </div>
-                        <div class="termin-stadt">Laer</div>
-                        <div class="termin-ort">Dorfkern Laer, Bernhard-Holtmann-Straße None</div>
-                        <div class="termin-beschreibung">Wenn es Abend wird und die Straßen ruhiger werden, beginnt in Laer eine besondere Zeitreise: die Nachtwächtertouren. Ausgestattet mit Laterne, Hellebarde und historischer Kleidung führen die Nachtwäch</div>
-                    </div>
-                </div>
-            
                 <div class="termin" data-stadt="Haltern am See" data-quelle="muensterland">
                     <div class="termin-zeit">laufend</div>
                     <div class="termin-info">
@@ -1071,32 +1112,6 @@
                     </div>
                 </div>
             
-                <div class="termin" data-stadt="Lüdinghausen" data-quelle="muensterland">
-                    <div class="termin-zeit">08:00 Uhr</div>
-                    <div class="termin-info">
-                        <div class="termin-name">
-                            <a href="https://www.lhmarketing.de/einkaufen-einkehren/m%C3%A4rkte/der-wochenmarkt/" target="_blank">Wochenmarkt</a>
-                            <span class="badge badge-muensterland">Münsterland</span>
-                        </div>
-                        <div class="termin-stadt">Lüdinghausen</div>
-                        <div class="termin-ort">Lüdinghausen, Markt 5</div>
-                        <div class="termin-beschreibung">Dienstags und freitags ist Wochenmarkt in Lüdinghausen, immer von 8 bis 13 Uhr auf dem Marktplatz. Frisches Obst und Gemüse, Fisch, Fleisch, Brot, Blumen... Das Angebot ist groß.</div>
-                    </div>
-                </div>
-            
-                <div class="termin" data-stadt="Coesfeld" data-quelle="muensterland">
-                    <div class="termin-zeit">08:00 Uhr</div>
-                    <div class="termin-info">
-                        <div class="termin-name">
-                            <span class="termin-toggle" onclick="this.closest('.termin').classList.toggle('expanded')">Wochenmarkt</span>
-                            <span class="badge badge-muensterland">Münsterland</span>
-                        </div>
-                        <div class="termin-stadt">Coesfeld</div>
-                        <div class="termin-ort">Marktplatz Coesfeld, Marktplatz None</div>
-                        <div class="termin-beschreibung">Die Wochenmärkte finden auf dem Coesfelder Marktplatz jeden Dienstag und Freitag von 8:00 bis 12:30 Uhr statt. Angeboten werden: Brot, Eier, Gemüse, Obst, Käse und viele weitere regionale Produkte.</div>
-                    </div>
-                </div>
-            
                 <div class="termin" data-stadt="Tecklenburg" data-quelle="muensterland">
                     <div class="termin-zeit">08:30 Uhr</div>
                     <div class="termin-info">
@@ -1214,6 +1229,32 @@
                     </div>
                 </div>
             
+                <div class="termin" data-stadt="Münster" data-quelle="lwl_museum">
+                    <div class="termin-zeit">15 - 16 Uhr</div>
+                    <div class="termin-info">
+                        <div class="termin-name">
+                            <a href="https://www.lwl-museum-kunst-kultur.de/de/touren-workshops/termine-und-veranstaltungen/?id=1098094" target="_blank">KunstGeschichten: Warm und kalt</a>
+                            <span class="badge badge-lwl">LWL-Museum</span> <span class="badge badge-kategorie">Für Erwachsene</span>
+                        </div>
+                        <div class="termin-stadt">Münster</div>
+                        <div class="termin-ort">LWL-Museum für Kunst und Kultur</div>
+                        <div class="termin-beschreibung">Wöchentlich beleuchtet dieses Kunstgespräch ein bestimmtes Phänomen, ein Thema oder Ereignis der Kultur- und Landesgeschichte....</div>
+                    </div>
+                </div>
+            
+                <div class="termin" data-stadt="Münster" data-quelle="lwl_museum">
+                    <div class="termin-zeit">15:30  - 17:30 Uhr</div>
+                    <div class="termin-info">
+                        <div class="termin-name">
+                            <a href="https://www.lwl-museum-kunst-kultur.de/de/touren-workshops/termine-und-veranstaltungen/?id=1098166" target="_blank">Minimaler Extra: TONstudio</a>
+                            <span class="badge badge-lwl">LWL-Museum</span> <span class="badge badge-kategorie">Für Kinder</span>
+                        </div>
+                        <div class="termin-stadt">Münster</div>
+                        <div class="termin-ort">LWL-Museum für Kunst und Kultur</div>
+                        <div class="termin-beschreibung">In kleiner Gruppe gibt es bei diesem Workshop Raum für Entdeckungen und zum Ausprobieren: ob bei der geleiteten Tour zu einzelnen Kunstwerken oder...</div>
+                    </div>
+                </div>
+            
                 <div class="termin" data-stadt="Tecklenburg-Leeden" data-quelle="muensterland">
                     <div class="termin-zeit">16:00 Uhr</div>
                     <div class="termin-info">
@@ -1263,6 +1304,19 @@
                         <div class="termin-stadt">Lienen</div>
                         <div class="termin-ort">Familienzentrum Kattenvenne, Lindenallee 5</div>
                         <div class="termin-beschreibung">Wer spielt gewinnt immer. Gesellschaftsspiele mit Kindern und Enkeln - mit Freude, ohne FrustIm Workshop stellt Referent Sebastian Driemer Gesellschaftsspiele für Kinder im Alter von vier bis acht Jah</div>
+                    </div>
+                </div>
+            
+                <div class="termin" data-stadt="Münster" data-quelle="lwl_museum">
+                    <div class="termin-zeit">18 Uhr, live</div>
+                    <div class="termin-info">
+                        <div class="termin-name">
+                            <a href="https://www.lwl-museum-kunst-kultur.de/de/touren-workshops/termine-und-veranstaltungen/?id=1098183" target="_blank">Öffentliche Tour auf Instagram</a>
+                            <span class="badge badge-lwl">LWL-Museum</span> <span class="badge badge-kategorie">Tour</span>
+                        </div>
+                        <div class="termin-stadt">Münster</div>
+                        <div class="termin-ort">LWL-Museum für Kunst und Kultur</div>
+                        <div class="termin-beschreibung">Die Touren finden wöchentlich im Livestream der offiziellen Instagram-Seite des LWL-Museums für Kunst und Kultur (@lwlmuseumkunstkultur) statt....</div>
                     </div>
                 </div>
             
@@ -1469,6 +1523,19 @@
                     </div>
                 </div>
             
+                <div class="termin" data-stadt="Münster" data-quelle="lwl_museum">
+                    <div class="termin-zeit">15:30 - 17:30 Uhr</div>
+                    <div class="termin-info">
+                        <div class="termin-name">
+                            <a href="https://www.lwl-museum-kunst-kultur.de/de/touren-workshops/termine-und-veranstaltungen/?id=1098383" target="_blank">Familienworkshop im Fachwerk Gievenbeck</a>
+                            <span class="badge badge-lwl">LWL-Museum</span> <span class="badge badge-kategorie">Workshop</span>
+                        </div>
+                        <div class="termin-stadt">Münster</div>
+                        <div class="termin-ort">LWL-Museum für Kunst und Kultur</div>
+                        <div class="termin-beschreibung">Sei Teil der Ausstellung: Im Januar (Mi. 28.1. und Sa. 31.1.) und Februar (Mi. 4.2. und Sa. 7.2.) laden wir Familien mit Kindern ab fünf Jahren zu...</div>
+                    </div>
+                </div>
+            
                 <div class="termin" data-stadt="Münster" data-quelle="muensterland">
                     <div class="termin-zeit">16:30 Uhr</div>
                     <div class="termin-info">
@@ -1479,19 +1546,6 @@
                         <div class="termin-stadt">Münster</div>
                         <div class="termin-ort">Münsterland</div>
                         <div class="termin-beschreibung">Du spielst mit dem Gedanken, ein Unternehmen zu gründen oder eine Unternehmensnachfolge anzutreten und willst sich über die Möglichkeiten der Finanzierung deines Vorhabens informieren?In diesem Semina</div>
-                    </div>
-                </div>
-            
-                <div class="termin" data-stadt="Tecklenburg" data-quelle="muensterland">
-                    <div class="termin-zeit">17:00 Uhr</div>
-                    <div class="termin-info">
-                        <div class="termin-name">
-                            <span class="termin-toggle" onclick="this.closest('.termin').classList.toggle('expanded')">Energiesprechstunde informiert Bürger*innen zur Wärmeversorgung im Eigenheim</span>
-                            <span class="badge badge-muensterland">Münsterland</span>
-                        </div>
-                        <div class="termin-stadt">Tecklenburg</div>
-                        <div class="termin-ort">Rathaus Tecklenburg, Landrat-Schultz-Straße 1</div>
-                        <div class="termin-beschreibung">Wie sieht das Heizen der Zukunft bei mir zuhause aus – umweltfreundlich, sicher und bezahl-bar? Antworten und praktische Hinweise zur Umsetzung der Wärmewende gibt die Energie-sprechstunde „Wohnzimmer.Wärme.Wende.“.Energieberater Leo Humann vom Ingenieurbüro Humann aus Rheine und Klimaschutzmanagerin Vera Löckemann laden alle Interessierten herzlich ein, sich inspirieren zu lassen und praktische Lösungen für die eigenen vier Wände mitzunehmen.In einer angenehmen Gesprächsatmosphäre gibt Energieberater und energieland2050-Fachmann Leo Humann wertvolle Einblicke in Themen wie energieeffizientes Bauen und Modernisieren, den Einsatz erneuerbarer Energien, Heiztechniken der Zukunft, Einsparpotenziale rund ums Heizen sowie aktuelle Förderprogramme. Jede Energiesprechstunde beginnt mit einem kurzen Impulsvortrag – anschließend bleibt reichlich Zeit, um persönliche Fragen zu stellen und sich individuell beraten zu lassen.</div>
                     </div>
                 </div>
             
@@ -1656,6 +1710,19 @@
                         <div class="termin-stadt">Lengerich</div>
                         <div class="termin-ort">AWO Ortsverein Lengerich, Schultebeyringstraße 20</div>
                         <div class="termin-beschreibung">Auch im Alter wollen wir noch fit sein. Das geht mit Hockergymnastik.Der Eintritt ist frei und jede:r kann mitmachen.Inklusive Handfunktionstraining.</div>
+                    </div>
+                </div>
+            
+                <div class="termin" data-stadt="Münster" data-quelle="lwl_museum">
+                    <div class="termin-zeit">10:15 - 11:15 Uhr</div>
+                    <div class="termin-info">
+                        <div class="termin-name">
+                            <a href="https://www.lwl-museum-kunst-kultur.de/de/touren-workshops/termine-und-veranstaltungen/?id=1098099" target="_blank">Elternzeit: Fabelhafte Tierwesen</a>
+                            <span class="badge badge-lwl">LWL-Museum</span> <span class="badge badge-kategorie">Führung</span>
+                        </div>
+                        <div class="termin-stadt">Münster</div>
+                        <div class="termin-ort">LWL-Museum für Kunst und Kultur</div>
+                        <div class="termin-beschreibung">Jeden ersten Donnerstag im Monat richtet sich dieses Kunstgespräch an Mütter und Väter, die mit ihrem Baby das Museum besuchen möchten....</div>
                     </div>
                 </div>
             
@@ -1849,19 +1916,6 @@
                     </div>
                 </div>
             
-                <div class="termin" data-stadt="Dülmen" data-quelle="muensterland">
-                    <div class="termin-zeit">07:30 Uhr</div>
-                    <div class="termin-info">
-                        <div class="termin-name">
-                            <a href="https://serviceportal.duelmen.de/detail/-/vr-bis-detail/dienstleistung/282/show" target="_blank">Dülmener Wochenmarkt</a>
-                            <span class="badge badge-muensterland">Münsterland</span>
-                        </div>
-                        <div class="termin-stadt">Dülmen</div>
-                        <div class="termin-ort">Marktplatz, Viktorstraße 2</div>
-                        <div class="termin-beschreibung">&quot;Frisch. Regional. Persönlich.&quot; – genau das erwartet euch jede Woche bei uns auf dem Wochenmarkt!Ob knackiges Obst & Gemüse, hochwertige Fleischwaren, handgemachte Spezialitäten aus der Regi</div>
-                    </div>
-                </div>
-            
                 <div class="termin" data-stadt="Ahaus" data-quelle="muensterland">
                     <div class="termin-zeit">08:00 Uhr</div>
                     <div class="termin-info">
@@ -1872,32 +1926,6 @@
                         <div class="termin-stadt">Ahaus</div>
                         <div class="termin-ort">Startercenter NRW bei der WFG Borken, Erhardstraße 11</div>
                         <div class="termin-beschreibung">Unter dem Motto „WFG- wir fördern grenzenlos“ unterstützen wir – gemeinsam mit den Netzwerkpartnern – Unternehmen gezielt bei der Erschließung des niederländischen Marktes. Denn die Niederlande sind f</div>
-                    </div>
-                </div>
-            
-                <div class="termin" data-stadt="Lüdinghausen" data-quelle="muensterland">
-                    <div class="termin-zeit">08:00 Uhr</div>
-                    <div class="termin-info">
-                        <div class="termin-name">
-                            <a href="https://www.lhmarketing.de/einkaufen-einkehren/m%C3%A4rkte/der-wochenmarkt/" target="_blank">Wochenmarkt</a>
-                            <span class="badge badge-muensterland">Münsterland</span>
-                        </div>
-                        <div class="termin-stadt">Lüdinghausen</div>
-                        <div class="termin-ort">Lüdinghausen, Markt 5</div>
-                        <div class="termin-beschreibung">Dienstags und freitags ist Wochenmarkt in Lüdinghausen, immer von 8 bis 13 Uhr auf dem Marktplatz. Frisches Obst und Gemüse, Fisch, Fleisch, Brot, Blumen... Das Angebot ist groß.</div>
-                    </div>
-                </div>
-            
-                <div class="termin" data-stadt="Coesfeld" data-quelle="muensterland">
-                    <div class="termin-zeit">08:00 Uhr</div>
-                    <div class="termin-info">
-                        <div class="termin-name">
-                            <span class="termin-toggle" onclick="this.closest('.termin').classList.toggle('expanded')">Wochenmarkt</span>
-                            <span class="badge badge-muensterland">Münsterland</span>
-                        </div>
-                        <div class="termin-stadt">Coesfeld</div>
-                        <div class="termin-ort">Marktplatz Coesfeld, Marktplatz None</div>
-                        <div class="termin-beschreibung">Die Wochenmärkte finden auf dem Coesfelder Marktplatz jeden Dienstag und Freitag von 8:00 bis 12:30 Uhr statt. Angeboten werden: Brot, Eier, Gemüse, Obst, Käse und viele weitere regionale Produkte.</div>
                     </div>
                 </div>
             
@@ -2015,6 +2043,19 @@
                         <div class="termin-stadt">Gelsenkirchen</div>
                         <div class="termin-ort">Prachtlamas, Feldmarkstraße 209</div>
                         <div class="termin-beschreibung">Ein Gemeinschaftserlebnis für Kinder & Erwachsene. Erleben Sie unsere Lamas ganz hautnah und persönlich. Ein Schnupper-Spaziergang mit den Lamas in der Nähe der Lamawiese im Park – Sie führen die Lama</div>
+                    </div>
+                </div>
+            
+                <div class="termin" data-stadt="Münster" data-quelle="lwl_museum">
+                    <div class="termin-zeit">16 - 17:30 Uhr</div>
+                    <div class="termin-info">
+                        <div class="termin-name">
+                            <a href="https://www.lwl-museum-kunst-kultur.de/de/touren-workshops/termine-und-veranstaltungen/?id=1098100" target="_blank">Kunst für die Seele</a>
+                            <span class="badge badge-lwl">LWL-Museum</span> <span class="badge badge-kategorie">Für Erwachsene</span>
+                        </div>
+                        <div class="termin-stadt">Münster</div>
+                        <div class="termin-ort">LWL-Museum für Kunst und Kultur</div>
+                        <div class="termin-beschreibung">Kunst kann Ruhe schenken, Mut machen, Lebensgeister wecken und in schwierigen Situationen Orientierungshilfe sein. Weg vom Alltagstrubel bietet...</div>
                     </div>
                 </div>
             
@@ -2260,6 +2301,19 @@
                     </div>
                 </div>
             
+                <div class="termin" data-stadt="Münster" data-quelle="lwl_museum">
+                    <div class="termin-zeit">10:30 - 12:30 Uhr</div>
+                    <div class="termin-info">
+                        <div class="termin-name">
+                            <a href="https://www.lwl-museum-kunst-kultur.de/de/touren-workshops/termine-und-veranstaltungen/?id=1098102" target="_blank">MuKuKu-Klub: Formbar</a>
+                            <span class="badge badge-lwl">LWL-Museum</span> <span class="badge badge-kategorie">Für Kinder</span>
+                        </div>
+                        <div class="termin-stadt">Münster</div>
+                        <div class="termin-ort">LWL-Museum für Kunst und Kultur</div>
+                        <div class="termin-beschreibung">Ganz unterschiedliche Themen stehen in diesem Workshop auf dem Programm, die sowohl in den Ateliers als auch im Museum gemeinsam entdeckt werden....</div>
+                    </div>
+                </div>
+            
                 <div class="termin" data-stadt="Lüdinghausen" data-quelle="muensterland">
                     <div class="termin-zeit">11:00 Uhr</div>
                     <div class="termin-info">
@@ -2296,6 +2350,45 @@
                         <div class="termin-stadt">Coesfeld</div>
                         <div class="termin-ort">St. Jakobi, Kellerstraße 1</div>
                         <div class="termin-beschreibung">Die monatliche &quot;Orgelmusik zur Marktzeit&quot; findet an jedem ersten Samstag im Monat statt. Sie bietet allen Besuchern eine Oase der Einkehr und der musikalischen Besinnung. Ein Kommen und Gehe</div>
+                    </div>
+                </div>
+            
+                <div class="termin" data-stadt="Münster" data-quelle="lwl_museum">
+                    <div class="termin-zeit">14 - 15 Uhr</div>
+                    <div class="termin-info">
+                        <div class="termin-name">
+                            <a href="https://www.lwl-museum-kunst-kultur.de/de/touren-workshops/termine-und-veranstaltungen/?id=1098218" target="_blank">Öffentlicher Rundgang mit DGS Dolmetscher</a>
+                            <span class="badge badge-lwl">LWL-Museum</span>
+                        </div>
+                        <div class="termin-stadt">Münster</div>
+                        <div class="termin-ort">LWL-Museum für Kunst und Kultur</div>
+                        <div class="termin-beschreibung">Erleben Sie eine Zeitreise durch 1000 Jahre abendländischer Kunst- und Kulturgeschichte vom Mittelalter bis zur Gegenwart. Sie entdecken ein...</div>
+                    </div>
+                </div>
+            
+                <div class="termin" data-stadt="Münster" data-quelle="lwl_museum">
+                    <div class="termin-zeit">14 - 15 Uhr</div>
+                    <div class="termin-info">
+                        <div class="termin-name">
+                            <a href="https://www.lwl-museum-kunst-kultur.de/de/touren-workshops/termine-und-veranstaltungen/?id=1098081" target="_blank">Überblick über die Sammlung</a>
+                            <span class="badge badge-lwl">LWL-Museum</span> <span class="badge badge-kategorie">Führung</span>
+                        </div>
+                        <div class="termin-stadt">Münster</div>
+                        <div class="termin-ort">LWL-Museum für Kunst und Kultur</div>
+                        <div class="termin-beschreibung">Das Kunstgespräch nimmt Highlights der Sammlung vom Mittelalter bis zur Gegenwartskunst in den Fokus....</div>
+                    </div>
+                </div>
+            
+                <div class="termin" data-stadt="Münster" data-quelle="lwl_museum">
+                    <div class="termin-zeit">14 - 16 Uhr</div>
+                    <div class="termin-info">
+                        <div class="termin-name">
+                            <a href="https://www.lwl-museum-kunst-kultur.de/de/touren-workshops/termine-und-veranstaltungen/?id=1098110" target="_blank">Bildschöner Samstag: Winterlandschaft</a>
+                            <span class="badge badge-lwl">LWL-Museum</span> <span class="badge badge-kategorie">Für Kinder</span>
+                        </div>
+                        <div class="termin-stadt">Münster</div>
+                        <div class="termin-ort">LWL-Museum für Kunst und Kultur</div>
+                        <div class="termin-beschreibung">Ganz unterschiedliche Themen stehen in diesem Workshop auf dem Programm, die sowohl in den Ateliers als auch im Museum gemeinsam entdeckt werden....</div>
                     </div>
                 </div>
             
@@ -2364,6 +2457,19 @@
                     </div>
                 </div>
             
+                <div class="termin" data-stadt="Münster" data-quelle="lwl_museum">
+                    <div class="termin-zeit">15 - 16 Uhr</div>
+                    <div class="termin-info">
+                        <div class="termin-name">
+                            <a href="https://www.lwl-museum-kunst-kultur.de/de/touren-workshops/termine-und-veranstaltungen/?id=1098101" target="_blank">Performance People. Eine Ausstellung aus dem Skulptur Projekte Archiv</a>
+                            <span class="badge badge-lwl">LWL-Museum</span> <span class="badge badge-kategorie">Führung</span>
+                        </div>
+                        <div class="termin-stadt">Münster</div>
+                        <div class="termin-ort">LWL-Museum für Kunst und Kultur</div>
+                        <div class="termin-beschreibung">Jeden ersten Samstag im Monat gibt es ein öffentliches Kunstgespräch in der Sonderausstellung &quot;Performance People&quot;....</div>
+                    </div>
+                </div>
+            
                 <div class="termin" data-stadt="Mettingen" data-quelle="muensterland">
                     <div class="termin-zeit">15:00 Uhr</div>
                     <div class="termin-info">
@@ -2400,6 +2506,19 @@
                         <div class="termin-stadt">Lüdinghausen</div>
                         <div class="termin-ort">St. Antonius-Gymnasium, Klosterstraße 22</div>
                         <div class="termin-beschreibung">Eine Woche voller Samstage: Kindertheater des Niederrheintheaters nach dem beliebten Kinderbuch von Paul Maar. Aula des St. Antonius Gymnasiums</div>
+                    </div>
+                </div>
+            
+                <div class="termin" data-stadt="Münster" data-quelle="lwl_museum">
+                    <div class="termin-zeit">15:30 - 17:30 Uhr</div>
+                    <div class="termin-info">
+                        <div class="termin-name">
+                            <a href="https://www.lwl-museum-kunst-kultur.de/de/touren-workshops/termine-und-veranstaltungen/?id=1098384" target="_blank">Familienworkshop im Fachwerk Gievenbeck</a>
+                            <span class="badge badge-lwl">LWL-Museum</span> <span class="badge badge-kategorie">Workshop</span>
+                        </div>
+                        <div class="termin-stadt">Münster</div>
+                        <div class="termin-ort">LWL-Museum für Kunst und Kultur</div>
+                        <div class="termin-beschreibung">Sei Teil der Ausstellung: Im Januar (Mi. 28.1. und Sa. 31.1.) und Februar (Mi. 4.2. und Sa. 7.2.) laden wir Familien mit Kindern ab fünf Jahren zu...</div>
                     </div>
                 </div>
             
@@ -2452,19 +2571,6 @@
                         <div class="termin-stadt">Ochtrup</div>
                         <div class="termin-ort">Vechtehalle Langenhorst, Metelener Damm 14</div>
                         <div class="termin-beschreibung">Der Schützenverein Welbergen e.V. präsentiert das Winterfest &quot;Acht75 Bütt ist witzig&quot;Wann: Samstag, 07. Februar 2026Wo: Vechtehalle LangenhorstEinlass: ab 17.30 Uhr</div>
-                    </div>
-                </div>
-            
-                <div class="termin" data-stadt="Saerbeck" data-quelle="muensterland">
-                    <div class="termin-zeit">18:15 Uhr</div>
-                    <div class="termin-info">
-                        <div class="termin-name">
-                            <a href="https://www.kolping-saerbeck.de/karneval/" target="_blank">Kolping Kinderkarneval</a>
-                            <span class="badge badge-muensterland">Münsterland</span>
-                        </div>
-                        <div class="termin-stadt">Saerbeck</div>
-                        <div class="termin-ort">Bürgerscheune Saerbeck, Ferrières-Straße 12</div>
-                        <div class="termin-beschreibung">Der Kinderkarneval für alle Kinder ab dem 2. Schuljahr findet  am 07.02.2026  von  18:11 Uhr bis ca. 21 Uhr statt. Für Essen und Getränke ist gesorgt. Kartenverkauf im MGH und unter www.kolping-saerbe</div>
                     </div>
                 </div>
             
@@ -2645,6 +2751,19 @@
                     </div>
                 </div>
             
+                <div class="termin" data-stadt="Münster" data-quelle="lwl_museum">
+                    <div class="termin-zeit">10:15 - 12:15 Uhr</div>
+                    <div class="termin-info">
+                        <div class="termin-name">
+                            <a href="https://www.lwl-museum-kunst-kultur.de/de/touren-workshops/termine-und-veranstaltungen/?id=1098116" target="_blank">Minimaler: TONstudio</a>
+                            <span class="badge badge-lwl">LWL-Museum</span> <span class="badge badge-kategorie">Für Kinder</span>
+                        </div>
+                        <div class="termin-stadt">Münster</div>
+                        <div class="termin-ort">LWL-Museum für Kunst und Kultur</div>
+                        <div class="termin-beschreibung">In kleiner Gruppe gibt es bei diesem Workshop Raum für Entdeckungen und zum Ausprobieren: ob bei der geleiteten Tour zu einzelnen Kunstwerken oder...</div>
+                    </div>
+                </div>
+            
                 <div class="termin" data-stadt="Saerbeck" data-quelle="muensterland">
                     <div class="termin-zeit">11:00 Uhr</div>
                     <div class="termin-info">
@@ -2720,6 +2839,32 @@
                         <div class="termin-stadt">Tecklenburg-Leeden</div>
                         <div class="termin-ort">Teuto-Alpakas am Petersberg, Petersberg 1</div>
                         <div class="termin-beschreibung">Alpaka-Glücksmomente (Meet, Feed & Enjoy) Gönnen Sie sich einen glücklichen Moment. Wer Alpakas hautnah erleben möchte, ihr Verhalten und ihre Gewohnheiten kennenlernen, sich von den Tieren verzaubern</div>
+                    </div>
+                </div>
+            
+                <div class="termin" data-stadt="Münster" data-quelle="lwl_museum">
+                    <div class="termin-zeit">14 - 15 Uhr</div>
+                    <div class="termin-info">
+                        <div class="termin-name">
+                            <a href="https://www.lwl-museum-kunst-kultur.de/de/touren-workshops/termine-und-veranstaltungen/?id=1098086" target="_blank">Überblick über die Sammlung</a>
+                            <span class="badge badge-lwl">LWL-Museum</span> <span class="badge badge-kategorie">Führung</span>
+                        </div>
+                        <div class="termin-stadt">Münster</div>
+                        <div class="termin-ort">LWL-Museum für Kunst und Kultur</div>
+                        <div class="termin-beschreibung">Das Kunstgespräch nimmt Highlights der Sammlung vom Mittelalter bis zur Gegenwartskunst in den Fokus....</div>
+                    </div>
+                </div>
+            
+                <div class="termin" data-stadt="Münster" data-quelle="lwl_museum">
+                    <div class="termin-zeit">14:30 - 15:30 Uhr</div>
+                    <div class="termin-info">
+                        <div class="termin-name">
+                            <a href="https://www.lwl-museum-kunst-kultur.de/de/touren-workshops/termine-und-veranstaltungen/?id=1098090" target="_blank">Kulturbeuteltour</a>
+                            <span class="badge badge-lwl">LWL-Museum</span> <span class="badge badge-kategorie">Tour</span>
+                        </div>
+                        <div class="termin-stadt">Münster</div>
+                        <div class="termin-ort">LWL-Museum für Kunst und Kultur</div>
+                        <div class="termin-beschreibung">Jeden Sonntag, 14.30-15.30 Uhr   Kinder, Eltern, Großeltern sowie andere Begleitpersonen können ausgewählte Werke der Sammlung gemeinsam mit...</div>
                     </div>
                 </div>
             
@@ -2973,32 +3118,6 @@
                     </div>
                 </div>
             
-                <div class="termin" data-stadt="Lüdinghausen" data-quelle="muensterland">
-                    <div class="termin-zeit">08:00 Uhr</div>
-                    <div class="termin-info">
-                        <div class="termin-name">
-                            <a href="https://www.lhmarketing.de/einkaufen-einkehren/m%C3%A4rkte/der-wochenmarkt/" target="_blank">Wochenmarkt</a>
-                            <span class="badge badge-muensterland">Münsterland</span>
-                        </div>
-                        <div class="termin-stadt">Lüdinghausen</div>
-                        <div class="termin-ort">Lüdinghausen, Markt 5</div>
-                        <div class="termin-beschreibung">Dienstags und freitags ist Wochenmarkt in Lüdinghausen, immer von 8 bis 13 Uhr auf dem Marktplatz. Frisches Obst und Gemüse, Fisch, Fleisch, Brot, Blumen... Das Angebot ist groß.</div>
-                    </div>
-                </div>
-            
-                <div class="termin" data-stadt="Coesfeld" data-quelle="muensterland">
-                    <div class="termin-zeit">08:00 Uhr</div>
-                    <div class="termin-info">
-                        <div class="termin-name">
-                            <span class="termin-toggle" onclick="this.closest('.termin').classList.toggle('expanded')">Wochenmarkt</span>
-                            <span class="badge badge-muensterland">Münsterland</span>
-                        </div>
-                        <div class="termin-stadt">Coesfeld</div>
-                        <div class="termin-ort">Marktplatz Coesfeld, Marktplatz None</div>
-                        <div class="termin-beschreibung">Die Wochenmärkte finden auf dem Coesfelder Marktplatz jeden Dienstag und Freitag von 8:00 bis 12:30 Uhr statt. Angeboten werden: Brot, Eier, Gemüse, Obst, Käse und viele weitere regionale Produkte.</div>
-                    </div>
-                </div>
-            
                 <div class="termin" data-stadt="Tecklenburg" data-quelle="muensterland">
                     <div class="termin-zeit">08:30 Uhr</div>
                     <div class="termin-info">
@@ -3116,6 +3235,19 @@
                     </div>
                 </div>
             
+                <div class="termin" data-stadt="Münster" data-quelle="lwl_museum">
+                    <div class="termin-zeit">15 - 16 Uhr</div>
+                    <div class="termin-info">
+                        <div class="termin-name">
+                            <a href="https://www.lwl-museum-kunst-kultur.de/de/touren-workshops/termine-und-veranstaltungen/?id=1098095" target="_blank">KunstGeschichten: Frieden</a>
+                            <span class="badge badge-lwl">LWL-Museum</span> <span class="badge badge-kategorie">Für Erwachsene</span>
+                        </div>
+                        <div class="termin-stadt">Münster</div>
+                        <div class="termin-ort">LWL-Museum für Kunst und Kultur</div>
+                        <div class="termin-beschreibung">Wöchentlich beleuchtet dieses Kunstgespräch ein bestimmtes Phänomen, ein Thema oder Ereignis der Kultur- und Landesgeschichte....</div>
+                    </div>
+                </div>
+            
                 <div class="termin" data-stadt="Tecklenburg-Leeden" data-quelle="muensterland">
                     <div class="termin-zeit">16:00 Uhr</div>
                     <div class="termin-info">
@@ -3126,6 +3258,19 @@
                         <div class="termin-stadt">Tecklenburg-Leeden</div>
                         <div class="termin-ort">Dorfplatz Leeden, Stift None</div>
                         <div class="termin-beschreibung">Ein klassischer Wochenmarkt wird kombiniert mit kulinarisch-gesellschaftlichem Event. Dienstags von 16 - 19:30 Uhr auf dem Stiftshofgelände in Leeden.</div>
+                    </div>
+                </div>
+            
+                <div class="termin" data-stadt="Münster" data-quelle="lwl_museum">
+                    <div class="termin-zeit">18 Uhr, live</div>
+                    <div class="termin-info">
+                        <div class="termin-name">
+                            <a href="https://www.lwl-museum-kunst-kultur.de/de/touren-workshops/termine-und-veranstaltungen/?id=1098184" target="_blank">Öffentliche Tour auf Instagram</a>
+                            <span class="badge badge-lwl">LWL-Museum</span> <span class="badge badge-kategorie">Tour</span>
+                        </div>
+                        <div class="termin-stadt">Münster</div>
+                        <div class="termin-ort">LWL-Museum für Kunst und Kultur</div>
+                        <div class="termin-beschreibung">Die Touren finden wöchentlich im Livestream der offiziellen Instagram-Seite des LWL-Museums für Kunst und Kultur (@lwlmuseumkunstkultur) statt....</div>
                     </div>
                 </div>
             
@@ -3342,6 +3487,19 @@
                         <div class="termin-stadt">Velen</div>
                         <div class="termin-ort">Burg Ramsdorf, Burgplatz 1</div>
                         <div class="termin-beschreibung">Viele kleine Sketche, Tanzeinlagen und Musik bringen die Zu-schauer in karnevalistische Hochstimmung. Gespielte Witze, Büttenreden und das Stadtgespräch werden mit Lokalkolorit vorgetragen. – Freuen Sie sich schon jetzt auf die fünfte Jahreszeit!</div>
+                    </div>
+                </div>
+            
+                <div class="termin" data-stadt="Münster" data-quelle="lwl_museum">
+                    <div class="termin-zeit">15:30  - 17:30 Uhr</div>
+                    <div class="termin-info">
+                        <div class="termin-name">
+                            <a href="https://www.lwl-museum-kunst-kultur.de/de/touren-workshops/termine-und-veranstaltungen/?id=1098167" target="_blank">Minimaler Extra: Hund, Katze, Ginsterkatze</a>
+                            <span class="badge badge-lwl">LWL-Museum</span> <span class="badge badge-kategorie">Für Kinder</span>
+                        </div>
+                        <div class="termin-stadt">Münster</div>
+                        <div class="termin-ort">LWL-Museum für Kunst und Kultur</div>
+                        <div class="termin-beschreibung">In kleiner Gruppe gibt es bei diesem Workshop Raum für Entdeckungen und zum Ausprobieren: ob bei der geleiteten Tour zu einzelnen Kunstwerken oder...</div>
                     </div>
                 </div>
             
@@ -3600,19 +3758,6 @@
                     </div>
                 </div>
             
-                <div class="termin" data-stadt="Velen" data-quelle="muensterland">
-                    <div class="termin-zeit">15:30 Uhr</div>
-                    <div class="termin-info">
-                        <div class="termin-name">
-                            <a href="https://www.karneval-in-velen.de/kvv-veranstaltungen-2026/" target="_blank">Altweiber</a>
-                            <span class="badge badge-muensterland">Münsterland</span>
-                        </div>
-                        <div class="termin-stadt">Velen</div>
-                        <div class="termin-ort">Leineweberplatz, Leineweberplatz 1</div>
-                        <div class="termin-beschreibung">Auch in diesem Jahr gibt es wieder die legendäre Altweiberbütt Programm ab 15:30 Uhr und anschließend geht es direkt weiter mit der Altweiberparty ab 18 Uhr!</div>
-                    </div>
-                </div>
-            
                 <div class="termin" data-stadt="Greven" data-quelle="muensterland">
                     <div class="termin-zeit">17:00 Uhr</div>
                     <div class="termin-info">
@@ -3738,45 +3883,6 @@
                     </div>
                 </div>
             
-                <div class="termin" data-stadt="Dülmen" data-quelle="muensterland">
-                    <div class="termin-zeit">07:30 Uhr</div>
-                    <div class="termin-info">
-                        <div class="termin-name">
-                            <a href="https://serviceportal.duelmen.de/detail/-/vr-bis-detail/dienstleistung/282/show" target="_blank">Dülmener Wochenmarkt</a>
-                            <span class="badge badge-muensterland">Münsterland</span>
-                        </div>
-                        <div class="termin-stadt">Dülmen</div>
-                        <div class="termin-ort">Marktplatz, Viktorstraße 2</div>
-                        <div class="termin-beschreibung">&quot;Frisch. Regional. Persönlich.&quot; – genau das erwartet euch jede Woche bei uns auf dem Wochenmarkt!Ob knackiges Obst & Gemüse, hochwertige Fleischwaren, handgemachte Spezialitäten aus der Regi</div>
-                    </div>
-                </div>
-            
-                <div class="termin" data-stadt="Lüdinghausen" data-quelle="muensterland">
-                    <div class="termin-zeit">08:00 Uhr</div>
-                    <div class="termin-info">
-                        <div class="termin-name">
-                            <a href="https://www.lhmarketing.de/einkaufen-einkehren/m%C3%A4rkte/der-wochenmarkt/" target="_blank">Wochenmarkt</a>
-                            <span class="badge badge-muensterland">Münsterland</span>
-                        </div>
-                        <div class="termin-stadt">Lüdinghausen</div>
-                        <div class="termin-ort">Lüdinghausen, Markt 5</div>
-                        <div class="termin-beschreibung">Dienstags und freitags ist Wochenmarkt in Lüdinghausen, immer von 8 bis 13 Uhr auf dem Marktplatz. Frisches Obst und Gemüse, Fisch, Fleisch, Brot, Blumen... Das Angebot ist groß.</div>
-                    </div>
-                </div>
-            
-                <div class="termin" data-stadt="Coesfeld" data-quelle="muensterland">
-                    <div class="termin-zeit">08:00 Uhr</div>
-                    <div class="termin-info">
-                        <div class="termin-name">
-                            <span class="termin-toggle" onclick="this.closest('.termin').classList.toggle('expanded')">Wochenmarkt</span>
-                            <span class="badge badge-muensterland">Münsterland</span>
-                        </div>
-                        <div class="termin-stadt">Coesfeld</div>
-                        <div class="termin-ort">Marktplatz Coesfeld, Marktplatz None</div>
-                        <div class="termin-beschreibung">Die Wochenmärkte finden auf dem Coesfelder Marktplatz jeden Dienstag und Freitag von 8:00 bis 12:30 Uhr statt. Angeboten werden: Brot, Eier, Gemüse, Obst, Käse und viele weitere regionale Produkte.</div>
-                    </div>
-                </div>
-            
                 <div class="termin" data-stadt="Sendenhorst" data-quelle="muensterland">
                     <div class="termin-zeit">08:00 Uhr</div>
                     <div class="termin-info">
@@ -3855,6 +3961,45 @@
                     </div>
                 </div>
             
+                <div class="termin" data-stadt="Münster" data-quelle="lwl_museum">
+                    <div class="termin-zeit">17:30 - 18 Uhr</div>
+                    <div class="termin-info">
+                        <div class="termin-name">
+                            <a href="https://www.lwl-museum-kunst-kultur.de/de/touren-workshops/termine-und-veranstaltungen/?id=1098204" target="_blank">Kunstwerk des Monats Februar</a>
+                            <span class="badge badge-lwl">LWL-Museum</span> <span class="badge badge-kategorie">Vortrag</span>
+                        </div>
+                        <div class="termin-stadt">Münster</div>
+                        <div class="termin-ort">LWL-Museum für Kunst und Kultur</div>
+                        <div class="termin-beschreibung">Das LWL-Museum für Kunst und Kultur präsentiert das Kunstwerk des Monats Februar. In der halbstündigen Tour stellt Bastian Weisweiler das Werk &quot;Tanz...</div>
+                    </div>
+                </div>
+            
+                <div class="termin" data-stadt="Münster" data-quelle="lwl_museum">
+                    <div class="termin-zeit">18 - 20 Uhr</div>
+                    <div class="termin-info">
+                        <div class="termin-name">
+                            <a href="https://www.lwl-museum-kunst-kultur.de/de/touren-workshops/termine-und-veranstaltungen/?id=1098219" target="_blank">Gegenüber - Kunst für Frauen</a>
+                            <span class="badge badge-lwl">LWL-Museum</span>
+                        </div>
+                        <div class="termin-stadt">Münster</div>
+                        <div class="termin-ort">LWL-Museum für Kunst und Kultur</div>
+                        <div class="termin-beschreibung">Das LWL-Museum für Kunst und Kultur und das Bistum Münster nutzen die Nachbarschaft der beiden Kultureinrichtungen, um Interessierten einen breit...</div>
+                    </div>
+                </div>
+            
+                <div class="termin" data-stadt="Münster" data-quelle="lwl_museum">
+                    <div class="termin-zeit">18 - 24 Uhr</div>
+                    <div class="termin-info">
+                        <div class="termin-name">
+                            <a href="https://www.lwl-museum-kunst-kultur.de/de/touren-workshops/termine-und-veranstaltungen/?id=1098180" target="_blank">Der Lange Freitag im LWL-Museum für Kunst und Kultur</a>
+                            <span class="badge badge-lwl">LWL-Museum</span> <span class="badge badge-kategorie">Sonderveranstaltung</span>
+                        </div>
+                        <div class="termin-stadt">Münster</div>
+                        <div class="termin-ort">LWL-Museum für Kunst und Kultur</div>
+                        <div class="termin-beschreibung">Das Museum öffnet seine Türen von 10 bis 24 Uhr, der Eintritt ist ab 18 Uhr frei....</div>
+                    </div>
+                </div>
+            
                 <div class="termin" data-stadt="Tecklenburg" data-quelle="muensterland">
                     <div class="termin-zeit">18:00 Uhr</div>
                     <div class="termin-info">
@@ -3865,6 +4010,19 @@
                         <div class="termin-stadt">Tecklenburg</div>
                         <div class="termin-ort">ANTL e.V., Bahnhofstr. 73</div>
                         <div class="termin-beschreibung">Die meisten Fledermausarten bei uns sind besonders gefährdet und als fliegende Säugetiere wirklich etwas ganz Besonderes. Je nach Art bevorzugen sie unterschiedlichste Lebensräume wie Heidelandschaft,</div>
+                    </div>
+                </div>
+            
+                <div class="termin" data-stadt="Münster" data-quelle="lwl_museum">
+                    <div class="termin-zeit">18:15 - 19:15 Uhr</div>
+                    <div class="termin-info">
+                        <div class="termin-name">
+                            <a href="https://www.lwl-museum-kunst-kultur.de/de/touren-workshops/termine-und-veranstaltungen/?id=1098189" target="_blank">Kunst und Achtsamkeit</a>
+                            <span class="badge badge-lwl">LWL-Museum</span> <span class="badge badge-kategorie">Führung</span>
+                        </div>
+                        <div class="termin-stadt">Münster</div>
+                        <div class="termin-ort">LWL-Museum für Kunst und Kultur</div>
+                        <div class="termin-beschreibung">Das Programm richtet sich an alle, die Kunst nutzen, um zur Ruhe zu kommen und den Alltag für einen Moment außen vor zu lassen (unabhängig von...</div>
                     </div>
                 </div>
             
@@ -4019,6 +4177,19 @@
                     </div>
                 </div>
             
+                <div class="termin" data-stadt="Münster" data-quelle="lwl_museum">
+                    <div class="termin-zeit">10:30 - 12:30 Uhr</div>
+                    <div class="termin-info">
+                        <div class="termin-name">
+                            <a href="https://www.lwl-museum-kunst-kultur.de/de/touren-workshops/termine-und-veranstaltungen/?id=1098104" target="_blank">MuKuKu-Klub: Tierisch was los</a>
+                            <span class="badge badge-lwl">LWL-Museum</span> <span class="badge badge-kategorie">Für Kinder</span>
+                        </div>
+                        <div class="termin-stadt">Münster</div>
+                        <div class="termin-ort">LWL-Museum für Kunst und Kultur</div>
+                        <div class="termin-beschreibung">Ganz unterschiedliche Themen stehen in diesem Workshop auf dem Programm, die sowohl in den Ateliers als auch im Museum gemeinsam entdeckt werden....</div>
+                    </div>
+                </div>
+            
                 <div class="termin" data-stadt="Lüdinghausen" data-quelle="muensterland">
                     <div class="termin-zeit">11:00 Uhr</div>
                     <div class="termin-info">
@@ -4110,16 +4281,29 @@
                     </div>
                 </div>
             
-                <div class="termin" data-stadt="Saerbeck" data-quelle="muensterland">
-                    <div class="termin-zeit">14:00 Uhr</div>
+                <div class="termin" data-stadt="Münster" data-quelle="lwl_museum">
+                    <div class="termin-zeit">14 - 15 Uhr</div>
                     <div class="termin-info">
                         <div class="termin-name">
-                            <span class="termin-toggle" onclick="this.closest('.termin').classList.toggle('expanded')">Karnevalsumzug</span>
-                            <span class="badge badge-muensterland">Münsterland</span>
+                            <a href="https://www.lwl-museum-kunst-kultur.de/de/touren-workshops/termine-und-veranstaltungen/?id=1098082" target="_blank">Überblick über die Sammlung</a>
+                            <span class="badge badge-lwl">LWL-Museum</span> <span class="badge badge-kategorie">Führung</span>
                         </div>
-                        <div class="termin-stadt">Saerbeck</div>
-                        <div class="termin-ort">Saerbeck, Ferrierès-Straße 11</div>
-                        <div class="termin-beschreibung">Am 14. Februar 2026 startet der Karnevalsumzug um 14:11 Uhr am Kreisverkehr in Nähe zur   Bäckerei Liesenkötter in Saerbeck. Der genaue Zugverlauf wird in den kommenden Wochen noch bekannt gegeben. Nach dem Karnevalsumzug findet in Hövels Festhalle eine Karnevals Party statt. Sehr gerne können sich noch Wagen und / oder Fußgruppen für die Teilnahme  am Karnevalsumzug  per E-Mail anmelden. Die E-Mail Andresse lautet: karneval@kolping-saerbeck.de</div>
+                        <div class="termin-stadt">Münster</div>
+                        <div class="termin-ort">LWL-Museum für Kunst und Kultur</div>
+                        <div class="termin-beschreibung">Das Kunstgespräch nimmt Highlights der Sammlung vom Mittelalter bis zur Gegenwartskunst in den Fokus....</div>
+                    </div>
+                </div>
+            
+                <div class="termin" data-stadt="Münster" data-quelle="lwl_museum">
+                    <div class="termin-zeit">14 - 16 Uhr</div>
+                    <div class="termin-info">
+                        <div class="termin-name">
+                            <a href="https://www.lwl-museum-kunst-kultur.de/de/touren-workshops/termine-und-veranstaltungen/?id=1098111" target="_blank">Bildschöner Samstag: Maskenball</a>
+                            <span class="badge badge-lwl">LWL-Museum</span> <span class="badge badge-kategorie">Für Kinder</span>
+                        </div>
+                        <div class="termin-stadt">Münster</div>
+                        <div class="termin-ort">LWL-Museum für Kunst und Kultur</div>
+                        <div class="termin-beschreibung">Ganz unterschiedliche Themen stehen in diesem Workshop auf dem Programm, die sowohl in den Ateliers als auch im Museum gemeinsam entdeckt werden....</div>
                     </div>
                 </div>
             
@@ -4339,6 +4523,19 @@
                     </div>
                 </div>
             
+                <div class="termin" data-stadt="Münster" data-quelle="lwl_museum">
+                    <div class="termin-zeit">10:15 - 12:15 Uhr</div>
+                    <div class="termin-info">
+                        <div class="termin-name">
+                            <a href="https://www.lwl-museum-kunst-kultur.de/de/touren-workshops/termine-und-veranstaltungen/?id=1098119" target="_blank">Minimaler: Hund, Katze, Ginsterkatze</a>
+                            <span class="badge badge-lwl">LWL-Museum</span> <span class="badge badge-kategorie">Für Kinder</span>
+                        </div>
+                        <div class="termin-stadt">Münster</div>
+                        <div class="termin-ort">LWL-Museum für Kunst und Kultur</div>
+                        <div class="termin-beschreibung">In kleiner Gruppe gibt es bei diesem Workshop Raum für Entdeckungen und zum Ausprobieren: ob bei der geleiteten Tour zu einzelnen Kunstwerken oder...</div>
+                    </div>
+                </div>
+            
                 <div class="termin" data-stadt="Lüdinghausen" data-quelle="muensterland">
                     <div class="termin-zeit">10:15 Uhr</div>
                     <div class="termin-info">
@@ -4443,6 +4640,19 @@
                     </div>
                 </div>
             
+                <div class="termin" data-stadt="Münster" data-quelle="lwl_museum">
+                    <div class="termin-zeit">14 - 15 Uhr</div>
+                    <div class="termin-info">
+                        <div class="termin-name">
+                            <a href="https://www.lwl-museum-kunst-kultur.de/de/touren-workshops/termine-und-veranstaltungen/?id=1098087" target="_blank">Überblick über die Sammlung</a>
+                            <span class="badge badge-lwl">LWL-Museum</span> <span class="badge badge-kategorie">Führung</span>
+                        </div>
+                        <div class="termin-stadt">Münster</div>
+                        <div class="termin-ort">LWL-Museum für Kunst und Kultur</div>
+                        <div class="termin-beschreibung">Das Kunstgespräch nimmt Highlights der Sammlung vom Mittelalter bis zur Gegenwartskunst in den Fokus....</div>
+                    </div>
+                </div>
+            
                 <div class="termin" data-stadt="Everswinkel" data-quelle="muensterland">
                     <div class="termin-zeit">14:15 Uhr</div>
                     <div class="termin-info">
@@ -4469,6 +4679,19 @@
                     </div>
                 </div>
             
+                <div class="termin" data-stadt="Münster" data-quelle="lwl_museum">
+                    <div class="termin-zeit">14:30 - 15:30 Uhr</div>
+                    <div class="termin-info">
+                        <div class="termin-name">
+                            <a href="https://www.lwl-museum-kunst-kultur.de/de/touren-workshops/termine-und-veranstaltungen/?id=1098091" target="_blank">Kulturbeuteltour</a>
+                            <span class="badge badge-lwl">LWL-Museum</span> <span class="badge badge-kategorie">Tour</span>
+                        </div>
+                        <div class="termin-stadt">Münster</div>
+                        <div class="termin-ort">LWL-Museum für Kunst und Kultur</div>
+                        <div class="termin-beschreibung">Jeden Sonntag, 14.30-15.30 Uhr   Kinder, Eltern, Großeltern sowie andere Begleitpersonen können ausgewählte Werke der Sammlung gemeinsam mit...</div>
+                    </div>
+                </div>
+            
                 <div class="termin" data-stadt="Recke" data-quelle="muensterland">
                     <div class="termin-zeit">14:30 Uhr</div>
                     <div class="termin-info">
@@ -4479,19 +4702,6 @@
                         <div class="termin-stadt">Recke</div>
                         <div class="termin-ort">Ortskern Recke-Obersteinbeck, Hörsteler Straße None</div>
                         <div class="termin-beschreibung">In Obersteinbeck sind die Narren los!Der Karnevalsumzug startet um 14:30 Uhr an der Hörsteler Straße im Recker Ortsteil Obersteinbeck.Im Anschluss Party auf dem OCV-Festzelt.Obersteinbeck Helau!</div>
-                    </div>
-                </div>
-            
-                <div class="termin" data-stadt="Stadtlohn" data-quelle="muensterland">
-                    <div class="termin-zeit">14:30 Uhr</div>
-                    <div class="termin-info">
-                        <div class="termin-name">
-                            <a href="http://www.karnevalshochburg.de" target="_blank">Kinderkarnevalsumzug Stadtlohn</a>
-                            <span class="badge badge-muensterland">Münsterland</span>
-                        </div>
-                        <div class="termin-stadt">Stadtlohn</div>
-                        <div class="termin-ort">Stadtlohn, Markt 3</div>
-                        <div class="termin-beschreibung">Der Kinderkarnevalsumzug in Stadtlohn findet am 15. Februar 2026 um 14:30 Uhr statt. Organisiert von der Karnevalsgesellschaft &quot;Üm Bütt un Pütt e.V.&quot;, zieht der Karnevalszug  durch die Innen</div>
                     </div>
                 </div>
             
@@ -4625,6 +4835,19 @@
                     </div>
                 </div>
             
+                <div class="termin" data-stadt="Münster" data-quelle="lwl_museum">
+                    <div class="termin-zeit">18:30 Uhr</div>
+                    <div class="termin-info">
+                        <div class="termin-name">
+                            <a href="https://www.lwl-museum-kunst-kultur.de/de/touren-workshops/termine-und-veranstaltungen/?id=1098612" target="_blank">Konzert: NEST mit Laurie Torres</a>
+                            <span class="badge badge-lwl">LWL-Museum</span> <span class="badge badge-kategorie">Sonderveranstaltung</span>
+                        </div>
+                        <div class="termin-stadt">Münster</div>
+                        <div class="termin-ort">LWL-Museum für Kunst und Kultur</div>
+                        <div class="termin-beschreibung">Die kanadisch-haitianische Künstlerin Laurie Torres ist seit vielen Jahren Teil der lebendigen Musikszene Montréals. Ihr 2023 aufgenommenes und vom...</div>
+                    </div>
+                </div>
+            
             </div>
             <div class="zurueck-link"><a href="#kalender">&#8593; Kalender</a></div>
         </div>
@@ -4659,19 +4882,6 @@
                     </div>
                 </div>
             
-                <div class="termin" data-stadt="Münster" data-quelle="muensterland">
-                    <div class="termin-zeit">12:15 Uhr</div>
-                    <div class="termin-info">
-                        <div class="termin-name">
-                            <span class="termin-toggle" onclick="this.closest('.termin').classList.toggle('expanded')">Rosenmontagsumzug</span>
-                            <span class="badge badge-muensterland">Münsterland</span>
-                        </div>
-                        <div class="termin-stadt">Münster</div>
-                        <div class="termin-ort">Münster, Prinzipalmarkt 10</div>
-                        <div class="termin-beschreibung">Am 16. Februar 2026 verwandelt sich Münster in eine bunte Karnevalshochburg. Der traditionelle Rosenmontagszug startet um 12:11 Uhr am Schlossplatz und zieht durch die Innenstadt. Beim Zug durch die Stadt präsentieren zahlreiche Karnevalsgesellschaften und Vereine aus Münster und dem Münsterland ihre aufwendig gestalteten Motivwagen und farbenfrohen Fußgruppen. Die Route führt vom Schlossplatz über die Überwasserstraße, den Rosenplatz, die Schlaunstraße, die Bergstraße, an der Apostelkirche vorbei, durch die Voßgasse, den Bült, die Mauritzstraße, das Mauritztor, die Eisenbahnstraße, den Servatiiplatz, die Salzstraße, die Heinrich-Brüning-Straße, die Stubengasse, die Windthorststraße, die Engelenschanze, die Schorlemerstraße, den Ludgeriplatz, die Ludgeristraße, den Prinzipalmarkt, den Drubbel, den Roggenmarkt, die Bogenstraße, den Spiekerhof und die Rosenstraße, bevor der Zug zum Schlossplatz zurückkehrt. Gegen 15:30 Uhr erreicht der Umzug den Prinzipalmarkt, wo der Höhepunkt und Abschluss des närrischen Treibens stattfindet. Erwartet werden über 100.000 Besucher, die gemeinsam feiern und die fünfte Jahreszeit zelebrieren</div>
-                    </div>
-                </div>
-            
                 <div class="termin" data-stadt="Haltern am See" data-quelle="muensterland">
                     <div class="termin-zeit">13:00 Uhr</div>
                     <div class="termin-info">
@@ -4695,32 +4905,6 @@
                         <div class="termin-stadt">Warendorf</div>
                         <div class="termin-ort">Warendorf, Markt 1</div>
                         <div class="termin-beschreibung">Der Warendorfer Rosenmontagsumzug ist mit jährlich über 2.000 Teilnehmern und einer Zuggröße von bis zu 99 Zugnummern der größte Rosenmontagsumzug in der Region. Mit jährlich 25.000 Zuschauern ist der</div>
-                    </div>
-                </div>
-            
-                <div class="termin" data-stadt="Velen" data-quelle="muensterland">
-                    <div class="termin-zeit">13:30 Uhr</div>
-                    <div class="termin-info">
-                        <div class="termin-name">
-                            <a href="https://www.karneval-in-velen.de/kvv-veranstaltungen-2026/" target="_blank">27. Rosenmontagsumzug</a>
-                            <span class="badge badge-muensterland">Münsterland</span>
-                        </div>
-                        <div class="termin-stadt">Velen</div>
-                        <div class="termin-ort">Velen, Kirchplatz 1</div>
-                        <div class="termin-beschreibung">Der 27. Rosenmontagsumzug zieht wieder durch die Velener Straßen. Beginn ist um 13.30 Uhr. Anschließend geht es im Festzelt auf dem Leineweberplatz weiter.</div>
-                    </div>
-                </div>
-            
-                <div class="termin" data-stadt="Stadtlohn" data-quelle="muensterland">
-                    <div class="termin-zeit">13:30 Uhr</div>
-                    <div class="termin-info">
-                        <div class="termin-name">
-                            <a href="https://www.karnevalshochburg.de/" target="_blank">Rosenmontagsumzug in Stadtlohn</a>
-                            <span class="badge badge-muensterland">Münsterland</span>
-                        </div>
-                        <div class="termin-stadt">Stadtlohn</div>
-                        <div class="termin-ort">Stadtlohn, Markt 3</div>
-                        <div class="termin-beschreibung">Der Rosenmontagsumzug in Stadtlohn findet am 16. Februar 2026 um 13:30 Uhr statt. Organisiert von der Karnevalsgesellschaft &quot;Üm Bütt un Pütt e.V.&quot;, zieht der Karnevalszug mit rund 70 Wagen u</div>
                     </div>
                 </div>
             
@@ -4776,32 +4960,6 @@
                     </div>
                 </div>
             
-                <div class="termin" data-stadt="Rheine" data-quelle="muensterland">
-                    <div class="termin-zeit">14:00 Uhr</div>
-                    <div class="termin-info">
-                        <div class="termin-name">
-                            <span class="termin-toggle" onclick="this.closest('.termin').classList.toggle('expanded')">Rosenmontagsumzug Rheine</span>
-                            <span class="badge badge-muensterland">Münsterland</span>
-                        </div>
-                        <div class="termin-stadt">Rheine</div>
-                        <div class="termin-ort">Innenstadt Rheine, Emsstraße 19</div>
-                        <div class="termin-beschreibung">Rosenmontag in Rheine! 🎉 Am Rosenmontag zieht der bunte Karnevalsumzug ab 14:11 Uhr durch die Innenstadt. Freut euch auf festlich geschmückte Wagen, kreative Fußgruppen, mitreißende Musik und jede Menge Süßigkeiten. Kommt vorbei und feiert gemeinsam die fünfte Jahreszeit – Rheine Helau!</div>
-                    </div>
-                </div>
-            
-                <div class="termin" data-stadt="Ochtrup" data-quelle="muensterland">
-                    <div class="termin-zeit">14:15 Uhr</div>
-                    <div class="termin-info">
-                        <div class="termin-name">
-                            <span class="termin-toggle" onclick="this.closest('.termin').classList.toggle('expanded')">Rosenmontags-Umzug</span>
-                            <span class="badge badge-muensterland">Münsterland</span>
-                        </div>
-                        <div class="termin-stadt">Ochtrup</div>
-                        <div class="termin-ort">Ochtrup</div>
-                        <div class="termin-beschreibung">Traditioneller Rosenmontagsumzug für die ganze Familie in Ochtrup.Freut Euch auf einen bunten Umzug mit vielen farbenfrohen Mottowagen und liebevoll verkleideten Fußgruppen. Verschiedene Musikvereine und Kapellen sorgen für Karnevalsstimmung. Rosenmontag, 16. Februar 2026 | 14.11 Uhr ab Prof.-Gärtner-StraßeVeranstalter: Förderkreis Kinderkarneval</div>
-                    </div>
-                </div>
-            
                 <div class="termin" data-stadt="Lüdinghausen" data-quelle="muensterland">
                     <div class="termin-zeit">14:15 Uhr</div>
                     <div class="termin-info">
@@ -4812,19 +4970,6 @@
                         <div class="termin-stadt">Lüdinghausen</div>
                         <div class="termin-ort">Seppenrade</div>
                         <div class="termin-beschreibung">Zur Rosenmontagssitzung mit anschließender Party lädt die Karnevalsgesellschaft &quot;Stabil daobi&quot; am Montag, 16. Februar, um 14.11 Uhr ein. Ort: Festzelt Seppenrade</div>
-                    </div>
-                </div>
-            
-                <div class="termin" data-stadt="Recke" data-quelle="muensterland">
-                    <div class="termin-zeit">14:30 Uhr</div>
-                    <div class="termin-info">
-                        <div class="termin-name">
-                            <span class="termin-toggle" onclick="this.closest('.termin').classList.toggle('expanded')">Rosenmontagsumzug Recke</span>
-                            <span class="badge badge-muensterland">Münsterland</span>
-                        </div>
-                        <div class="termin-stadt">Recke</div>
-                        <div class="termin-ort">Rathausparkplatz Recke, Hauptstraße 28</div>
-                        <div class="termin-beschreibung">Recke steht Kopf, denn die Narren sind los. Buntes treiben von der Hauptstraße durch den Ortskern mit gutgelaunten Menschen, kreativen Motiv-Wagen und Fußgruppen sowie Musik und Tanz von Spielmannzügen und Tanzgruppen.Recke Helau!</div>
                     </div>
                 </div>
             
@@ -4872,32 +5017,6 @@
                         <div class="termin-stadt">Dülmen</div>
                         <div class="termin-ort">Marktplatz, Viktorstraße 2</div>
                         <div class="termin-beschreibung">&quot;Frisch. Regional. Persönlich.&quot; – genau das erwartet euch jede Woche bei uns auf dem Wochenmarkt!Ob knackiges Obst & Gemüse, hochwertige Fleischwaren, handgemachte Spezialitäten aus der Regi</div>
-                    </div>
-                </div>
-            
-                <div class="termin" data-stadt="Lüdinghausen" data-quelle="muensterland">
-                    <div class="termin-zeit">08:00 Uhr</div>
-                    <div class="termin-info">
-                        <div class="termin-name">
-                            <a href="https://www.lhmarketing.de/einkaufen-einkehren/m%C3%A4rkte/der-wochenmarkt/" target="_blank">Wochenmarkt</a>
-                            <span class="badge badge-muensterland">Münsterland</span>
-                        </div>
-                        <div class="termin-stadt">Lüdinghausen</div>
-                        <div class="termin-ort">Lüdinghausen, Markt 5</div>
-                        <div class="termin-beschreibung">Dienstags und freitags ist Wochenmarkt in Lüdinghausen, immer von 8 bis 13 Uhr auf dem Marktplatz. Frisches Obst und Gemüse, Fisch, Fleisch, Brot, Blumen... Das Angebot ist groß.</div>
-                    </div>
-                </div>
-            
-                <div class="termin" data-stadt="Coesfeld" data-quelle="muensterland">
-                    <div class="termin-zeit">08:00 Uhr</div>
-                    <div class="termin-info">
-                        <div class="termin-name">
-                            <span class="termin-toggle" onclick="this.closest('.termin').classList.toggle('expanded')">Wochenmarkt</span>
-                            <span class="badge badge-muensterland">Münsterland</span>
-                        </div>
-                        <div class="termin-stadt">Coesfeld</div>
-                        <div class="termin-ort">Marktplatz Coesfeld, Marktplatz None</div>
-                        <div class="termin-beschreibung">Die Wochenmärkte finden auf dem Coesfelder Marktplatz jeden Dienstag und Freitag von 8:00 bis 12:30 Uhr statt. Angeboten werden: Brot, Eier, Gemüse, Obst, Käse und viele weitere regionale Produkte.</div>
                     </div>
                 </div>
             
@@ -5018,6 +5137,19 @@
                     </div>
                 </div>
             
+                <div class="termin" data-stadt="Münster" data-quelle="lwl_museum">
+                    <div class="termin-zeit">15 - 16 Uhr</div>
+                    <div class="termin-info">
+                        <div class="termin-name">
+                            <a href="https://www.lwl-museum-kunst-kultur.de/de/touren-workshops/termine-und-veranstaltungen/?id=1098096" target="_blank">KunstGeschichten: Fabelhafte Tierwesen</a>
+                            <span class="badge badge-lwl">LWL-Museum</span> <span class="badge badge-kategorie">Für Erwachsene</span>
+                        </div>
+                        <div class="termin-stadt">Münster</div>
+                        <div class="termin-ort">LWL-Museum für Kunst und Kultur</div>
+                        <div class="termin-beschreibung">Wöchentlich beleuchtet dieses Kunstgespräch ein bestimmtes Phänomen, ein Thema oder Ereignis der Kultur- und Landesgeschichte....</div>
+                    </div>
+                </div>
+            
                 <div class="termin" data-stadt="Borken" data-quelle="muensterland">
                     <div class="termin-zeit">15:00 Uhr</div>
                     <div class="termin-info">
@@ -5054,6 +5186,19 @@
                         <div class="termin-stadt">Tecklenburg-Leeden</div>
                         <div class="termin-ort">Dorfplatz Leeden, Stift None</div>
                         <div class="termin-beschreibung">Ein klassischer Wochenmarkt wird kombiniert mit kulinarisch-gesellschaftlichem Event. Dienstags von 16 - 19:30 Uhr auf dem Stiftshofgelände in Leeden.</div>
+                    </div>
+                </div>
+            
+                <div class="termin" data-stadt="Münster" data-quelle="lwl_museum">
+                    <div class="termin-zeit">18 Uhr, live</div>
+                    <div class="termin-info">
+                        <div class="termin-name">
+                            <a href="https://www.lwl-museum-kunst-kultur.de/de/touren-workshops/termine-und-veranstaltungen/?id=1098185" target="_blank">Öffentliche Tour auf Instagram</a>
+                            <span class="badge badge-lwl">LWL-Museum</span> <span class="badge badge-kategorie">Tour</span>
+                        </div>
+                        <div class="termin-stadt">Münster</div>
+                        <div class="termin-ort">LWL-Museum für Kunst und Kultur</div>
+                        <div class="termin-beschreibung">Die Touren finden wöchentlich im Livestream der offiziellen Instagram-Seite des LWL-Museums für Kunst und Kultur (@lwlmuseumkunstkultur) statt....</div>
                     </div>
                 </div>
             
@@ -5437,6 +5582,19 @@
                     </div>
                 </div>
             
+                <div class="termin" data-stadt="Münster" data-quelle="lwl_museum">
+                    <div class="termin-zeit">15:30  - 17:30 Uhr</div>
+                    <div class="termin-info">
+                        <div class="termin-name">
+                            <a href="https://www.lwl-museum-kunst-kultur.de/de/touren-workshops/termine-und-veranstaltungen/?id=1098168" target="_blank">Minimaler Extra: Kreis, Quadrat, Dreieck</a>
+                            <span class="badge badge-lwl">LWL-Museum</span> <span class="badge badge-kategorie">Für Kinder</span>
+                        </div>
+                        <div class="termin-stadt">Münster</div>
+                        <div class="termin-ort">LWL-Museum für Kunst und Kultur</div>
+                        <div class="termin-beschreibung">In kleiner Gruppe gibt es bei diesem Workshop Raum für Entdeckungen und zum Ausprobieren: ob bei der geleiteten Tour zu einzelnen Kunstwerken oder...</div>
+                    </div>
+                </div>
+            
                 <div class="termin" data-stadt="Münster" data-quelle="muensterland">
                     <div class="termin-zeit">17:00 Uhr</div>
                     <div class="termin-info">
@@ -5515,6 +5673,19 @@
                     </div>
                 </div>
             
+                <div class="termin" data-stadt="Münster" data-quelle="lwl_museum">
+                    <div class="termin-zeit">19 Uhr</div>
+                    <div class="termin-info">
+                        <div class="termin-name">
+                            <a href="https://www.lwl-museum-kunst-kultur.de/de/touren-workshops/termine-und-veranstaltungen/?id=1098636" target="_blank">Vortrag und Gespräch: Kriegspropaganda in russischen Museen</a>
+                            <span class="badge badge-lwl">LWL-Museum</span> <span class="badge badge-kategorie">Sonderveranstaltung</span>
+                        </div>
+                        <div class="termin-stadt">Münster</div>
+                        <div class="termin-ort">LWL-Museum für Kunst und Kultur</div>
+                        <div class="termin-beschreibung">Ob Kunstmuseen oder historische Sammlungen  - die Kultureinrichtungen eines Landes können im Sinne einer nationalen Geschichtsschreibung...</div>
+                    </div>
+                </div>
+            
                 <div class="termin" data-stadt="Münster" data-quelle="muensterland">
                     <div class="termin-zeit">19:00 Uhr</div>
                     <div class="termin-info">
@@ -5585,45 +5756,6 @@
                         <div class="termin-stadt">Dülmen</div>
                         <div class="termin-ort">Marktplatz, Viktorstraße 2</div>
                         <div class="termin-beschreibung">&quot;Frisch. Regional. Persönlich.&quot; – genau das erwartet euch jede Woche bei uns auf dem Wochenmarkt!Ob knackiges Obst & Gemüse, hochwertige Fleischwaren, handgemachte Spezialitäten aus der Regi</div>
-                    </div>
-                </div>
-            
-                <div class="termin" data-stadt="Dülmen" data-quelle="muensterland">
-                    <div class="termin-zeit">07:30 Uhr</div>
-                    <div class="termin-info">
-                        <div class="termin-name">
-                            <a href="https://serviceportal.duelmen.de/detail/-/vr-bis-detail/dienstleistung/282/show" target="_blank">Dülmener Wochenmarkt</a>
-                            <span class="badge badge-muensterland">Münsterland</span>
-                        </div>
-                        <div class="termin-stadt">Dülmen</div>
-                        <div class="termin-ort">Marktplatz, Viktorstraße 2</div>
-                        <div class="termin-beschreibung">&quot;Frisch. Regional. Persönlich.&quot; – genau das erwartet euch jede Woche bei uns auf dem Wochenmarkt!Ob knackiges Obst & Gemüse, hochwertige Fleischwaren, handgemachte Spezialitäten aus der Regi</div>
-                    </div>
-                </div>
-            
-                <div class="termin" data-stadt="Lüdinghausen" data-quelle="muensterland">
-                    <div class="termin-zeit">08:00 Uhr</div>
-                    <div class="termin-info">
-                        <div class="termin-name">
-                            <a href="https://www.lhmarketing.de/einkaufen-einkehren/m%C3%A4rkte/der-wochenmarkt/" target="_blank">Wochenmarkt</a>
-                            <span class="badge badge-muensterland">Münsterland</span>
-                        </div>
-                        <div class="termin-stadt">Lüdinghausen</div>
-                        <div class="termin-ort">Lüdinghausen, Markt 5</div>
-                        <div class="termin-beschreibung">Dienstags und freitags ist Wochenmarkt in Lüdinghausen, immer von 8 bis 13 Uhr auf dem Marktplatz. Frisches Obst und Gemüse, Fisch, Fleisch, Brot, Blumen... Das Angebot ist groß.</div>
-                    </div>
-                </div>
-            
-                <div class="termin" data-stadt="Coesfeld" data-quelle="muensterland">
-                    <div class="termin-zeit">08:00 Uhr</div>
-                    <div class="termin-info">
-                        <div class="termin-name">
-                            <span class="termin-toggle" onclick="this.closest('.termin').classList.toggle('expanded')">Wochenmarkt</span>
-                            <span class="badge badge-muensterland">Münsterland</span>
-                        </div>
-                        <div class="termin-stadt">Coesfeld</div>
-                        <div class="termin-ort">Marktplatz Coesfeld, Marktplatz None</div>
-                        <div class="termin-beschreibung">Die Wochenmärkte finden auf dem Coesfelder Marktplatz jeden Dienstag und Freitag von 8:00 bis 12:30 Uhr statt. Angeboten werden: Brot, Eier, Gemüse, Obst, Käse und viele weitere regionale Produkte.</div>
                     </div>
                 </div>
             
@@ -5770,6 +5902,19 @@
                     </div>
                 </div>
             
+                <div class="termin" data-stadt="Münster" data-quelle="lwl_museum">
+                    <div class="termin-zeit">18:30 - 20:30 Uhr</div>
+                    <div class="termin-info">
+                        <div class="termin-name">
+                            <a href="https://www.lwl-museum-kunst-kultur.de/de/touren-workshops/termine-und-veranstaltungen/?id=1098169" target="_blank">Aktzeichnen</a>
+                            <span class="badge badge-lwl">LWL-Museum</span> <span class="badge badge-kategorie">Workshop</span>
+                        </div>
+                        <div class="termin-stadt">Münster</div>
+                        <div class="termin-ort">LWL-Museum für Kunst und Kultur</div>
+                        <div class="termin-beschreibung">Im Workshop soll der menschliche Körper anhand eines lebenden Modells gezeichnet werden. Ein Profi vermittelt Techniken des Aktzeichnens sowohl für...</div>
+                    </div>
+                </div>
+            
                 <div class="termin" data-stadt="Dorsten" data-quelle="muensterland">
                     <div class="termin-zeit">18:30 Uhr</div>
                     <div class="termin-info">
@@ -5780,6 +5925,19 @@
                         <div class="termin-stadt">Dorsten</div>
                         <div class="termin-ort">Waldparkplatz Rangerstützpunkt, Im Höltken 9</div>
                         <div class="termin-beschreibung">Tauchen Sie ein in die geheimnisvolle Welt des nächtlichen Waldes bei unserer faszinierenden Fackelwanderung durch die Hohe Mark. In Begleitung erfahrener Ranger erleben Sie die Natur von ihrer mystis</div>
+                    </div>
+                </div>
+            
+                <div class="termin" data-stadt="Münster" data-quelle="lwl_museum">
+                    <div class="termin-zeit">19 - 21 Uhr</div>
+                    <div class="termin-info">
+                        <div class="termin-name">
+                            <a href="https://www.lwl-museum-kunst-kultur.de/de/touren-workshops/termine-und-veranstaltungen/?id=1098170" target="_blank">Night of the Arts: Schwarz auf Weiß - Tiefdruck</a>
+                            <span class="badge badge-lwl">LWL-Museum</span> <span class="badge badge-kategorie">Workshop</span>
+                        </div>
+                        <div class="termin-stadt">Münster</div>
+                        <div class="termin-ort">LWL-Museum für Kunst und Kultur</div>
+                        <div class="termin-beschreibung">Night of the Arts ist ein geselliger Kunstabend, bei dem die Teilnehmer:innen unter Anleitung einer Expert:in aus der Kunstvermittlung eine...</div>
                     </div>
                 </div>
             
@@ -5986,6 +6144,19 @@
                     </div>
                 </div>
             
+                <div class="termin" data-stadt="Münster" data-quelle="lwl_museum">
+                    <div class="termin-zeit">10:30 - 12:30 Uhr</div>
+                    <div class="termin-info">
+                        <div class="termin-name">
+                            <a href="https://www.lwl-museum-kunst-kultur.de/de/touren-workshops/termine-und-veranstaltungen/?id=1098106" target="_blank">MuKuKu-Klub: Fetzenbilder</a>
+                            <span class="badge badge-lwl">LWL-Museum</span> <span class="badge badge-kategorie">Für Kinder</span>
+                        </div>
+                        <div class="termin-stadt">Münster</div>
+                        <div class="termin-ort">LWL-Museum für Kunst und Kultur</div>
+                        <div class="termin-beschreibung">Ganz unterschiedliche Themen stehen in diesem Workshop auf dem Programm, die sowohl in den Ateliers als auch im Museum gemeinsam entdeckt werden....</div>
+                    </div>
+                </div>
+            
                 <div class="termin" data-stadt="Gelsenkirchen" data-quelle="muensterland">
                     <div class="termin-zeit">11:00 Uhr</div>
                     <div class="termin-info">
@@ -6009,6 +6180,32 @@
                         <div class="termin-stadt">Tecklenburg-Leeden</div>
                         <div class="termin-ort">Teuto-Alpakas am Petersberg, Petersberg 1</div>
                         <div class="termin-beschreibung">Alpaka-Glücksmomente (Meet, Feed & Enjoy) Gönnen Sie sich einen glücklichen Moment. Wer Alpakas hautnah erleben möchte, ihr Verhalten und ihre Gewohnheiten kennenlernen, sich von den Tieren verzaubern</div>
+                    </div>
+                </div>
+            
+                <div class="termin" data-stadt="Münster" data-quelle="lwl_museum">
+                    <div class="termin-zeit">14 - 15 Uhr</div>
+                    <div class="termin-info">
+                        <div class="termin-name">
+                            <a href="https://www.lwl-museum-kunst-kultur.de/de/touren-workshops/termine-und-veranstaltungen/?id=1098083" target="_blank">Überblick über die Sammlung</a>
+                            <span class="badge badge-lwl">LWL-Museum</span> <span class="badge badge-kategorie">Führung</span>
+                        </div>
+                        <div class="termin-stadt">Münster</div>
+                        <div class="termin-ort">LWL-Museum für Kunst und Kultur</div>
+                        <div class="termin-beschreibung">Das Kunstgespräch nimmt Highlights der Sammlung vom Mittelalter bis zur Gegenwartskunst in den Fokus....</div>
+                    </div>
+                </div>
+            
+                <div class="termin" data-stadt="Münster" data-quelle="lwl_museum">
+                    <div class="termin-zeit">14 - 16 Uhr</div>
+                    <div class="termin-info">
+                        <div class="termin-name">
+                            <a href="https://www.lwl-museum-kunst-kultur.de/de/touren-workshops/termine-und-veranstaltungen/?id=1098112" target="_blank">Bildschöner Samstag: Seifenskulpturen</a>
+                            <span class="badge badge-lwl">LWL-Museum</span> <span class="badge badge-kategorie">Für Kinder</span>
+                        </div>
+                        <div class="termin-stadt">Münster</div>
+                        <div class="termin-ort">LWL-Museum für Kunst und Kultur</div>
+                        <div class="termin-beschreibung">Ganz unterschiedliche Themen stehen in diesem Workshop auf dem Programm, die sowohl in den Ateliers als auch im Museum gemeinsam entdeckt werden....</div>
                     </div>
                 </div>
             
@@ -6254,6 +6451,19 @@
                     </div>
                 </div>
             
+                <div class="termin" data-stadt="Münster" data-quelle="lwl_museum">
+                    <div class="termin-zeit">10:15 - 12:15 Uhr</div>
+                    <div class="termin-info">
+                        <div class="termin-name">
+                            <a href="https://www.lwl-museum-kunst-kultur.de/de/touren-workshops/termine-und-veranstaltungen/?id=1098164" target="_blank">Minimaler: Kreis, Quadrat, Dreieck</a>
+                            <span class="badge badge-lwl">LWL-Museum</span> <span class="badge badge-kategorie">Für Kinder</span>
+                        </div>
+                        <div class="termin-stadt">Münster</div>
+                        <div class="termin-ort">LWL-Museum für Kunst und Kultur</div>
+                        <div class="termin-beschreibung">In kleiner Gruppe gibt es bei diesem Workshop Raum für Entdeckungen und zum Ausprobieren: ob bei der geleiteten Tour zu einzelnen Kunstwerken oder...</div>
+                    </div>
+                </div>
+            
                 <div class="termin" data-stadt="Saerbeck" data-quelle="muensterland">
                     <div class="termin-zeit">11:00 Uhr</div>
                     <div class="termin-info">
@@ -6306,19 +6516,6 @@
                     </div>
                 </div>
             
-                <div class="termin" data-stadt="Borken" data-quelle="muensterland">
-                    <div class="termin-zeit">12:00 Uhr</div>
-                    <div class="termin-info">
-                        <div class="termin-name">
-                            <a href="http://borken.de/3eck" target="_blank">Mal-& Zeichentreff</a>
-                            <span class="badge badge-muensterland">Münsterland</span>
-                        </div>
-                        <div class="termin-stadt">Borken</div>
-                        <div class="termin-ort">3ECK, Neutor 3</div>
-                        <div class="termin-beschreibung">An jedem Donnerstag von 9 bis 14 Uhr sowie jedem 4. Sonntag im Monat von 12 bis 17 Uhr verwandelt sich das 3ECK in ein offenes und kreatives Atelier zum Zeichnen und Malen für Kreative aller Erfahrung</div>
-                    </div>
-                </div>
-            
                 <div class="termin" data-stadt="Lienen" data-quelle="muensterland">
                     <div class="termin-zeit">12:15 Uhr</div>
                     <div class="termin-info">
@@ -6342,6 +6539,32 @@
                         <div class="termin-stadt">Gelsenkirchen</div>
                         <div class="termin-ort">Prachtlamas, Feldmarkstraße 209</div>
                         <div class="termin-beschreibung">Diese Lamawanderung führt auf einem Rundweg durch die Natur des Gesundheitsparks Nienhausen mit seinem alten Baumbestand, dem ruhigen Waldsee und der beliebten Parklandschaft. Inklusive Einführung und</div>
+                    </div>
+                </div>
+            
+                <div class="termin" data-stadt="Münster" data-quelle="lwl_museum">
+                    <div class="termin-zeit">14 - 15 Uhr</div>
+                    <div class="termin-info">
+                        <div class="termin-name">
+                            <a href="https://www.lwl-museum-kunst-kultur.de/de/touren-workshops/termine-und-veranstaltungen/?id=1098088" target="_blank">Überblick über die Sammlung</a>
+                            <span class="badge badge-lwl">LWL-Museum</span> <span class="badge badge-kategorie">Führung</span>
+                        </div>
+                        <div class="termin-stadt">Münster</div>
+                        <div class="termin-ort">LWL-Museum für Kunst und Kultur</div>
+                        <div class="termin-beschreibung">Das Kunstgespräch nimmt Highlights der Sammlung vom Mittelalter bis zur Gegenwartskunst in den Fokus....</div>
+                    </div>
+                </div>
+            
+                <div class="termin" data-stadt="Münster" data-quelle="lwl_museum">
+                    <div class="termin-zeit">14:30 - 15:30 Uhr</div>
+                    <div class="termin-info">
+                        <div class="termin-name">
+                            <a href="https://www.lwl-museum-kunst-kultur.de/de/touren-workshops/termine-und-veranstaltungen/?id=1098092" target="_blank">Kulturbeuteltour</a>
+                            <span class="badge badge-lwl">LWL-Museum</span> <span class="badge badge-kategorie">Tour</span>
+                        </div>
+                        <div class="termin-stadt">Münster</div>
+                        <div class="termin-ort">LWL-Museum für Kunst und Kultur</div>
+                        <div class="termin-beschreibung">Jeden Sonntag, 14.30-15.30 Uhr   Kinder, Eltern, Großeltern sowie andere Begleitpersonen können ausgewählte Werke der Sammlung gemeinsam mit...</div>
                     </div>
                 </div>
             
@@ -6582,32 +6805,6 @@
                     </div>
                 </div>
             
-                <div class="termin" data-stadt="Lüdinghausen" data-quelle="muensterland">
-                    <div class="termin-zeit">08:00 Uhr</div>
-                    <div class="termin-info">
-                        <div class="termin-name">
-                            <a href="https://www.lhmarketing.de/einkaufen-einkehren/m%C3%A4rkte/der-wochenmarkt/" target="_blank">Wochenmarkt</a>
-                            <span class="badge badge-muensterland">Münsterland</span>
-                        </div>
-                        <div class="termin-stadt">Lüdinghausen</div>
-                        <div class="termin-ort">Lüdinghausen, Markt 5</div>
-                        <div class="termin-beschreibung">Dienstags und freitags ist Wochenmarkt in Lüdinghausen, immer von 8 bis 13 Uhr auf dem Marktplatz. Frisches Obst und Gemüse, Fisch, Fleisch, Brot, Blumen... Das Angebot ist groß.</div>
-                    </div>
-                </div>
-            
-                <div class="termin" data-stadt="Coesfeld" data-quelle="muensterland">
-                    <div class="termin-zeit">08:00 Uhr</div>
-                    <div class="termin-info">
-                        <div class="termin-name">
-                            <span class="termin-toggle" onclick="this.closest('.termin').classList.toggle('expanded')">Wochenmarkt</span>
-                            <span class="badge badge-muensterland">Münsterland</span>
-                        </div>
-                        <div class="termin-stadt">Coesfeld</div>
-                        <div class="termin-ort">Marktplatz Coesfeld, Marktplatz None</div>
-                        <div class="termin-beschreibung">Die Wochenmärkte finden auf dem Coesfelder Marktplatz jeden Dienstag und Freitag von 8:00 bis 12:30 Uhr statt. Angeboten werden: Brot, Eier, Gemüse, Obst, Käse und viele weitere regionale Produkte.</div>
-                    </div>
-                </div>
-            
                 <div class="termin" data-stadt="Tecklenburg" data-quelle="muensterland">
                     <div class="termin-zeit">08:30 Uhr</div>
                     <div class="termin-info">
@@ -6764,6 +6961,19 @@
                     </div>
                 </div>
             
+                <div class="termin" data-stadt="Münster" data-quelle="lwl_museum">
+                    <div class="termin-zeit">15 - 16 Uhr</div>
+                    <div class="termin-info">
+                        <div class="termin-name">
+                            <a href="https://www.lwl-museum-kunst-kultur.de/de/touren-workshops/termine-und-veranstaltungen/?id=1098097" target="_blank">KunstGeschichten: Verträumt</a>
+                            <span class="badge badge-lwl">LWL-Museum</span> <span class="badge badge-kategorie">Für Erwachsene</span>
+                        </div>
+                        <div class="termin-stadt">Münster</div>
+                        <div class="termin-ort">LWL-Museum für Kunst und Kultur</div>
+                        <div class="termin-beschreibung">Wöchentlich beleuchtet dieses Kunstgespräch ein bestimmtes Phänomen, ein Thema oder Ereignis der Kultur- und Landesgeschichte....</div>
+                    </div>
+                </div>
+            
                 <div class="termin" data-stadt="Everswinkel" data-quelle="muensterland">
                     <div class="termin-zeit">15:00 Uhr</div>
                     <div class="termin-info">
@@ -6813,6 +7023,58 @@
                         <div class="termin-stadt">Münster</div>
                         <div class="termin-ort">Münsterland</div>
                         <div class="termin-beschreibung">Elektronische Rechnungen (E-Rechnungen) optimieren digitale Arbeitsprozesse im kaufmännischen Alltag. Der Vortrag zeigt, welche Anforderungen von gesetzlicher Seite an E-Rechnungen bestehen und wie E-</div>
+                    </div>
+                </div>
+            
+                <div class="termin" data-stadt="Münster" data-quelle="lwl_museum">
+                    <div class="termin-zeit">18 Uhr, live</div>
+                    <div class="termin-info">
+                        <div class="termin-name">
+                            <a href="https://www.lwl-museum-kunst-kultur.de/de/touren-workshops/termine-und-veranstaltungen/?id=1098186" target="_blank">Öffentliche Tour auf Instagram</a>
+                            <span class="badge badge-lwl">LWL-Museum</span> <span class="badge badge-kategorie">Tour</span>
+                        </div>
+                        <div class="termin-stadt">Münster</div>
+                        <div class="termin-ort">LWL-Museum für Kunst und Kultur</div>
+                        <div class="termin-beschreibung">Die Touren finden wöchentlich im Livestream der offiziellen Instagram-Seite des LWL-Museums für Kunst und Kultur (@lwlmuseumkunstkultur) statt....</div>
+                    </div>
+                </div>
+            
+                <div class="termin" data-stadt="Münster" data-quelle="regioactive">
+                    <div class="termin-zeit">19:30 Uhr</div>
+                    <div class="termin-info">
+                        <div class="termin-name">
+                            <a href="https://www.regioactive.de/theater/28-komische-nacht-muenster-pablo-2026-02-24-vLxGYNcCVm" target="_blank">28. KOMISCHE NACHT MÜNSTER</a>
+                            <span class="badge badge-regioactive">regioactive.de</span>
+                        </div>
+                        <div class="termin-stadt">Münster</div>
+                        <div class="termin-ort">Pablo, Ludgeristraße 100</div>
+                        <div class="termin-beschreibung">Die Komische Nacht ist eines der erfolgreichsten Live-Comedy-Formate in Deutschland. In den schönsten Cafés, Bars und Restaurants einer Stadt erleben die Gäste und ihre Freunde und Familie bei dieser </div>
+                    </div>
+                </div>
+            
+                <div class="termin" data-stadt="Münster" data-quelle="regioactive">
+                    <div class="termin-zeit">20:00 Uhr</div>
+                    <div class="termin-info">
+                        <div class="termin-name">
+                            <a href="https://www.regioactive.de/show/beat-it-die-erfolgsshow-ueber-den-king-of-pop-muenster-messe-congress-centrum-halle-muensterland-2026-02-24-tickets-Z3zjl25SZ2" target="_blank">BEAT IT! – Die Erfolgsshow über den King of Pop!</a>
+                            <span class="badge badge-regioactive">regioactive.de</span>
+                        </div>
+                        <div class="termin-stadt">Münster</div>
+                        <div class="termin-ort">Messe+Congress Centrum Halle Münsterland, Albersloher Weg 32</div>
+                        <div class="termin-beschreibung">„BEAT IT! – Die Erfolgsshow über den King of Pop!“ ist ein spektakuläres Live-Show-Erlebnis über den erfolgreichsten Entertainer aller Zeiten, dessen Musik für immer unvergessen bleiben wird. Die etwa</div>
+                    </div>
+                </div>
+            
+                <div class="termin" data-stadt="Münster" data-quelle="theater_muenster">
+                    <div class="termin-zeit">20:00 Uhr</div>
+                    <div class="termin-info">
+                        <div class="termin-name">
+                            <a href="https://neu.theater-muenster.com/produktionen/den-krieg-im-blick-1041.html" target="_blank">Den Krieg im Blick</a>
+                            <span class="badge badge-theater">Theater Münster</span> <span class="badge badge-kategorie">Schauspiel Extra</span>
+                        </div>
+                        <div class="termin-stadt">Münster</div>
+                        <div class="termin-ort">Theatertreff</div>
+                        <div class="termin-beschreibung">Lesung zum anhaltenden Krieg in der Ukraine. Texte von Wolodymyr Wakulenko und Victoria Amelina.Mit einer Einführung von Prof. Dr. Irina Wutsdorff.</div>
                     </div>
                 </div>
             
@@ -7006,6 +7268,19 @@
                     </div>
                 </div>
             
+                <div class="termin" data-stadt="Münster" data-quelle="theater_muenster">
+                    <div class="termin-zeit">19:00 Uhr</div>
+                    <div class="termin-info">
+                        <div class="termin-name">
+                            <a href="https://neu.theater-muenster.com/produktionen/gedenkkonzert-anlaesslich-vier-jahren-angriffskrieg-auf-die-ukraine-1042.html" target="_blank">Gedenkkonzert anlässlich vier Jahren Angriffskrieg auf die Ukraine</a>
+                            <span class="badge badge-theater">Theater Münster</span> <span class="badge badge-kategorie">Konzert</span>
+                        </div>
+                        <div class="termin-stadt">Münster</div>
+                        <div class="termin-ort">Friedenskapelle</div>
+                        
+                    </div>
+                </div>
+            
                 <div class="termin" data-stadt="Lüdinghausen" data-quelle="muensterland">
                     <div class="termin-zeit">19:00 Uhr</div>
                     <div class="termin-info">
@@ -7115,6 +7390,19 @@
                         <div class="termin-stadt">Lengerich</div>
                         <div class="termin-ort">AWO Ortsverein Lengerich, Schultebeyringstraße 20</div>
                         <div class="termin-beschreibung">Auch im Alter wollen wir noch fit sein. Das geht mit Hockergymnastik.Der Eintritt ist frei und jede:r kann mitmachen.Inklusive Handfunktionstraining.</div>
+                    </div>
+                </div>
+            
+                <div class="termin" data-stadt="Münster" data-quelle="theater_muenster">
+                    <div class="termin-zeit">10:00 Uhr</div>
+                    <div class="termin-info">
+                        <div class="termin-name">
+                            <a href="https://neu.theater-muenster.com/produktionen/funklerwald-921.html" target="_blank">Funklerwald</a>
+                            <span class="badge badge-theater">Theater Münster</span> <span class="badge badge-kategorie">Junges Theater</span>
+                        </div>
+                        <div class="termin-stadt">Münster</div>
+                        <div class="termin-ort">Großes Haus</div>
+                        <div class="termin-beschreibung">Nach dem gleichnamigen Kinderbuch von Stefanie Taschinski für Kinder ab 6 Jahren</div>
                     </div>
                 </div>
             
@@ -7300,6 +7588,19 @@
                     </div>
                 </div>
             
+                <div class="termin" data-stadt="Münster" data-quelle="regioactive">
+                    <div class="termin-zeit">20:00 Uhr</div>
+                    <div class="termin-info">
+                        <div class="termin-name">
+                            <a href="https://www.regioactive.de/konzert/brothers-of-metal-tour-another-muenster-skaters-palace-2026-02-26-tickets-VQjkHLgW96" target="_blank">Brothers Of Metal - Tour...Another!</a>
+                            <span class="badge badge-regioactive">regioactive.de</span>
+                        </div>
+                        <div class="termin-stadt">Münster</div>
+                        <div class="termin-ort">Skaters Palace, Dahlweg 126</div>
+                        <div class="termin-beschreibung">You probably all know about &quot;Mead.. another!&quot; by now. But, what about &quot;Tour.. ANOTHER!&quot; We are super excited to get back on the road for another European tour as headliner. We prom</div>
+                    </div>
+                </div>
+            
                 <div class="termin" data-stadt="Münster" data-quelle="muensterland">
                     <div class="termin-zeit">20:00 Uhr</div>
                     <div class="termin-info">
@@ -7310,6 +7611,32 @@
                         <div class="termin-stadt">Münster</div>
                         <div class="termin-ort">Planetarium, Sentruper Str. 285</div>
                         <div class="termin-beschreibung">Das Planetarium im LWL-Museum für Naturkunde in Münster lädt zu einem besonderen Konzertabend ein. Unter dem Titel „Von Einaudi bis Zimmer – Goldene Klaviermusik unter den Sternen“ präsentiert der </div>
+                    </div>
+                </div>
+            
+                <div class="termin" data-stadt="Münster" data-quelle="regioactive">
+                    <div class="termin-zeit">20:00 Uhr</div>
+                    <div class="termin-info">
+                        <div class="termin-name">
+                            <a href="https://www.regioactive.de/literatur/heinz-strunk-kein-geld-glueck-sprit-muenster-atlantic-hotel-2026-02-26-tickets-z76wPwwXG6" target="_blank">Heinz Strunk - Kein Geld kein Glück kein Sprit</a>
+                            <span class="badge badge-regioactive">regioactive.de</span>
+                        </div>
+                        <div class="termin-stadt">Münster</div>
+                        <div class="termin-ort">ATLANTIC Hotel Münster, Engelstrasse 39</div>
+                        <div class="termin-beschreibung">Wie immer geht’s bei Heinz Strunk Schlag auf Schlag. Im Sommer erschien sein neuer Erzählband „Kein Geld Kein Glück Kein Sprit“ bei Rowohlt, und Ende September legte er mit der Graphic Novel „Graf Fau</div>
+                    </div>
+                </div>
+            
+                <div class="termin" data-stadt="Münster" data-quelle="regioactive">
+                    <div class="termin-zeit">20:00 Uhr</div>
+                    <div class="termin-info">
+                        <div class="termin-name">
+                            <a href="https://www.regioactive.de/comedy/hot-comedy-club-muenster-jazz-2026-02-26-tickets-qW9G43wcWK" target="_blank">Hot Comedy Club</a>
+                            <span class="badge badge-regioactive">regioactive.de</span>
+                        </div>
+                        <div class="termin-stadt">Münster</div>
+                        <div class="termin-ort">Hot Jazz Club, Hafenweg 26b</div>
+                        <div class="termin-beschreibung">Hier treten die besten Comedians der Deutschen Comedyszene mit ihrem bereits erprobten Material auf. Jede Show holt sich der Wahlmünsteraner Daniel „Der“ Storb (Gewinner RTL Comedy Grand Prix, Nightwa</div>
                     </div>
                 </div>
             
@@ -7370,45 +7697,6 @@
                         <div class="termin-stadt">Dülmen</div>
                         <div class="termin-ort">Marktplatz, Viktorstraße 2</div>
                         <div class="termin-beschreibung">&quot;Frisch. Regional. Persönlich.&quot; – genau das erwartet euch jede Woche bei uns auf dem Wochenmarkt!Ob knackiges Obst & Gemüse, hochwertige Fleischwaren, handgemachte Spezialitäten aus der Regi</div>
-                    </div>
-                </div>
-            
-                <div class="termin" data-stadt="Dülmen" data-quelle="muensterland">
-                    <div class="termin-zeit">07:30 Uhr</div>
-                    <div class="termin-info">
-                        <div class="termin-name">
-                            <a href="https://serviceportal.duelmen.de/detail/-/vr-bis-detail/dienstleistung/282/show" target="_blank">Dülmener Wochenmarkt</a>
-                            <span class="badge badge-muensterland">Münsterland</span>
-                        </div>
-                        <div class="termin-stadt">Dülmen</div>
-                        <div class="termin-ort">Marktplatz, Viktorstraße 2</div>
-                        <div class="termin-beschreibung">&quot;Frisch. Regional. Persönlich.&quot; – genau das erwartet euch jede Woche bei uns auf dem Wochenmarkt!Ob knackiges Obst & Gemüse, hochwertige Fleischwaren, handgemachte Spezialitäten aus der Regi</div>
-                    </div>
-                </div>
-            
-                <div class="termin" data-stadt="Lüdinghausen" data-quelle="muensterland">
-                    <div class="termin-zeit">08:00 Uhr</div>
-                    <div class="termin-info">
-                        <div class="termin-name">
-                            <a href="https://www.lhmarketing.de/einkaufen-einkehren/m%C3%A4rkte/der-wochenmarkt/" target="_blank">Wochenmarkt</a>
-                            <span class="badge badge-muensterland">Münsterland</span>
-                        </div>
-                        <div class="termin-stadt">Lüdinghausen</div>
-                        <div class="termin-ort">Lüdinghausen, Markt 5</div>
-                        <div class="termin-beschreibung">Dienstags und freitags ist Wochenmarkt in Lüdinghausen, immer von 8 bis 13 Uhr auf dem Marktplatz. Frisches Obst und Gemüse, Fisch, Fleisch, Brot, Blumen... Das Angebot ist groß.</div>
-                    </div>
-                </div>
-            
-                <div class="termin" data-stadt="Coesfeld" data-quelle="muensterland">
-                    <div class="termin-zeit">08:00 Uhr</div>
-                    <div class="termin-info">
-                        <div class="termin-name">
-                            <span class="termin-toggle" onclick="this.closest('.termin').classList.toggle('expanded')">Wochenmarkt</span>
-                            <span class="badge badge-muensterland">Münsterland</span>
-                        </div>
-                        <div class="termin-stadt">Coesfeld</div>
-                        <div class="termin-ort">Marktplatz Coesfeld, Marktplatz None</div>
-                        <div class="termin-beschreibung">Die Wochenmärkte finden auf dem Coesfelder Marktplatz jeden Dienstag und Freitag von 8:00 bis 12:30 Uhr statt. Angeboten werden: Brot, Eier, Gemüse, Obst, Käse und viele weitere regionale Produkte.</div>
                     </div>
                 </div>
             
@@ -7477,6 +7765,19 @@
                     </div>
                 </div>
             
+                <div class="termin" data-stadt="Münster" data-quelle="lwl_museum">
+                    <div class="termin-zeit">15 - 16:30 Uhr</div>
+                    <div class="termin-info">
+                        <div class="termin-name">
+                            <a href="https://www.lwl-museum-kunst-kultur.de/de/touren-workshops/termine-und-veranstaltungen/?id=1098205" target="_blank">Bei Anruf Kunst!</a>
+                            <span class="badge badge-lwl">LWL-Museum</span> <span class="badge badge-kategorie">Tour</span>
+                        </div>
+                        <div class="termin-stadt">Münster</div>
+                        <div class="termin-ort">LWL-Museum für Kunst und Kultur</div>
+                        <div class="termin-beschreibung">Thema: Von Koch bis Christus  Der akustische Rundgang durch die Sonderausstellung bietet die Möglichkeit, die Kunstwerke von zuhause aus zu...</div>
+                    </div>
+                </div>
+            
                 <div class="termin" data-stadt="Lienen" data-quelle="muensterland">
                     <div class="termin-zeit">16:00 Uhr</div>
                     <div class="termin-info">
@@ -7513,6 +7814,19 @@
                         <div class="termin-stadt">Borken</div>
                         <div class="termin-ort">Stadthalle Vennehof, Am Boltehof 1</div>
                         <div class="termin-beschreibung">Ein Wochenende grafische Kunst ganz nah. Seit jahrzehnten begeistert die Grafikbörse als Marktplatz für künstlerische Druckgrafik Fans und Künstlerinnen und Künstler dies- und jenseits der Grenze.Jähr</div>
+                    </div>
+                </div>
+            
+                <div class="termin" data-stadt="Münster" data-quelle="theater_muenster">
+                    <div class="termin-zeit">16:30 Uhr</div>
+                    <div class="termin-info">
+                        <div class="termin-name">
+                            <a href="https://neu.theater-muenster.com/produktionen/theaterfuehrung-90.html" target="_blank">Theaterführung</a>
+                            <span class="badge badge-theater">Theater Münster</span> <span class="badge badge-kategorie">Sonstiges</span>
+                        </div>
+                        <div class="termin-stadt">Münster</div>
+                        <div class="termin-ort">Treffpunkt Bühneneingang</div>
+                        <div class="termin-beschreibung">Ein Blick hinter die Kulissen des Theater Münster</div>
                     </div>
                 </div>
             
@@ -7594,6 +7908,32 @@
                     </div>
                 </div>
             
+                <div class="termin" data-stadt="Münster" data-quelle="regioactive">
+                    <div class="termin-zeit">20:00 Uhr</div>
+                    <div class="termin-info">
+                        <div class="termin-name">
+                            <a href="https://www.regioactive.de/konzert/gainbombs-der-dumme-august-muenster-heile-welt-2026-02-27-xDL33Gybmf" target="_blank">Gainbombs + Der Dumme August</a>
+                            <span class="badge badge-regioactive">regioactive.de</span>
+                        </div>
+                        <div class="termin-stadt">Münster</div>
+                        <div class="termin-ort">Heile Welt, Hörsterstraße 33</div>
+                        
+                    </div>
+                </div>
+            
+                <div class="termin" data-stadt="Münster" data-quelle="regioactive">
+                    <div class="termin-zeit">20:00 Uhr</div>
+                    <div class="termin-info">
+                        <div class="termin-name">
+                            <a href="https://www.regioactive.de/konzert/hotel-rimini-muenster-gleis-22-2026-02-27-tickets-qk2YZGCSmf" target="_blank">Hotel Rimini</a>
+                            <span class="badge badge-regioactive">regioactive.de</span>
+                        </div>
+                        <div class="termin-stadt">Münster</div>
+                        <div class="termin-ort">Gleis 22, Hafenstr. 34</div>
+                        <div class="termin-beschreibung">Die musikalischen Wurzeln der sechsköpfigen Leipziger Band HOTEL RIMINI kann man auch ohne botanische Expertise als weit verästelt bezeichnen. E-Gitarre, Kontrabass und Drums mischen sich mit Cello un</div>
+                    </div>
+                </div>
+            
                 <div class="termin" data-stadt="Ochtrup" data-quelle="muensterland">
                     <div class="termin-zeit">20:00 Uhr</div>
                     <div class="termin-info">
@@ -7607,6 +7947,19 @@
                     </div>
                 </div>
             
+                <div class="termin" data-stadt="Münster" data-quelle="regioactive">
+                    <div class="termin-zeit">20:00 Uhr</div>
+                    <div class="termin-info">
+                        <div class="termin-name">
+                            <a href="https://www.regioactive.de/konzert/maldito-the-soulphonics-muenster-rareguitar-2026-02-27-tickets-56PSyBYK9y" target="_blank">Maldito + The Soulphonics</a>
+                            <span class="badge badge-regioactive">regioactive.de</span>
+                        </div>
+                        <div class="termin-stadt">Münster</div>
+                        <div class="termin-ort">RareGuitar, Hafenstrasse 64</div>
+                        <div class="termin-beschreibung">Maldito wurde 2015 in Liverpool von Vegard Ring, Bendik Brevik, Gard Rognskog und Jon Olav Alstad gegründet, während ihres Studiums am Liverpool Institute for Performing Arts. Inspiriert von 70er-Rock</div>
+                    </div>
+                </div>
+            
                 <div class="termin" data-stadt="Olfen" data-quelle="muensterland">
                     <div class="termin-zeit">20:00 Uhr</div>
                     <div class="termin-info">
@@ -7617,6 +7970,19 @@
                         <div class="termin-stadt">Olfen</div>
                         <div class="termin-ort">Stadthalle Olfen, Zur Geest 25</div>
                         <div class="termin-beschreibung">Ein Geschenk für die treue Fangemeinde  Fast 25 Jahre MAYBEBOP: Ausverkaufte Konzerttourneen von Berlin bis Saarbrücken, von Flensburg bis Passau, über 200 TV-Auftritten, zwei Jahrzehnte begeisterte </div>
+                    </div>
+                </div>
+            
+                <div class="termin" data-stadt="Münster" data-quelle="regioactive">
+                    <div class="termin-zeit">20:00 Uhr</div>
+                    <div class="termin-info">
+                        <div class="termin-name">
+                            <a href="https://www.regioactive.de/comedy/tobii-live-mutti-friends-muenster-westfalen-kap-8-im-buergerhaus-in-kinderhaus-2026-02-27-tickets-c1FxgTQc1v" target="_blank">Tobii Live - Mutti &amp; Friends</a>
+                            <span class="badge badge-regioactive">regioactive.de</span>
+                        </div>
+                        <div class="termin-stadt">Münster</div>
+                        <div class="termin-ort">Kap.8 im Bürgerhaus in Kinderhaus, Idenbrockplatz 8</div>
+                        <div class="termin-beschreibung">Der Comedy-Senkrechtstarter und Social-Media-Superstar Tobii bringt seine einzigartigen Charaktere endlich auf die Bühne. Auf TikTok und Instagram konnte er durch seinen ganz eigenen Humor und seine a</div>
                     </div>
                 </div>
             
@@ -7643,6 +8009,19 @@
                         <div class="termin-stadt">Telgte</div>
                         <div class="termin-ort">Bürgerhaus Telgte, Baßfeld 9</div>
                         <div class="termin-beschreibung">Es gibt sie noch, die guten Nachrichten: Kürzlich hat ein Mitglied der Letzten Generation ein Kind bekommen. In Berlin gibt es einen Senatsbeschluss, nach dem neue Straßen nur nach weiblichen Personen</div>
+                    </div>
+                </div>
+            
+                <div class="termin" data-stadt="Münster" data-quelle="regioactive">
+                    <div class="termin-zeit">21:00 Uhr</div>
+                    <div class="termin-info">
+                        <div class="termin-name">
+                            <a href="https://www.regioactive.de/konzert/mitch-ryder-songs-from-the-road-tour-2026-muenster-hot-jazz-club-2026-02-27-p5B4m4g7QR" target="_blank">Mitch Ryder - Songs from the Road Tour 2026</a>
+                            <span class="badge badge-regioactive">regioactive.de</span>
+                        </div>
+                        <div class="termin-stadt">Münster</div>
+                        <div class="termin-ort">Hot Jazz Club, Hafenweg 26b</div>
+                        <div class="termin-beschreibung">Mitch Ryder - Songs from the Road Tour 2026Im Februar und März 2026 ist es endlich soweit: Die Rock-Legende Mitch Ryder kehrt mit seiner &quot;Songs from the Road&quot;-Tour nach Europa zurück. Ryder,</div>
                     </div>
                 </div>
             
@@ -7706,19 +8085,6 @@
                     </div>
                 </div>
             
-                <div class="termin" data-stadt="Tecklenburg" data-quelle="muensterland">
-                    <div class="termin-zeit">09:00 Uhr</div>
-                    <div class="termin-info">
-                        <div class="termin-name">
-                            <a href="http://antl-ev.de" target="_blank">Basis-Obstbaum-Schnittkurs in Brochterbeck</a>
-                            <span class="badge badge-muensterland">Münsterland</span>
-                        </div>
-                        <div class="termin-stadt">Tecklenburg</div>
-                        <div class="termin-ort">Ortsteil Brochterbeck</div>
-                        <div class="termin-beschreibung">Damit unsere Obstbäume auch dauerhaft Obst liefern benötigen sie Pflege und auch einen regelmäßigen Schnitt der Krone.Dies zu erlernen ist bei den Obstbaum-Schnittkursen der ANTL möglich. Hier wird Ka</div>
-                    </div>
-                </div>
-            
                 <div class="termin" data-stadt="Beckum" data-quelle="muensterland">
                     <div class="termin-zeit">09:00 Uhr</div>
                     <div class="termin-info">
@@ -7729,6 +8095,19 @@
                         <div class="termin-stadt">Beckum</div>
                         <div class="termin-ort">Deutsch-Türkischer Kulturverein, Sternstraße 2</div>
                         <div class="termin-beschreibung">Möchten Sie Nachbarschaftshilfe leisten? Dann können Sie in unserem Kurs am 28.02.2026 viel über dasLeben von hilfebedürftigen Menschen lernen:Einführung und Umgang mit Erkrankungen· Körperliche und seelische Erkrankungen· Symptome und AuswirkungenPraktische Hilfen und Unterstützung· Erhalt bzw. Förderung einer möglichst selbstständigen Lebensführung· Möglichkeiten und Grenzen von Unterstützung· Grundlagen der HygieneGrundlagen der Kommunikation· Gespräche mit älteren Menschen und deren Familie und anderen im Haushalt tätigen Diensten bzw. Helfer*innen· Umgang mit Menschen mit DemenzNotfallmaßnahmen· Erste-Hilfe-Maßnahmen· Verhalten im NotfallRechtliche Informationen und Abschluss· Leistungen aus der Pflegeversicherung, insbesondere des §45 SGB XI· Betreuungsrecht, Schweigepflicht, HaltungReferentin:Barbara Rüberg-Rechziger, Pflegepädagogin (M.A.) Die Teilnahme ist kostenlos, mittags gibt es einen Imbiss, der wegen Ramadan auch mitgenommen werden kann. Bitte bringen Sie sich dafür ein Gefäß mit.Voraussetzungen für Anerkennung und Abrechnung der Leistungen:· ab 01.01.2024 ist die Absolvierung eines Kurses gem. §45 SGB XIoder eine Bestätigung der Kenntnis über das Informationspaket zur Nachbarschaftshilfe gem. AnFöVO § 11, Absatz 4 vorgeschrieben.· mindestens Pflegegrad 1 der Person, die die Hilfe inAnspruch nimmt· es besteht kein Verwandtschaftsverhältnis 1. und 2.Grades mit der pflegebedürftigen Person:· die Personen leben nicht in einer häuslichen GemeinschaftAn wen richtet sich unser Kurs?· Personen, die sich für Nachbarschaftshilfe interessieren, auf derBasis von Nachbarschaftshilfe tätig werden möchten oder bereits tätig sind. Vorkenntnisse sind nicht erforderlich.Der Kurs ist ein Kooperationsangebot der Stadt Beckum und des Regionalbüro Alter, Pflege und Demenz Münsterland.Wenn Sie selber einen Nachbarschaftshelfer suchen oder sich auf die Warteliste für den nächsten Kurs setzen möchten, wenden Sie sich bitte an:Christina KramerTelefon: 02521 29 5014Email: kramer.c@beckum.deWeststrasse 5759269 Beckum</div>
+                    </div>
+                </div>
+            
+                <div class="termin" data-stadt="Münster" data-quelle="lwl_museum">
+                    <div class="termin-zeit">10:30 - 12:30 Uhr</div>
+                    <div class="termin-info">
+                        <div class="termin-name">
+                            <a href="https://www.lwl-museum-kunst-kultur.de/de/touren-workshops/termine-und-veranstaltungen/?id=1098108" target="_blank">MuKuKu-Klub: Alle Formen sind schon da</a>
+                            <span class="badge badge-lwl">LWL-Museum</span> <span class="badge badge-kategorie">Für Kinder</span>
+                        </div>
+                        <div class="termin-stadt">Münster</div>
+                        <div class="termin-ort">LWL-Museum für Kunst und Kultur</div>
+                        <div class="termin-beschreibung">Ganz unterschiedliche Themen stehen in diesem Workshop auf dem Programm, die sowohl in den Ateliers als auch im Museum gemeinsam entdeckt werden....</div>
                     </div>
                 </div>
             
@@ -7823,6 +8202,32 @@
                     </div>
                 </div>
             
+                <div class="termin" data-stadt="Münster" data-quelle="lwl_museum">
+                    <div class="termin-zeit">14 - 15 Uhr</div>
+                    <div class="termin-info">
+                        <div class="termin-name">
+                            <a href="https://www.lwl-museum-kunst-kultur.de/de/touren-workshops/termine-und-veranstaltungen/?id=1098084" target="_blank">Überblick über die Sammlung</a>
+                            <span class="badge badge-lwl">LWL-Museum</span> <span class="badge badge-kategorie">Führung</span>
+                        </div>
+                        <div class="termin-stadt">Münster</div>
+                        <div class="termin-ort">LWL-Museum für Kunst und Kultur</div>
+                        <div class="termin-beschreibung">Das Kunstgespräch nimmt Highlights der Sammlung vom Mittelalter bis zur Gegenwartskunst in den Fokus....</div>
+                    </div>
+                </div>
+            
+                <div class="termin" data-stadt="Münster" data-quelle="lwl_museum">
+                    <div class="termin-zeit">14 - 16 Uhr</div>
+                    <div class="termin-info">
+                        <div class="termin-name">
+                            <a href="https://www.lwl-museum-kunst-kultur.de/de/touren-workshops/termine-und-veranstaltungen/?id=1098113" target="_blank">Bildschöner Samstag: Lettering für Kids</a>
+                            <span class="badge badge-lwl">LWL-Museum</span> <span class="badge badge-kategorie">Für Kinder</span>
+                        </div>
+                        <div class="termin-stadt">Münster</div>
+                        <div class="termin-ort">LWL-Museum für Kunst und Kultur</div>
+                        <div class="termin-beschreibung">Ganz unterschiedliche Themen stehen in diesem Workshop auf dem Programm, die sowohl in den Ateliers als auch im Museum gemeinsam entdeckt werden....</div>
+                    </div>
+                </div>
+            
                 <div class="termin" data-stadt="Lüdinghausen" data-quelle="muensterland">
                     <div class="termin-zeit">14:00 Uhr</div>
                     <div class="termin-info">
@@ -7833,6 +8238,19 @@
                         <div class="termin-stadt">Lüdinghausen</div>
                         <div class="termin-ort">Burg Lüdinghausen, Amthaus 14</div>
                         <div class="termin-beschreibung">Reinhold Knapp ist den Surrealisten zuzuordnen. In seinen Bildkompositionen setzt er Eindrücke zusammen, die die er oft im Ruhrgebiet findet. Roland Höft beschäftigt sich intensiv mit dem Konzept „Bie</div>
+                    </div>
+                </div>
+            
+                <div class="termin" data-stadt="Münster" data-quelle="regioactive">
+                    <div class="termin-zeit">14:30 Uhr</div>
+                    <div class="termin-info">
+                        <div class="termin-name">
+                            <a href="https://www.regioactive.de/show/musikparade-2026-europas-groesste-tournee-der-militaer-und-blasmusik-muenster-messe-congress-centrum-halle-muensterland-2026-02-28-tickets-5hHK0G78f5" target="_blank">Musikparade 2026 - Europas größte Tournee der Militär- und Blasmusik</a>
+                            <span class="badge badge-regioactive">regioactive.de</span>
+                        </div>
+                        <div class="termin-stadt">Münster</div>
+                        <div class="termin-ort">Messe+Congress Centrum Halle Münsterland, Albersloher Weg 32</div>
+                        <div class="termin-beschreibung">MUSIKPARADE – Europas größte Tournee der Militär- und Blasmusik 400 Musikerinnen und Musiker aus sieben Nationen präsentieren Titel von Military über Klassik oder Swing bis hin zu Rock und Pop: Klassi</div>
                     </div>
                 </div>
             
@@ -7901,6 +8319,19 @@
                     </div>
                 </div>
             
+                <div class="termin" data-stadt="Münster" data-quelle="regioactive">
+                    <div class="termin-zeit">18:30 Uhr</div>
+                    <div class="termin-info">
+                        <div class="termin-name">
+                            <a href="https://www.regioactive.de/konzert/headbang-brawl-lost-in-paradise-nostera-nevermind-muenster-sputnikhalle-2026-02-28-KkqnqByTvv" target="_blank">Headbang Brawl: “Lost in Paradise + Nostera + Nevermind</a>
+                            <span class="badge badge-regioactive">regioactive.de</span>
+                        </div>
+                        <div class="termin-stadt">Münster</div>
+                        <div class="termin-ort">Sputnikhalle, Am Hawerkamp 31</div>
+                        <div class="termin-beschreibung">“Lost in Paradise + Nostera + Nevermind” Einlass: 18.30 Uhr – Beginn: 19.30 Uhr VVK: 10,- € Ak: 12 € “Lost In Paraidse“ https://www.instagram.com/lost_in_paradise_band/ “Nosterah“ https://www.instagra</div>
+                    </div>
+                </div>
+            
                 <div class="termin" data-stadt="Raesfeld" data-quelle="muensterland">
                     <div class="termin-zeit">18:30 Uhr</div>
                     <div class="termin-info">
@@ -7953,16 +8384,16 @@
                     </div>
                 </div>
             
-                <div class="termin" data-stadt="Telgte" data-quelle="muensterland">
-                    <div class="termin-zeit">19:00 Uhr</div>
+                <div class="termin" data-stadt="Münster" data-quelle="theater_muenster">
+                    <div class="termin-zeit">19:30 Uhr</div>
                     <div class="termin-info">
                         <div class="termin-name">
-                            <a href="https://www.telgte.de" target="_blank">Siegfried Becker und Stefan Brauckmann</a>
-                            <span class="badge badge-muensterland">Münsterland</span>
+                            <a href="https://neu.theater-muenster.com/produktionen/alle-mueegt-georg-alle-lieben-george-908.html" target="_blank">Alle müegt Georg (Alle lieben George)</a>
+                            <span class="badge badge-theater">Theater Münster</span> <span class="badge badge-kategorie">Niederdeutsche Bühne</span>
                         </div>
-                        <div class="termin-stadt">Telgte</div>
-                        <div class="termin-ort">Bürgerhaus Telgte, Baßfeld 9</div>
-                        <div class="termin-beschreibung">Entdecken Sie Telgte aus Perspektiven, die Ihnen bisher verborgen blieben! Siegfried Becker und Stefan Brauckmann, zwei leidenschaftliche Drohnenpiloten, haben die Stadt über einen Zeitraum von sieben</div>
+                        <div class="termin-stadt">Münster</div>
+                        <div class="termin-ort">Kleines Haus</div>
+                        <div class="termin-beschreibung">Alan Ayckbourn</div>
                     </div>
                 </div>
             
@@ -7992,6 +8423,19 @@
                     </div>
                 </div>
             
+                <div class="termin" data-stadt="Münster" data-quelle="regioactive">
+                    <div class="termin-zeit">20:00 Uhr</div>
+                    <div class="termin-info">
+                        <div class="termin-name">
+                            <a href="https://www.regioactive.de/konzert/atomic-a-blondie-tribute-band-live-heile-welt-muenster-2026-02-28-cV5mg9SH8b" target="_blank">ATOMIC A BLONDIE TRIBUTE BAND LIVE HEILE WELT</a>
+                            <span class="badge badge-regioactive">regioactive.de</span>
+                        </div>
+                        <div class="termin-stadt">Münster</div>
+                        <div class="termin-ort">Heile Welt, Hörsterstraße 33</div>
+                        
+                    </div>
+                </div>
+            
                 <div class="termin" data-stadt="Münster" data-quelle="muensterland">
                     <div class="termin-zeit">20:00 Uhr</div>
                     <div class="termin-info">
@@ -8015,6 +8459,32 @@
                         <div class="termin-stadt">Billerbeck</div>
                         <div class="termin-ort">Geschwister-Eichenwald-Aula, An der Kolvenburg 12</div>
                         <div class="termin-beschreibung">ABBA-Fieber in Billerbeck! Nach dem gefeierten Konzert 2024 kehrt „ONE NIGHT IN SWEDEN – A TRIBUTE SHOW TO ABBA“ im Februar 2026 nach Billerbeck zurück. NOBLE COMPOSITION bringt mit ihrer hochkarätige</div>
+                    </div>
+                </div>
+            
+                <div class="termin" data-stadt="Münster" data-quelle="regioactive">
+                    <div class="termin-zeit">20:00 Uhr</div>
+                    <div class="termin-info">
+                        <div class="termin-name">
+                            <a href="https://www.regioactive.de/konzert/pearl-jam-tribute-given2fly-muenster-rareguitar-2026-02-28-lVsDXbD31b" target="_blank">Pearl Jam Tribute - Given2fly</a>
+                            <span class="badge badge-regioactive">regioactive.de</span>
+                        </div>
+                        <div class="termin-stadt">Münster</div>
+                        <div class="termin-ort">RareGuitar, Hafenstrasse 64</div>
+                        <div class="termin-beschreibung">GIVEN 2 FLY Die Pearl Jam-Tribute Band Das sind fünf waschechte Pearl-Jam-Fans der ersten Stunde. Entsprechend tief sitzen die Lieder dieser unglaublichen Band in ihren Herzen. Die unüberhörbare Spiel</div>
+                    </div>
+                </div>
+            
+                <div class="termin" data-stadt="Münster" data-quelle="regioactive">
+                    <div class="termin-zeit">20:00 Uhr</div>
+                    <div class="termin-info">
+                        <div class="termin-name">
+                            <a href="https://www.regioactive.de/konzert/rar-1996-tour-muenster-gleis-22-2026-02-28-tickets-9mkCCxT13g" target="_blank">RAR - 1996 Tour</a>
+                            <span class="badge badge-regioactive">regioactive.de</span>
+                        </div>
+                        <div class="termin-stadt">Münster</div>
+                        <div class="termin-ort">Gleis 22, Hafenstr. 34</div>
+                        <div class="termin-beschreibung">Zurückhaltende Arrangements und ein Hang zur analog-gefärbten Melancholie: der ehemalige Fibel-Sänger Jonas Pentzek startete 2021 sein Solo-Projekt RAR – knapp vier Jahre später released er seine 3. E</div>
                     </div>
                 </div>
             
@@ -8044,6 +8514,45 @@
                     </div>
                 </div>
             
+                <div class="termin" data-stadt="Münster" data-quelle="regioactive">
+                    <div class="termin-zeit">21:00 Uhr</div>
+                    <div class="termin-info">
+                        <div class="termin-name">
+                            <a href="https://www.regioactive.de/konzert/cecile-verny-quartet-hot-jazz-club-muenster-2026-02-28-tickets-z27WMk7jdS" target="_blank">Cécile Verny Quartet | Hot Jazz Club</a>
+                            <span class="badge badge-regioactive">regioactive.de</span>
+                        </div>
+                        <div class="termin-stadt">Münster</div>
+                        <div class="termin-ort">Hot Jazz Club, Hafenweg 26b</div>
+                        <div class="termin-beschreibung">Wenn es mal nicht so drauf ankommt, ob es um Jazz oder im Pop geht, wenn Begriffe wie Coolness und Abgeklärtheit Nebensache sind, wenn also das Cécile Verny Quartet antritt, die Grenzen verschwimmen z</div>
+                    </div>
+                </div>
+            
+                <div class="termin" data-stadt="Münster" data-quelle="regioactive">
+                    <div class="termin-zeit">22:00 Uhr</div>
+                    <div class="termin-info">
+                        <div class="termin-name">
+                            <a href="https://www.regioactive.de/party/alles-ausser-bohlen-die-80er-party-rockt-muenster-sputnik-cafe-2026-02-28-XY4Q4YGlYQ" target="_blank">Alles außer Bohlen! Die 80er-Party die rockt!</a>
+                            <span class="badge badge-regioactive">regioactive.de</span>
+                        </div>
+                        <div class="termin-stadt">Münster</div>
+                        <div class="termin-ort">Sputnik Café, Am Hawerkamp 31</div>
+                        
+                    </div>
+                </div>
+            
+                <div class="termin" data-stadt="Münster" data-quelle="regioactive">
+                    <div class="termin-zeit">23:00 Uhr</div>
+                    <div class="termin-info">
+                        <div class="termin-name">
+                            <a href="https://www.regioactive.de/party/rock-cafe-mit-rockmoeller-2-floor-der-alles-ausser-bohlen-muenster-sputnik-2026-02-28-DkzNkQYhkv" target="_blank">Rock-Café mit Rockmöller (2. Floor der Alles außer Bohlen!)</a>
+                            <span class="badge badge-regioactive">regioactive.de</span>
+                        </div>
+                        <div class="termin-stadt">Münster</div>
+                        <div class="termin-ort">Sputnik Café, Am Hawerkamp 31</div>
+                        <div class="termin-beschreibung">* Achtung: Vorher Konzert im Sputnik Café! * Rock, Alternative, Crossover, Metal, Indie & mehr mit DJ Rockmöller - 2. Floor der 80er-Party Alles außer Bohlen! FB-Event für den Main Floor in der großen</div>
+                    </div>
+                </div>
+            
             </div>
             <div class="zurueck-link"><a href="#kalender">&#8593; Kalender</a></div>
         </div>
@@ -8051,11 +8560,14 @@
         </main>
 
         <footer>
-            Generiert am 24.02.2026 um 15:21 Uhr<br>
+            Generiert am 24.02.2026 um 15:38 Uhr<br>
             Quellen:
             <a href="https://www.muensterland.com/tourismus/service/veranstaltungen-im-muensterland/" target="_blank">muensterland.com</a> &middot;
             <a href="https://www.digitalhub.ms" target="_blank">Digital Hub münsterLAND</a> &middot;
-            <a href="https://www.mcc-halle-muensterland.de" target="_blank">Halle Münsterland</a>
+            <a href="https://www.mcc-halle-muensterland.de" target="_blank">Halle Münsterland</a> &middot;
+            <a href="https://www.regioactive.de/events/21196/muenster/veranstaltungen-party-konzerte" target="_blank">regioactive.de</a> &middot;
+            <a href="https://neu.theater-muenster.com/spielplan" target="_blank">Theater Münster</a> &middot;
+            <a href="https://www.lwl-museum-kunst-kultur.de/de/touren-workshops/termine-und-veranstaltungen/" target="_blank">LWL-Museum</a>
         </footer>
     </div>
 

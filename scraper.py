@@ -1,6 +1,7 @@
 """API-Client für Veranstaltungen aus dem Münsterland (muensterland.com + Digital Hub + Halle Münsterland)."""
 
 import re
+import json
 import requests
 from dataclasses import dataclass, field
 from datetime import datetime
@@ -18,6 +19,15 @@ DIGITALHUB_API_KEY = "089d362b33ef053d7fcd241d823d27d1"  # Öffentlicher Demo-Ke
 
 # Halle Münsterland
 HALLE_MUENSTERLAND_URL = "https://www.mcc-halle-muensterland.de/de/gaeste/veranstaltungen/"
+
+# regioactive Münster (City-ID 21196)
+REGIOACTIVE_MS_URL = "https://www.regioactive.de/events/21196/muenster/veranstaltungen-party-konzerte/monat/{jahr}-{monat:02d}"
+
+# Theater Münster
+THEATER_MS_URL = "https://neu.theater-muenster.com/spielplan"
+
+# LWL-Museum für Kunst und Kultur
+LWL_MUSEUM_URL = "https://www.lwl-museum-kunst-kultur.de/de/touren-workshops/termine-und-veranstaltungen/"
 
 HEADERS = {
     'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36'
@@ -336,5 +346,246 @@ def hole_halle_muensterland_events(jahr: int, monat: int) -> list[Veranstaltung]
             quelle='halle_muensterland',
             kategorie='Konzert/Show'
         ))
+
+    return veranstaltungen
+
+
+def hole_regioactive_ms(jahr: int, monat: int) -> list[Veranstaltung]:
+    """Holt Events von regioactive.de Münster via JSON-LD."""
+    url = REGIOACTIVE_MS_URL.format(jahr=jahr, monat=monat)
+    try:
+        response = requests.get(url, headers=HEADERS, timeout=30)
+        response.raise_for_status()
+    except requests.RequestException as e:
+        print(f"  regioactive MS Fehler: {e}")
+        return []
+
+    soup = BeautifulSoup(response.text, 'html.parser')
+    veranstaltungen = []
+
+    for script in soup.find_all('script', type='application/ld+json'):
+        try:
+            data = json.loads(script.string)
+        except (json.JSONDecodeError, TypeError):
+            continue
+
+        # Beide Formate abdecken: ItemList und einzelne Events
+        events = []
+        if data.get('@type') == 'ItemList':
+            for item in data.get('itemListElement', []):
+                ev = item.get('item', {})
+                if ev.get('@type') == 'Event':
+                    events.append(ev)
+        elif data.get('@type') == 'Event':
+            events.append(data)
+
+        for event in events:
+            name = event.get('name', '').strip()
+            if not name:
+                continue
+
+            start = event.get('startDate', '')
+            if not start:
+                continue
+            try:
+                datum = datetime.fromisoformat(start).replace(tzinfo=None)
+            except ValueError:
+                continue
+
+            if datum.year != jahr or datum.month != monat:
+                continue
+
+            uhrzeit = datum.strftime('%H:%M Uhr') if (datum.hour or datum.minute) else 'ganztägig'
+
+            location = event.get('location', {}) if isinstance(event.get('location'), dict) else {}
+            ort = location.get('name', '')
+            adresse = location.get('address', {}) if isinstance(location.get('address'), dict) else {}
+            if adresse.get('streetAddress') and ort:
+                ort = f"{ort}, {adresse['streetAddress']}"
+
+            link = event.get('url', '')
+            beschreibung = _html_zu_text(event.get('description', ''))[:300]
+
+            veranstaltungen.append(Veranstaltung(
+                name=name[:150],
+                datum=datum,
+                uhrzeit=uhrzeit,
+                ort=ort[:150],
+                stadt='Münster',
+                link=link,
+                beschreibung=beschreibung,
+                quelle='regioactive',
+            ))
+
+    return veranstaltungen
+
+
+def hole_theater_muenster(jahr: int, monat: int) -> list[Veranstaltung]:
+    """Holt den Spielplan des Theater Münster via HTML-Scraping."""
+    url = f"{THEATER_MS_URL}?date={jahr:04d}-{monat:02d}"
+    try:
+        response = requests.get(url, headers=HEADERS, timeout=30)
+        response.raise_for_status()
+    except requests.RequestException as e:
+        print(f"  Theater Münster Fehler: {e}")
+        return []
+
+    soup = BeautifulSoup(response.text, 'html.parser')
+    veranstaltungen = []
+
+    for perf in soup.find_all('div', class_='tm-performance'):
+        # Tag aus dayNumber (kann Anker-Tags enthalten)
+        day_elem = perf.find('div', class_='tm-performance__dayNumber')
+        if not day_elem:
+            continue
+        m = re.search(r'\d+', day_elem.get_text())
+        if not m:
+            continue
+        tag = int(m.group())
+        if not 1 <= tag <= 31:
+            continue
+
+        # Uhrzeit: "16.30 Uhr" → "16:30 Uhr"
+        time_elem = perf.find('div', class_='tm-performance__performanceTime')
+        uhrzeit_raw = time_elem.get_text(strip=True) if time_elem else ''
+        uhrzeit = re.sub(r'(\d{1,2})\.(\d{2})\s*Uhr', r'\1:\2 Uhr', uhrzeit_raw) if uhrzeit_raw else 'siehe Website'
+
+        # Ort / Bühne
+        loc_elem = perf.find('div', class_='tm-performance__location')
+        ort = loc_elem.get_text(strip=True) if loc_elem else 'Theater Münster'
+
+        # Titel + Link
+        prod_div = perf.find('div', class_='tm-performance__productionName')
+        if not prod_div:
+            continue
+        link_elem = prod_div.find('a')
+        if not link_elem:
+            continue
+        name = link_elem.get_text(strip=True)
+        href = link_elem.get('href', '')
+        link = f"https://neu.theater-muenster.com{href}" if href.startswith('/') else href
+
+        if not name:
+            continue
+
+        # Kategorie
+        cat_elem = perf.find('li', class_='tm-performance__category')
+        kategorie = cat_elem.get_text(strip=True) if cat_elem else ''
+
+        # Kurzbeschreibung
+        info_elem = perf.find('div', class_='tm-performance__productionInfo')
+        beschreibung = info_elem.get_text(strip=True) if info_elem else ''
+
+        try:
+            datum = datetime(jahr, monat, tag)
+        except ValueError:
+            continue
+
+        veranstaltungen.append(Veranstaltung(
+            name=name[:150],
+            datum=datum,
+            uhrzeit=uhrzeit,
+            ort=ort[:150],
+            stadt='Münster',
+            link=link,
+            beschreibung=beschreibung[:200],
+            quelle='theater_muenster',
+            kategorie=kategorie,
+        ))
+
+    return veranstaltungen
+
+
+def hole_lwl_museum(jahr: int, monat: int) -> list[Veranstaltung]:
+    """Holt Veranstaltungen vom LWL-Museum für Kunst und Kultur via HTML-Scraping."""
+    letzter_tag = monthrange(jahr, monat)[1]
+    von = f"01.{monat:02d}.{jahr}"
+    bis = f"{letzter_tag:02d}.{monat:02d}.{jahr}"
+
+    veranstaltungen = []
+    MAX_SEITEN = 10
+
+    for seite in range(1, MAX_SEITEN + 1):
+        url = f"{LWL_MUSEUM_URL}?vom={von}&bis={bis}&p={seite}"
+        try:
+            response = requests.get(url, headers=HEADERS, timeout=30)
+            response.raise_for_status()
+        except requests.RequestException as e:
+            print(f"  LWL Museum Fehler (Seite {seite}): {e}")
+            break
+
+        soup = BeautifulSoup(response.text, 'html.parser')
+        event_elems = soup.find_all('div', class_='event-element')
+        if not event_elems:
+            break
+
+        for elem in event_elems:
+            # Datum: "Dienstag, 24.2.2026" → datetime
+            date_p = elem.find('p', class_='event-date')
+            if not date_p:
+                continue
+            date_text = date_p.get_text(strip=True)
+            date_part = date_text.split(',', 1)[1].strip() if ',' in date_text else date_text
+            try:
+                parts = [p.strip() for p in date_part.split('.')]
+                datum = datetime(int(parts[2]), int(parts[1]), int(parts[0]))
+            except (ValueError, IndexError):
+                continue
+
+            if datum.year != jahr or datum.month != monat:
+                continue
+
+            # Uhrzeit: "10.30 - 12.30 Uhr" → "10:30 - 12:30 Uhr"
+            time_p = elem.find('p', class_='event-time')
+            uhrzeit_raw = time_p.get_text(strip=True) if time_p else 'siehe Website'
+            uhrzeit = re.sub(r'(\d{1,2})\.(\d{2})', r'\1:\2', uhrzeit_raw)
+
+            # Titel: <h4 class="event-title"><span id="event-title-XXXXX">
+            title_h4 = elem.find('h4', class_='event-title')
+            if not title_h4:
+                continue
+            title_span = title_h4.find('span', id=re.compile(r'^event-title-'))
+            if not title_span:
+                continue
+            name = title_span.get_text(strip=True)
+            event_id = title_span.get('id', '').replace('event-title-', '')
+            link = f"https://www.lwl-museum-kunst-kultur.de/de/touren-workshops/termine-und-veranstaltungen/?id={event_id}" if event_id else ''
+
+            if not name:
+                continue
+
+            # Beschreibung
+            desc_p = elem.find('p', class_='event-description')
+            beschreibung = desc_p.get_text(strip=True) if desc_p else ''
+
+            # Kategorie (Zielgruppe)
+            type_p = elem.find('p', class_='event-type')
+            kategorie = type_p.get_text(strip=True) if type_p else ''
+
+            veranstaltungen.append(Veranstaltung(
+                name=name[:150],
+                datum=datum,
+                uhrzeit=uhrzeit,
+                ort='LWL-Museum für Kunst und Kultur',
+                stadt='Münster',
+                link=link,
+                beschreibung=beschreibung[:200],
+                quelle='lwl_museum',
+                kategorie=kategorie,
+            ))
+
+        # Gibt es eine nächste Seite?
+        pagination = soup.find('ul', class_='pagination')
+        if not pagination:
+            break
+        # Suche nach aktivem Element und ob danach noch eines folgt
+        items = pagination.find_all('li')
+        aktiv_idx = next((i for i, li in enumerate(items) if 'active' in li.get('class', [])), None)
+        if aktiv_idx is None or aktiv_idx >= len(items) - 2:  # letztes li ist meist "›"
+            break
+        # Prüfe ob "next"-Link tatsächlich eine Seite verlinkt
+        next_li = items[aktiv_idx + 1] if aktiv_idx + 1 < len(items) else None
+        if not next_li or not next_li.find('a', href=True):
+            break
 
     return veranstaltungen
