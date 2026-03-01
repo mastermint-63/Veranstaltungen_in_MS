@@ -2,5 +2,8 @@ __pycache__/
 *.pyc
 .DS_Store
 launchd.log
+.env
+.env.local
+*_session.json
 # HTML-Dateien werden für GitHub Pages benötigt
 # veranstaltungen_*.html
