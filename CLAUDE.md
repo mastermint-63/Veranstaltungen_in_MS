@@ -11,7 +11,7 @@ Veranstaltungs-Dashboard für das Münsterland (WDR Studio Münster). Sammelt Ev
 | muensterland.com | POST-API, paginiert | ~500 | Allgemeine Veranstaltungen Münsterland |
 | Digital Hub münsterLAND | REST-API (GET) | ~2–5 | Startup- und Tech-Events |
 | Halle Münsterland | HTML-Scraping | ~8–10 | Konzerte, Shows, Messen |
-| regioactive.de | JSON-LD, `/monat/YYYY-MM` | ~40–50 | Konzerte, Partys, Clubs Münster |
+| regioactive.de | JSON-LD, `/monat/YYYY-MM` | ~130–150 | Konzerte, Partys, Clubs — 15 Städte in 4 Kreisen |
 | Theater Münster | HTML-Scraping, `?date=YYYY-MM` | ~20–30 | Spielplan Stadttheater |
 | LWL-Museum | HTML-Scraping, `?vom=&bis=` | ~60–70 | Touren, Workshops, Events |
 
@@ -65,14 +65,17 @@ tail -f launchd.log                            # Live-Log anzeigen
 
 ### scraper.py
 
-Enthält `Veranstaltung`-Dataclass und alle Scraper-Funktionen:
+`Veranstaltung`-Dataclass: `name`, `datum` (datetime), `uhrzeit`, `ort`, `stadt`, `link`, `beschreibung`, `quelle`, `kategorie`. Sortierung via `__lt__` nach `(datum, uhrzeit, name)`.
+
+Alle Scraper-Funktionen:
 
 | Funktion | Quelle | Methode |
 |----------|--------|---------|
 | `hole_veranstaltungen(jahr, monat)` | muensterland.com | POST, paginiert (100/Seite), `end_datetime` für "Läuft bis"-Hinweis |
 | `hole_digitalhub_events(jahr, monat)` | digitalhub.ms | GET mit API-Token |
 | `hole_halle_muensterland_events(jahr, monat)` | mcc-halle-muensterland.de | HTML, `div.card[data-date]` |
-| `hole_regioactive_ms(jahr, monat)` | regioactive.de (City-ID 21196) | JSON-LD Events, `/monat/YYYY-MM` |
+| `_hole_regioactive_stadt(city_id, slug, stadtname, jahr, monat)` | Hilfer für einzelne Stadt | JSON-LD, beide Formate (`Event` + `ItemList`) |
+| `hole_regioactive_ms(jahr, monat)` | regioactive.de (15 Städte, `REGIOACTIVE_STAEDTE`-Liste) | Ruft `_hole_regioactive_stadt()` für jede Stadt auf |
 | `hole_theater_muenster(jahr, monat)` | neu.theater-muenster.com | HTML, `div.tm-performance`, `?date=YYYY-MM` |
 | `hole_lwl_museum(jahr, monat)` | lwl-museum-kunst-kultur.de | HTML, `div.event-element`, `?vom=&bis=`, paginiert |
 
@@ -126,8 +129,20 @@ GET `https://www.digitalhub.ms/api/events?api_token=089d362b33ef053d7fcd241d823d
 
 ### regioactive.de
 
-GET `https://www.regioactive.de/events/21196/muenster/veranstaltungen-party-konzerte/monat/YYYY-MM`
+URL-Template: `https://www.regioactive.de/events/{city_id}/{slug}/veranstaltungen-party-konzerte/monat/YYYY-MM`
+
+Aktuelle Städte in `REGIOACTIVE_STAEDTE` (scraper.py):
+
+| Kreis | Städte |
+|-------|--------|
+| Münster/Kreis Borken | Münster (21196), Bocholt (14632), Borken (14777), Ahaus (13413), Gronau (17403) |
+| Kreis Steinfurt | Rheine (23060), Ibbenbüren (18765), Emsdetten (16195) |
+| Kreis Warendorf | Ahlen (13419), Warendorf (25692), Oelde (22076), Telgte (24873), Beckum (14190) |
+| Kreis Coesfeld | Coesfeld (15317), Billerbeck (14494) |
+
 JSON-LD `@type: Event` in `<script>`-Tags, auch als `ItemList` möglich — beide Formate werden unterstützt.
+
+**Neue Stadt hinzufügen:** City-ID über `https://www.regioactive.de/radius/searchloc?term=Stadtname` ermitteln (`locid`-Feld). Nur Städte mit eigenem `/monat/`-Index liefern Events — kleinere Orte ohne Index haben 0 Events.
 
 ### Theater Münster
 

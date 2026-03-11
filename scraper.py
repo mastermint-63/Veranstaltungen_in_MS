@@ -22,11 +22,24 @@ HALLE_MUENSTERLAND_URL = "https://www.mcc-halle-muensterland.de/de/gaeste/verans
 
 # regioactive — Städte mit City-ID und URL-Slug
 REGIOACTIVE_STAEDTE = [
-    (21196, 'muenster',  'Münster'),
-    (14632, 'bocholt',   'Bocholt'),
-    (14777, 'borken',    'Borken'),
-    (13413, 'ahaus',     'Ahaus'),
-    (17403, 'gronau',    'Gronau'),
+    (21196, 'muenster',   'Münster'),
+    (14632, 'bocholt',    'Bocholt'),
+    (14777, 'borken',     'Borken'),
+    (13413, 'ahaus',      'Ahaus'),
+    (17403, 'gronau',     'Gronau'),
+    # Kreis Steinfurt
+    (23060, 'rheine',     'Rheine'),
+    (18765, 'ibbenbueren','Ibbenbüren'),
+    (16195, 'emsdetten',  'Emsdetten'),
+    # Kreis Warendorf
+    (13419, 'ahlen',      'Ahlen'),
+    (25692, 'warendorf',  'Warendorf'),
+    (22076, 'oelde',      'Oelde'),
+    (24873, 'telgte',     'Telgte'),
+    (14190, 'beckum',     'Beckum'),
+    # Kreis Coesfeld
+    (15317, 'coesfeld',   'Coesfeld'),
+    (14494, 'billerbeck', 'Billerbeck'),
 ]
 REGIOACTIVE_URL_TEMPLATE = "https://www.regioactive.de/events/{city_id}/{slug}/veranstaltungen-party-konzerte/monat/{jahr}-{monat:02d}"
 

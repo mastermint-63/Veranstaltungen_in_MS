@@ -1,5 +1,6 @@
 #!/bin/bash
 # Öffnet die Veranstaltungen des aktuellen Monats im Browser
+cd "$(dirname "$0")"
 JAHR=$(date +%Y)
 MONAT=$(date +%m)
-open "/Users/fs/claude/Veranstaltungen_in_MS/veranstaltungen_${JAHR}_${MONAT}.html"
+open "veranstaltungen_${JAHR}_${MONAT}.html"
