@@ -10,6 +10,7 @@ Verwendung:
     python3 app.py --no-browser # Ohne Browser öffnen
 """
 
+import html as _html
 import os
 import re
 import webbrowser
@@ -154,31 +155,37 @@ def generiere_html(veranstaltungen: list[Veranstaltung], jahr: int, monat: int,
         '''
 
         for v in sorted(tage, key=lambda x: (x.uhrzeit == 'ganztägig', x.uhrzeit, x.name)):
-            beschreibung_raw = v.beschreibung.replace('"', '&quot;').replace('\n', ' ')
-            beschreibung_escaped = beschreibung_raw[:200] if v.link else beschreibung_raw
+            name_esc = _html.escape(v.name)
+            stadt_esc = _html.escape(v.stadt)
+            uhrzeit_esc = _html.escape(v.uhrzeit)
+            ort_esc = _html.escape(v.ort) if v.ort else ''
+            kategorie_esc = _html.escape(v.kategorie) if v.kategorie else ''
+            beschreibung_escaped = _html.escape(v.beschreibung)
+            beschreibung_escaped = beschreibung_escaped[:200] if v.link else beschreibung_escaped
+            link_safe = v.link if v.link and v.link.startswith(('http://', 'https://')) else ''
 
             # Badge für Quelle
             badge_cls, badge_label = BADGE_CONFIG.get(v.quelle, ('badge-muensterland', 'Münsterland'))
             badge_html = f'<span class="badge {badge_cls}">{badge_label}</span>'
-            if v.kategorie:
-                badge_html += f' <span class="badge badge-kategorie">{v.kategorie}</span>'
+            if kategorie_esc:
+                badge_html += f' <span class="badge badge-kategorie">{kategorie_esc}</span>'
 
             # Name: als Link oder aufklappbar
-            if v.link:
-                name_html = f'<a href="{v.link}" target="_blank">{v.name}</a>'
+            if link_safe:
+                name_html = f'<a href="{link_safe}" target="_blank" rel="noopener noreferrer">{name_esc}</a>'
             else:
-                name_html = f'<span class="termin-toggle" onclick="this.closest(\'.termin\').classList.toggle(\'expanded\')">{v.name}</span>'
+                name_html = f'<span class="termin-toggle" onclick="this.closest(\'.termin\').classList.toggle(\'expanded\')">{name_esc}</span>'
 
             termine_html += f'''
-                <div class="termin" data-stadt="{v.stadt}" data-quelle="{v.quelle}">
-                    <div class="termin-zeit">{v.uhrzeit}</div>
+                <div class="termin" data-stadt="{stadt_esc}" data-quelle="{v.quelle}">
+                    <div class="termin-zeit">{uhrzeit_esc}</div>
                     <div class="termin-info">
                         <div class="termin-name">
                             {name_html}
                             {badge_html}
                         </div>
-                        <div class="termin-stadt">{v.stadt}</div>
-                        {f'<div class="termin-ort">{v.ort}</div>' if v.ort else ''}
+                        <div class="termin-stadt">{stadt_esc}</div>
+                        {f'<div class="termin-ort">{ort_esc}</div>' if ort_esc else ''}
                         {f'<div class="termin-beschreibung">{beschreibung_escaped}</div>' if beschreibung_escaped else ''}
                     </div>
                 </div>
@@ -193,7 +200,8 @@ def generiere_html(veranstaltungen: list[Veranstaltung], jahr: int, monat: int,
     # Filter-Optionen Stadt
     filter_html = '<option value="">Alle Städte</option>'
     for stadt in alle_staedte:
-        filter_html += f'<option value="{stadt}">{stadt}</option>'
+        stadt_esc = _html.escape(stadt)
+        filter_html += f'<option value="{stadt_esc}">{stadt_esc}</option>'
 
     # Dynamischer Quellen-Filter (nur vorhandene Quellen)
     quellen_filter = '<option value="">Alle Quellen</option>'
@@ -650,12 +658,12 @@ def generiere_html(veranstaltungen: list[Veranstaltung], jahr: int, monat: int,
         <footer>
             Generiert am {datetime.now().strftime('%d.%m.%Y um %H:%M Uhr')}<br>
             Quellen:
-            <a href="https://www.muensterland.com/tourismus/service/veranstaltungen-im-muensterland/" target="_blank">muensterland.com</a> &middot;
-            <a href="https://www.digitalhub.ms" target="_blank">Digital Hub münsterLAND</a> &middot;
-            <a href="https://www.mcc-halle-muensterland.de" target="_blank">Halle Münsterland</a> &middot;
-            <a href="https://www.regioactive.de/events/21196/muenster/veranstaltungen-party-konzerte" target="_blank">regioactive.de</a> &middot;
-            <a href="https://neu.theater-muenster.com/spielplan" target="_blank">Theater Münster</a> &middot;
-            <a href="https://www.lwl-museum-kunst-kultur.de/de/touren-workshops/termine-und-veranstaltungen/" target="_blank">LWL-Museum</a>
+            <a href="https://www.muensterland.com/tourismus/service/veranstaltungen-im-muensterland/" target="_blank" rel="noopener noreferrer">muensterland.com</a> &middot;
+            <a href="https://www.digitalhub.ms" target="_blank" rel="noopener noreferrer">Digital Hub münsterLAND</a> &middot;
+            <a href="https://www.mcc-halle-muensterland.de" target="_blank" rel="noopener noreferrer">Halle Münsterland</a> &middot;
+            <a href="https://www.regioactive.de/events/21196/muenster/veranstaltungen-party-konzerte" target="_blank" rel="noopener noreferrer">regioactive.de</a> &middot;
+            <a href="https://neu.theater-muenster.com/spielplan" target="_blank" rel="noopener noreferrer">Theater Münster</a> &middot;
+            <a href="https://www.lwl-museum-kunst-kultur.de/de/touren-workshops/termine-und-veranstaltungen/" target="_blank" rel="noopener noreferrer">LWL-Museum</a>
         </footer>
     </div>
 

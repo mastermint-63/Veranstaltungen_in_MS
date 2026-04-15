@@ -3,7 +3,7 @@
 import re
 import json
 import requests
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from datetime import datetime
 from calendar import monthrange
 from html import unescape
@@ -52,6 +52,20 @@ LWL_MUSEUM_URL = "https://www.lwl-museum-kunst-kultur.de/de/touren-workshops/ter
 HEADERS = {
     'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36'
 }
+
+
+def _request_mit_retry(method, url, **kwargs):
+    """Führt einen HTTP-Request mit 1x Retry (2s Pause) bei Fehler aus."""
+    import time
+    try:
+        response = requests.request(method, url, **kwargs)
+        response.raise_for_status()
+        return response
+    except requests.RequestException:
+        time.sleep(2)
+        response = requests.request(method, url, **kwargs)
+        response.raise_for_status()
+        return response
 
 
 @dataclass
@@ -174,8 +188,7 @@ def hole_veranstaltungen(jahr: int, monat: int) -> list[Veranstaltung]:
         }
 
         try:
-            response = requests.post(API_URL, data=params, headers=HEADERS, timeout=30)
-            response.raise_for_status()
+            response = _request_mit_retry('POST', API_URL, data=params, headers=HEADERS, timeout=30)
             daten = response.json()
         except (requests.RequestException, ValueError) as e:
             print(f"  Fehler beim Abrufen (Seite {seite}): {e}")
@@ -213,8 +226,7 @@ def hole_digitalhub_events(jahr: int, monat: int) -> list[Veranstaltung]:
     }
 
     try:
-        response = requests.get(DIGITALHUB_API_URL, params=params, headers=HEADERS, timeout=30)
-        response.raise_for_status()
+        response = _request_mit_retry('GET', DIGITALHUB_API_URL, params=params, headers=HEADERS, timeout=30)
         daten = response.json()
     except (requests.RequestException, ValueError) as e:
         print(f"  Digital Hub API-Fehler: {e}")
@@ -270,7 +282,7 @@ def hole_digitalhub_events(jahr: int, monat: int) -> list[Veranstaltung]:
         if not name:
             continue
 
-        link = event.get('link_url', '') or f"https://www.digitalhub.ms/events"
+        link = event.get('link_url', '') or "https://www.digitalhub.ms/events"
 
         # Beschreibung
         beschreibung = event.get('desc', '').strip()[:300]
@@ -300,8 +312,7 @@ def hole_digitalhub_events(jahr: int, monat: int) -> list[Veranstaltung]:
 def hole_halle_muensterland_events(jahr: int, monat: int) -> list[Veranstaltung]:
     """Holt Events von der Halle Münsterland für einen bestimmten Monat."""
     try:
-        response = requests.get(HALLE_MUENSTERLAND_URL, headers=HEADERS, timeout=30)
-        response.raise_for_status()
+        response = _request_mit_retry('GET', HALLE_MUENSTERLAND_URL, headers=HEADERS, timeout=30)
     except requests.RequestException as e:
         print(f"  Halle Münsterland Fehler: {e}")
         return []
@@ -388,8 +399,7 @@ def _hole_regioactive_stadt(city_id: int, slug: str, stadt_name: str,
     """Holt Events von regioactive.de für eine Stadt via JSON-LD."""
     url = REGIOACTIVE_URL_TEMPLATE.format(city_id=city_id, slug=slug, jahr=jahr, monat=monat)
     try:
-        response = requests.get(url, headers=HEADERS, timeout=30)
-        response.raise_for_status()
+        response = _request_mit_retry('GET', url, headers=HEADERS, timeout=30)
     except requests.RequestException as e:
         print(f"  regioactive {stadt_name} Fehler: {e}")
         return []
@@ -465,8 +475,7 @@ def hole_theater_muenster(jahr: int, monat: int) -> list[Veranstaltung]:
     """Holt den Spielplan des Theater Münster via HTML-Scraping."""
     url = f"{THEATER_MS_URL}?date={jahr:04d}-{monat:02d}"
     try:
-        response = requests.get(url, headers=HEADERS, timeout=30)
-        response.raise_for_status()
+        response = _request_mit_retry('GET', url, headers=HEADERS, timeout=30)
     except requests.RequestException as e:
         print(f"  Theater Münster Fehler: {e}")
         return []
@@ -549,8 +558,7 @@ def hole_lwl_museum(jahr: int, monat: int) -> list[Veranstaltung]:
     for seite in range(1, MAX_SEITEN + 1):
         url = f"{LWL_MUSEUM_URL}?vom={von}&bis={bis}&p={seite}"
         try:
-            response = requests.get(url, headers=HEADERS, timeout=30)
-            response.raise_for_status()
+            response = _request_mit_retry('GET', url, headers=HEADERS, timeout=30)
         except requests.RequestException as e:
             print(f"  LWL Museum Fehler (Seite {seite}): {e}")
             break
