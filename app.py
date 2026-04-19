@@ -19,16 +19,17 @@ from datetime import datetime
 
 from scraper import (
     hole_veranstaltungen, hole_digitalhub_events, hole_halle_muensterland_events,
-    hole_regioactive_ms, hole_theater_muenster, hole_lwl_museum,
+    hole_theater_muenster, hole_lwl_museum,
     Veranstaltung,
 )
+# hole_regioactive_ms: deaktiviert seit 2026-04-19 (Cloudflare-Block, 403 für alle 15 Städte)
 
 
 QUELLEN = {
     'muensterland':       'Münsterland',
     'digitalhub':         'Digital Hub',
     'halle_muensterland': 'Halle Münsterland',
-    'regioactive':        'regioactive.de',
+    # 'regioactive':        'regioactive.de',  # deaktiviert (Cloudflare-Block)
     'theater_muenster':   'Theater Münster',
     'lwl_museum':         'LWL-Museum',
 }
@@ -37,7 +38,7 @@ BADGE_CONFIG = {
     'muensterland':       ('badge-muensterland', 'Münsterland'),
     'digitalhub':         ('badge-digitalhub',   'Digital Hub'),
     'halle_muensterland': ('badge-halle',         'Halle Münsterland'),
-    'regioactive':        ('badge-regioactive',   'regioactive.de'),
+    # 'regioactive':        ('badge-regioactive',   'regioactive.de'),  # deaktiviert
     'theater_muenster':   ('badge-theater',       'Theater Münster'),
     'lwl_museum':         ('badge-lwl',           'LWL-Museum'),
 }
@@ -540,6 +541,28 @@ def generiere_html(veranstaltungen: list[Veranstaltung], jahr: int, monat: int,
             font-weight: 500;
         }}
 
+        .scroll-top-btn {{
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: var(--accent-color);
+            color: #fff;
+            font-size: 20px;
+            line-height: 44px;
+            text-align: center;
+            text-decoration: none;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+            z-index: 200;
+            transition: opacity 0.2s;
+        }}
+
+        .scroll-top-btn:hover {{
+            opacity: 0.8;
+        }}
+
         .keine-termine {{
             text-align: center;
             padding: 40px;
@@ -661,11 +684,12 @@ def generiere_html(veranstaltungen: list[Veranstaltung], jahr: int, monat: int,
             <a href="https://www.muensterland.com/tourismus/service/veranstaltungen-im-muensterland/" target="_blank" rel="noopener noreferrer">muensterland.com</a> &middot;
             <a href="https://www.digitalhub.ms" target="_blank" rel="noopener noreferrer">Digital Hub münsterLAND</a> &middot;
             <a href="https://www.mcc-halle-muensterland.de" target="_blank" rel="noopener noreferrer">Halle Münsterland</a> &middot;
-            <a href="https://www.regioactive.de/events/21196/muenster/veranstaltungen-party-konzerte" target="_blank" rel="noopener noreferrer">regioactive.de</a> &middot;
             <a href="https://neu.theater-muenster.com/spielplan" target="_blank" rel="noopener noreferrer">Theater Münster</a> &middot;
             <a href="https://www.lwl-museum-kunst-kultur.de/de/touren-workshops/termine-und-veranstaltungen/" target="_blank" rel="noopener noreferrer">LWL-Museum</a>
         </footer>
     </div>
+
+    <a href="#kalender" class="scroll-top-btn" title="Zum Kalender">↑</a>
 
     <script>
         // Heutigen Tag im Kalender markieren + zum ersten heutigen/zukünftigen Termin springen
@@ -784,11 +808,11 @@ def main():
             print(f"  -> {len(halle_events)} Halle Münsterland")
             veranstaltungen.extend(halle_events)
 
-        # regioactive.de Münster
-        regioactive_events = hole_regioactive_ms(j, m)
-        if regioactive_events:
-            print(f"  -> {len(regioactive_events)} regioactive.de")
-            veranstaltungen.extend(regioactive_events)
+        # regioactive.de Münster — deaktiviert seit 2026-04-19 (Cloudflare-Block, 403)
+        # regioactive_events = hole_regioactive_ms(j, m)
+        # if regioactive_events:
+        #     print(f"  -> {len(regioactive_events)} regioactive.de")
+        #     veranstaltungen.extend(regioactive_events)
 
         # Theater Münster
         theater_events = hole_theater_muenster(j, m)

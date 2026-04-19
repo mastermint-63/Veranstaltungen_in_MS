@@ -49,12 +49,12 @@ gh run list --workflow=deploy.yml    # Deployment-Status prüfen
 **Gesamtdauer:** ~30 Sekunden
 
 - Plist: `~/Library/LaunchAgents/de.veranstaltungen-ms.update.plist`
-- Log: `launchd.log`
+- Log: `~/Library/Logs/termine/veranstaltungen_ms.log`
 
 ```bash
-launchctl list | grep veranstaltungen          # Status prüfen
-launchctl start de.veranstaltungen-ms.update   # Manuell auslösen
-tail -f launchd.log                            # Live-Log anzeigen
+launchctl list | grep veranstaltungen                                    # Status prüfen
+launchctl start de.veranstaltungen-ms.update                             # Manuell auslösen
+tail -f ~/Library/Logs/termine/veranstaltungen_ms.log                    # Live-Log anzeigen
 ```
 
 ## Architektur
@@ -96,6 +96,7 @@ Alle Scraper-Funktionen:
 ### update.sh
 
 - Scrapt Events, generiert HTML
+- Alte Monatsdateien aufräumen (Puffer: Vormonat bleibt, alles davor per `git rm`)
 - Git add/commit/push bei Änderungen
 - macOS-Notification mit Event-Statistik
 
@@ -156,9 +157,24 @@ GET `https://www.lwl-museum-kunst-kultur.de/de/touren-workshops/termine-und-vera
 CSS-Klassen: `div.event-element`, `p.event-date` ("Dienstag, 24.2.2026"), `p.event-time`, `h4.event-title span[id^="event-title-"]`, `p.event-type`, `p.event-description`
 Paginierung: `?p=N`, Abbruch wenn keine weiteren Events.
 
+## Tests
+
+```bash
+/Library/Frameworks/Python.framework/Versions/3.14/bin/python3 -m pytest tests/ -v
+```
+
+`tests/test_dedup.py` — testet `_normalisiere()`, `_veranstaltung_score()` und `entferne_duplikate()` aus `app.py`.
+
+## Code-Konventionen
+
+- **HTML-Escaping:** `import html as _html` (Alias nötig, weil `generiere_html()` intern eine lokale Variable `html` verwendet). Alle gescrapten Textfelder werden mit `_html.escape()` escaped.
+- **URL-Validierung:** Externe Links als `link_safe = v.link if v.link and v.link.startswith(('http://', 'https://')) else ''` validieren — nur dann als `<a href>` rendern.
+- **`target="_blank"`:** Immer mit `rel="noopener noreferrer"` kombinieren.
+- **Retry-Logik:** `_request_mit_retry()` in `scraper.py` — 1x Retry mit 2s Pause bei `requests.RequestException`.
+
 ## Fehlerbehandlung
 
-- Alle Scraper: Timeout 30s, Fehler wird geloggt, andere Quellen laufen weiter
+- Alle Scraper: Timeout 30s, 1x Retry bei Fehler, dann Fehler loggen, andere Quellen laufen weiter
 - `update.sh` erkennt Fehler und sendet Warn-Notification (⚠️ mit Basso-Sound)
 
 ## Bekannte Einschränkungen

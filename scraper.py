@@ -352,13 +352,14 @@ def hole_halle_muensterland_events(jahr: int, monat: int) -> list[Veranstaltung]
 
         datum = datetime(event_jahr, event_monat, tag)
 
-        # Event-Titel aus img title extrahieren
-        img = card.find('img', attrs={'title': True})
-        if img and img.get('title'):
-            name = img['title'].strip()
+        # Titel aus .m-appointment--title h4 (aktuelle Struktur);
+        # Fallback auf img.title (alte Struktur, noch vereinzelt vorhanden)
+        titel_h4 = card.select_one('.m-appointment--title h4')
+        if titel_h4 and titel_h4.get_text(strip=True):
+            name = titel_h4.get_text(strip=True)
         else:
-            # Fallback: Versuche anderen Text zu finden
-            continue
+            img = card.find('img', attrs={'title': True})
+            name = img['title'].strip() if img and img.get('title') else ''
 
         if not name:
             continue

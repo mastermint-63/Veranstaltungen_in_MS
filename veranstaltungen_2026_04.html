@@ -309,6 +309,28 @@
             font-weight: 500;
         }
 
+        .scroll-top-btn {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: var(--accent-color);
+            color: #fff;
+            font-size: 20px;
+            line-height: 44px;
+            text-align: center;
+            text-decoration: none;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+            z-index: 200;
+            transition: opacity 0.2s;
+        }
+
+        .scroll-top-btn:hover {
+            opacity: 0.8;
+        }
+
         .keine-termine {
             text-align: center;
             padding: 40px;
@@ -419,11 +441,11 @@
                     <option value="">Alle Städte</option><option value="Ahaus">Ahaus</option><option value="Ascheberg">Ascheberg</option><option value="Beckum">Beckum</option><option value="Billerbeck">Billerbeck</option><option value="Bocholt">Bocholt</option><option value="Borghorst">Borghorst</option><option value="Borken">Borken</option><option value="Borken-Borkenwithe">Borken-Borkenwithe</option><option value="Borken-Gemen">Borken-Gemen</option><option value="Borken-Hoxfeld">Borken-Hoxfeld</option><option value="Bottrop-Kirchhellen">Bottrop-Kirchhellen</option><option value="Coesfeld">Coesfeld</option><option value="Dorsten">Dorsten</option><option value="Dortmund">Dortmund</option><option value="Drensteinfurt">Drensteinfurt</option><option value="Dülmen">Dülmen</option><option value="Emsdetten">Emsdetten</option><option value="Ennigerloh">Ennigerloh</option><option value="Epe">Epe</option><option value="Everswinkel">Everswinkel</option><option value="Everswinkel-Alverskirchen">Everswinkel-Alverskirchen</option><option value="Gelsenkirchen">Gelsenkirchen</option><option value="Gescher">Gescher</option><option value="Gronau">Gronau</option><option value="Haltern am See">Haltern am See</option><option value="Hamm">Hamm</option><option value="Havixbeck">Havixbeck</option><option value="Hörstel">Hörstel</option><option value="Hörstel-Gravenhorst">Hörstel-Gravenhorst</option><option value="Ibbenbüren">Ibbenbüren</option><option value="Laer">Laer</option><option value="Legden">Legden</option><option value="Lengerich">Lengerich</option><option value="Lienen">Lienen</option><option value="Lienen-Kattenvenne">Lienen-Kattenvenne</option><option value="Lippetal">Lippetal</option><option value="Lippetal-Hovestadt">Lippetal-Hovestadt</option><option value="Lippetal-Lipporg">Lippetal-Lipporg</option><option value="Lüdinghausen">Lüdinghausen</option><option value="Mettingen">Mettingen</option><option value="Münser">Münser</option><option value="Münster">Münster</option><option value="Nordkirchen">Nordkirchen</option><option value="Nottuln">Nottuln</option><option value="Ochtrup">Ochtrup</option><option value="Oelde">Oelde</option><option value="Olfen">Olfen</option><option value="Ostbevern">Ostbevern</option><option value="Raesfeld">Raesfeld</option><option value="Recke">Recke</option><option value="Reken">Reken</option><option value="Rhede">Rhede</option><option value="Rheine">Rheine</option><option value="Saerbeck">Saerbeck</option><option value="Schermbeck">Schermbeck</option><option value="Senden">Senden</option><option value="Sendenhorst">Sendenhorst</option><option value="Stadtlohn">Stadtlohn</option><option value="Steinfurt">Steinfurt</option><option value="Steinfurt-Borghorst">Steinfurt-Borghorst</option><option value="Südlohn">Südlohn</option><option value="Tecklenburg">Tecklenburg</option><option value="Tecklenburg-Leeden">Tecklenburg-Leeden</option><option value="Telgte">Telgte</option><option value="Velen">Velen</option><option value="Vreden">Vreden</option><option value="Warendorf">Warendorf</option><option value="Wesel">Wesel</option><option value="Westerkappeln">Westerkappeln</option><option value="Wettringen">Wettringen</option><option value="Xanten">Xanten</option>
                 </select>
                 <select id="quelle-filter" onchange="filterTermine()">
-                    <option value="">Alle Quellen</option><option value="digitalhub">Digital Hub</option><option value="lwl_museum">LWL-Museum</option><option value="muensterland">Münsterland</option><option value="theater_muenster">Theater Münster</option>
+                    <option value="">Alle Quellen</option><option value="digitalhub">Digital Hub</option><option value="halle_muensterland">Halle Münsterland</option><option value="lwl_museum">LWL-Museum</option><option value="muensterland">Münsterland</option><option value="theater_muenster">Theater Münster</option>
                 </select>
             </div>
             <div class="stats">
-                <span id="termine-count">864</span> Veranstaltungen in <span id="staedte-count">71</span> Orten
+                <span id="termine-count">873</span> Veranstaltungen in <span id="staedte-count">71</span> Orten
             </div>
         </div>
 
@@ -8692,6 +8714,19 @@ Geschwindigkeit: 15 - 18 km/hTourenlänge: ca. 30 kmTreffpunkt: Tourist-Informat
                     </div>
                 </div>
             
+                <div class="termin" data-stadt="Münster" data-quelle="halle_muensterland">
+                    <div class="termin-zeit">22.–25.04.</div>
+                    <div class="termin-info">
+                        <div class="termin-name">
+                            <span class="termin-toggle" onclick="this.closest('.termin').classList.toggle('expanded')">Jahrestagung Deutsche Gesellschaft für Nuklearmedizin</span>
+                            <span class="badge badge-halle">Halle Münsterland</span> <span class="badge badge-kategorie">Konzert/Show</span>
+                        </div>
+                        <div class="termin-stadt">Münster</div>
+                        <div class="termin-ort">Halle Münsterland</div>
+                        
+                    </div>
+                </div>
+            
             </div>
             <div class="zurueck-link"><a href="#kalender">&#8593; Kalender</a></div>
         </div>
@@ -9596,6 +9631,19 @@ einige der großen Mare und Krater. Neben den bekannten Ster</div>
                     </div>
                 </div>
             
+                <div class="termin" data-stadt="Münster" data-quelle="halle_muensterland">
+                    <div class="termin-zeit">24.–06.04.</div>
+                    <div class="termin-info">
+                        <div class="termin-name">
+                            <span class="termin-toggle" onclick="this.closest('.termin').classList.toggle('expanded')">KÖRPERWELTEN</span>
+                            <span class="badge badge-halle">Halle Münsterland</span> <span class="badge badge-kategorie">Konzert/Show</span>
+                        </div>
+                        <div class="termin-stadt">Münster</div>
+                        <div class="termin-ort">Halle Münsterland</div>
+                        
+                    </div>
+                </div>
+            
             </div>
             <div class="zurueck-link"><a href="#kalender">&#8593; Kalender</a></div>
         </div>
@@ -10379,6 +10427,19 @@ Ihre Gedanken sind der S</div>
                     </div>
                 </div>
             
+                <div class="termin" data-stadt="Münster" data-quelle="halle_muensterland">
+                    <div class="termin-zeit">25.–26.04.</div>
+                    <div class="termin-info">
+                        <div class="termin-name">
+                            <span class="termin-toggle" onclick="this.closest('.termin').classList.toggle('expanded')">Teddybär Total</span>
+                            <span class="badge badge-halle">Halle Münsterland</span> <span class="badge badge-kategorie">Konzert/Show</span>
+                        </div>
+                        <div class="termin-stadt">Münster</div>
+                        <div class="termin-ort">Halle Münsterland</div>
+                        
+                    </div>
+                </div>
+            
             </div>
             <div class="zurueck-link"><a href="#kalender">&#8593; Kalender</a></div>
         </div>
@@ -11036,6 +11097,45 @@ Neugierde an ausgefallene Programme, interkulturelle Begegn</div>
                     </div>
                 </div>
             
+                <div class="termin" data-stadt="Münster" data-quelle="halle_muensterland">
+                    <div class="termin-zeit">siehe Website</div>
+                    <div class="termin-info">
+                        <div class="termin-name">
+                            <a href="https://www.eventim.de/noapp/event/der-herr-der-ringe-der-hobbit-messecongress-centrum-halle-muensterland-20322602/?affiliate=HMU&utm_campaign=Messeundcongress&utm_source=HMU&utm_medium=dp" target="_blank" rel="noopener noreferrer">Der Herr Der Ringe &amp; Der Hobbit - Das Konzert</a>
+                            <span class="badge badge-halle">Halle Münsterland</span> <span class="badge badge-kategorie">Konzert/Show</span>
+                        </div>
+                        <div class="termin-stadt">Münster</div>
+                        <div class="termin-ort">Halle Münsterland</div>
+                        
+                    </div>
+                </div>
+            
+                <div class="termin" data-stadt="Münster" data-quelle="halle_muensterland">
+                    <div class="termin-zeit">siehe Website</div>
+                    <div class="termin-info">
+                        <div class="termin-name">
+                            <a href="https://www.eventim.de/noapp/event/the-magical-music-of-harry-potter-live-in-concert-messecongress-centrum-halle-muensterland-20322409/?affiliate=HMU&utm_campaign=Messeundcongress&utm_source=HMU&utm_medium=dp" target="_blank" rel="noopener noreferrer">The Magical Music of Harry Potter</a>
+                            <span class="badge badge-halle">Halle Münsterland</span> <span class="badge badge-kategorie">Konzert/Show</span>
+                        </div>
+                        <div class="termin-stadt">Münster</div>
+                        <div class="termin-ort">Halle Münsterland</div>
+                        
+                    </div>
+                </div>
+            
+                <div class="termin" data-stadt="Münster" data-quelle="halle_muensterland">
+                    <div class="termin-zeit">siehe Website</div>
+                    <div class="termin-info">
+                        <div class="termin-name">
+                            <a href="https://www.eventim.de/noapp/event/the-music-of-hans-zimmer-others-a-celebration-of-film-music-messecongress-centrum-halle-muensterland-20322628/?affiliate=HMU&utm_campaign=Messeundcongress&utm_source=HMU&utm_medium=dp" target="_blank" rel="noopener noreferrer">The Music of Hans Zimmer &amp; Others</a>
+                            <span class="badge badge-halle">Halle Münsterland</span> <span class="badge badge-kategorie">Konzert/Show</span>
+                        </div>
+                        <div class="termin-stadt">Münster</div>
+                        <div class="termin-ort">Halle Münsterland</div>
+                        
+                    </div>
+                </div>
+            
             </div>
             <div class="zurueck-link"><a href="#kalender">&#8593; Kalender</a></div>
         </div>
@@ -11184,6 +11284,32 @@ Neugierde an ausgefallene Programme, interkulturelle Begegn</div>
                         <div class="termin-stadt">Everswinkel</div>
                         <div class="termin-ort">Gemeinde Everswinkel, Am Magnusplatz 30</div>
                         <div class="termin-beschreibung">Kein internationaler Brennpunkt erregt die Gemüter derart weit über seine Grenzen hinaus wie der Nahostkonflikt. Kaum ein Krieg treibt so viele Menschen in Deutschland und Europa, den USA, in vielen m</div>
+                    </div>
+                </div>
+            
+                <div class="termin" data-stadt="Münster" data-quelle="halle_muensterland">
+                    <div class="termin-zeit">siehe Website</div>
+                    <div class="termin-info">
+                        <div class="termin-name">
+                            <a href="https://www.eventim.de/noapp/event/the-music-of-the-wall-the-dark-side-of-the-moon-messecongress-centrum-halle-muensterland-20322771/?affiliate=HMU&utm_campaign=messeundcongress&utm_source=HMU&utm_medium=dp" target="_blank" rel="noopener noreferrer">The Music of The Dark Side of the Moon</a>
+                            <span class="badge badge-halle">Halle Münsterland</span> <span class="badge badge-kategorie">Konzert/Show</span>
+                        </div>
+                        <div class="termin-stadt">Münster</div>
+                        <div class="termin-ort">Halle Münsterland</div>
+                        
+                    </div>
+                </div>
+            
+                <div class="termin" data-stadt="Münster" data-quelle="halle_muensterland">
+                    <div class="termin-zeit">siehe Website</div>
+                    <div class="termin-info">
+                        <div class="termin-name">
+                            <a href="https://www.eventim.de/noapp/event/the-music-of-the-wall-the-dark-side-of-the-moon-messecongress-centrum-halle-muensterland-20322737/?affiliate=HMU&utm_campaign=messeundcongress&utm_source=HMU&utm_medium=dp" target="_blank" rel="noopener noreferrer">The Music of the Wall</a>
+                            <span class="badge badge-halle">Halle Münsterland</span> <span class="badge badge-kategorie">Konzert/Show</span>
+                        </div>
+                        <div class="termin-stadt">Münster</div>
+                        <div class="termin-ort">Halle Münsterland</div>
+                        
                     </div>
                 </div>
             
@@ -11505,6 +11631,19 @@ Wissenswertes und nehmen Sie das Gespür der Lesenden, die Stimmung der Bücher 
                         <div class="termin-stadt">Gronau</div>
                         <div class="termin-ort">Bürgerhalle Gronau, Spinnereistraße 20</div>
                         <div class="termin-beschreibung">Alma Naidu feat. Jakob Manz Die Süddeutsche Zeitung bezeichnete sie als „eine der vielversprechendsten Sängerinnen der deutschen Szene“, das Magazin Jazzthing lobte ihre „zartelegische, wunderschön kl</div>
+                    </div>
+                </div>
+            
+                <div class="termin" data-stadt="Münster" data-quelle="halle_muensterland">
+                    <div class="termin-zeit">siehe Website</div>
+                    <div class="termin-info">
+                        <div class="termin-name">
+                            <span class="termin-toggle" onclick="this.closest('.termin').classList.toggle('expanded')">LAB SUPPLY</span>
+                            <span class="badge badge-halle">Halle Münsterland</span> <span class="badge badge-kategorie">Konzert/Show</span>
+                        </div>
+                        <div class="termin-stadt">Münster</div>
+                        <div class="termin-ort">Halle Münsterland</div>
+                        
                     </div>
                 </div>
             
@@ -12165,16 +12304,17 @@ AUF DEM DORFPLATZ</div>
         </main>
 
         <footer>
-            Generiert am 19.04.2026 um 06:16 Uhr<br>
+            Generiert am 19.04.2026 um 11:53 Uhr<br>
             Quellen:
             <a href="https://www.muensterland.com/tourismus/service/veranstaltungen-im-muensterland/" target="_blank" rel="noopener noreferrer">muensterland.com</a> &middot;
             <a href="https://www.digitalhub.ms" target="_blank" rel="noopener noreferrer">Digital Hub münsterLAND</a> &middot;
             <a href="https://www.mcc-halle-muensterland.de" target="_blank" rel="noopener noreferrer">Halle Münsterland</a> &middot;
-            <a href="https://www.regioactive.de/events/21196/muenster/veranstaltungen-party-konzerte" target="_blank" rel="noopener noreferrer">regioactive.de</a> &middot;
             <a href="https://neu.theater-muenster.com/spielplan" target="_blank" rel="noopener noreferrer">Theater Münster</a> &middot;
             <a href="https://www.lwl-museum-kunst-kultur.de/de/touren-workshops/termine-und-veranstaltungen/" target="_blank" rel="noopener noreferrer">LWL-Museum</a>
         </footer>
     </div>
+
+    <a href="#kalender" class="scroll-top-btn" title="Zum Kalender">↑</a>
 
     <script>
         // Heutigen Tag im Kalender markieren + zum ersten heutigen/zukünftigen Termin springen
