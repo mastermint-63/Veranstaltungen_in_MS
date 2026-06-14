@@ -64,6 +64,26 @@ def _veranstaltung_score(v: Veranstaltung) -> int:
     return score
 
 
+# Veranstaltungen demokratiefeindlicher Gruppierungen werden grundsätzlich nicht
+# aufgenommen. Wortgrenzen (\b) sind wichtig, damit harmlose Treffer (z.B. "afd"
+# in einem URL-Hash) nicht fälschlich gefiltert werden.
+_AUSGESCHLOSSENE_MUSTER = re.compile(
+    r"\bafd\b|\ba\.f\.d\.?|alternative für deutschland|junge alternative|afd-kv",
+    re.IGNORECASE,
+)
+
+
+def ist_ausgeschlossen(v: Veranstaltung) -> bool:
+    """True, wenn die Veranstaltung von einer ausgeschlossenen Gruppierung stammt (z.B. AfD)."""
+    text = " ".join(filter(None, [v.name, v.beschreibung, v.ort, v.stadt, v.link]))
+    return bool(_AUSGESCHLOSSENE_MUSTER.search(text))
+
+
+def entferne_ausgeschlossene(veranstaltungen: list[Veranstaltung]) -> list[Veranstaltung]:
+    """Filtert Veranstaltungen demokratiefeindlicher Gruppierungen (AfD) heraus."""
+    return [v for v in veranstaltungen if not ist_ausgeschlossen(v)]
+
+
 def entferne_duplikate(veranstaltungen: list[Veranstaltung]) -> list[Veranstaltung]:
     """Entfernt Duplikate: gleiches Datum + identischer oder enthaltener Name."""
     nach_datum: dict[str, list[Veranstaltung]] = {}
@@ -825,6 +845,12 @@ def main():
         if lwl_events:
             print(f"  -> {len(lwl_events)} LWL-Museum")
             veranstaltungen.extend(lwl_events)
+
+        vor_filter = len(veranstaltungen)
+        veranstaltungen = entferne_ausgeschlossene(veranstaltungen)
+        ausgeschlossen = vor_filter - len(veranstaltungen)
+        if ausgeschlossen:
+            print(f"  -> {ausgeschlossen} Veranstaltung(en) ausgeschlossen (demokratiefeindliche Gruppierung)")
 
         vor_dedup = len(veranstaltungen)
         veranstaltungen = entferne_duplikate(veranstaltungen)
