@@ -21,7 +21,11 @@ done
 
 # Veranstaltungen abrufen
 OUTPUT=$(/Library/Frameworks/Python.framework/Versions/3.14/bin/python3 app.py --no-browser 2>&1)
+APP_EXIT=$?
 echo "$OUTPUT"
+if [ $APP_EXIT -ne 0 ]; then
+    echo "FEHLER: app.py mit Exit $APP_EXIT abgebrochen"
+fi
 
 # Prüfe auf Fehler (Timeouts, Connection-Errors)
 FEHLER_COUNT=$(echo "$OUTPUT" | grep -c "Fehler beim Abrufen")
@@ -39,6 +43,10 @@ done <<< "$OUTPUT"
 DIFF=$((NEUE_ANZAHL - ALTE_ANZAHL))
 
 # Alte Monatsdateien aufräumen (Puffer: Vormonat bleibt, alles davor wird gelöscht)
+# Nur nach fehlerfreiem Lauf: nach einem Crash wurde index.html evtl. nicht neu
+# geschrieben und zeigt noch auf eine alte Monatsdatei (404-Vorfall Juli/Aug 2026).
+GELOESCHT=()
+if [ $APP_EXIT -eq 0 ]; then
 CUTOFF_JAHR=$(date +%Y)
 CUTOFF_MONAT=$(date +%-m)
 if [ "$CUTOFF_MONAT" -eq 1 ]; then
@@ -48,7 +56,6 @@ else
     CUTOFF_MONAT=$((CUTOFF_MONAT - 1))
 fi
 CUTOFF=$(printf "%04d_%02d" "$CUTOFF_JAHR" "$CUTOFF_MONAT")
-GELOESCHT=()
 for html in veranstaltungen_*.html; do
     [ -f "$html" ] || continue
     DATEI_KEY=$(echo "$html" | grep -o '[0-9]\{4\}_[0-9]\{2\}')
@@ -57,6 +64,7 @@ for html in veranstaltungen_*.html; do
         git rm "$html" 2>/dev/null && GELOESCHT+=("$html")
     fi
 done
+fi
 
 # Zu GitHub pushen (nur wenn Änderungen vorhanden)
 PUSH_STATUS=""
@@ -88,7 +96,11 @@ else
 fi
 
 # Benachrichtigungs-Text erstellen
-if [ $FEHLER_COUNT -gt 0 ]; then
+if [ $APP_EXIT -ne 0 ]; then
+    TITEL="❌ Update abgebrochen (Exit $APP_EXIT)"
+    TEXT="app.py gecrasht - index.html evtl. veraltet"
+    SOUND="Basso"
+elif [ $FEHLER_COUNT -gt 0 ]; then
     TITEL="⚠️ Update mit Fehlern"
     TEXT="$NEUE_ANZAHL Events (${FEHLER_COUNT}× Timeout)"
     SOUND="Basso"
