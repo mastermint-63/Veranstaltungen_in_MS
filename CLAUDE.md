@@ -4,14 +4,14 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Projektbeschreibung
 
-Veranstaltungs-Dashboard für das Münsterland (WDR Studio Münster). Sammelt Events von 6 Quellen und generiert statische HTML-Dashboards mit Kalender, Filtern und Dark Mode.
+Veranstaltungs-Dashboard für das Münsterland (WDR Studio Münster). Sammelt Events von aktuell **5 aktiven Quellen** (regioactive.de seit 04/2026 Cloudflare-geblockt und deaktiviert, s. u.) und generiert statische HTML-Dashboards mit Kalender, Filtern und Dark Mode.
 
 | Quelle | Typ | Events/Monat | Schwerpunkt |
 |--------|-----|-------------|-------------|
 | muensterland.com | POST-API, paginiert | ~500 | Allgemeine Veranstaltungen Münsterland |
 | Digital Hub münsterLAND | REST-API (GET) | ~2–5 | Startup- und Tech-Events |
 | Halle Münsterland | HTML-Scraping | ~8–10 | Konzerte, Shows, Messen |
-| regioactive.de | JSON-LD, `/monat/YYYY-MM` | ~130–150 | Konzerte, Partys, Clubs — 15 Städte in 4 Kreisen |
+| ~~regioactive.de~~ ⚠️ **deaktiviert seit 04/2026** | JSON-LD, `/monat/YYYY-MM` | (0, Cloudflare-403) | Konzerte, Partys, Clubs — 15 Städte; Code auskommentiert, Doku unten für Reaktivierung |
 | Theater Münster | HTML-Scraping, `?date=YYYY-MM` | ~20–30 | Spielplan Stadttheater |
 | LWL-Museum | HTML-Scraping, `?vom=&bis=` | ~60–70 | Touren, Workshops, Events |
 
@@ -43,7 +43,7 @@ gh run list --workflow=deploy.yml    # Deployment-Status prüfen
 **muensterland.com verwendet Geo-Blocking** (deutsche IP erforderlich) → Scraping läuft lokal via launchd.
 
 ```
-06:15 Uhr: launchd → update.sh → Scraping (alle 6 Quellen) → HTML → git push → GitHub Pages
+06:15 Uhr: launchd → update.sh → Scraping (alle 5 aktiven Quellen) → HTML → git push → GitHub Pages
 ```
 
 **Gesamtdauer:** ~30 Sekunden
@@ -60,7 +60,7 @@ tail -f ~/Library/Logs/termine/veranstaltungen_ms.log                    # Live-
 ## Architektur
 
 ```
-6 Quellen → scraper.py (Veranstaltung-Objekte) → app.py (HTML-Generierung) → GitHub Pages
+5 aktive Quellen → scraper.py (Veranstaltung-Objekte) → app.py (HTML-Generierung) → GitHub Pages
 ```
 
 ### scraper.py
@@ -74,8 +74,8 @@ Alle Scraper-Funktionen:
 | `hole_veranstaltungen(jahr, monat)` | muensterland.com | POST, paginiert (100/Seite), `end_datetime` für "Läuft bis"-Hinweis |
 | `hole_digitalhub_events(jahr, monat)` | digitalhub.ms | GET mit API-Token |
 | `hole_halle_muensterland_events(jahr, monat)` | mcc-halle-muensterland.de | HTML, `div.card[data-date]` |
-| `_hole_regioactive_stadt(city_id, slug, stadtname, jahr, monat)` | Hilfer für einzelne Stadt | JSON-LD, beide Formate (`Event` + `ItemList`) |
-| `hole_regioactive_ms(jahr, monat)` | regioactive.de (15 Städte, `REGIOACTIVE_STAEDTE`-Liste) | Ruft `_hole_regioactive_stadt()` für jede Stadt auf |
+| `_hole_regioactive_stadt(...)` ⚠️ deaktiviert | Hilfer für einzelne Stadt | JSON-LD, beide Formate (`Event` + `ItemList`); Funktion bleibt im Code, Aufruf in `main()` auskommentiert |
+| `hole_regioactive_ms(jahr, monat)` ⚠️ deaktiviert | regioactive.de (15 Städte, `REGIOACTIVE_STAEDTE`-Liste) | seit 04/2026 Cloudflare-403; bei Reaktivierung Aufruf in `main()` + `QUELLEN`/`BADGE_CONFIG` einkommentieren |
 | `hole_theater_muenster(jahr, monat)` | neu.theater-muenster.com | HTML, `div.tm-performance`, `?date=YYYY-MM` |
 | `hole_lwl_museum(jahr, monat)` | lwl-museum-kunst-kultur.de | HTML, `div.event-element`, `?vom=&bis=`, paginiert |
 
@@ -128,7 +128,7 @@ Felder: `name`, `start_datetime`, `end_datetime`, `end_datetime_is_approximately
 
 GET `https://www.digitalhub.ms/api/events?api_token=089d362b33ef053d7fcd241d823d27d1`
 
-### regioactive.de
+### regioactive.de ⚠️ deaktiviert seit 04/2026 (Cloudflare-403) — Doku für Reaktivierung
 
 URL-Template: `https://www.regioactive.de/events/{city_id}/{slug}/veranstaltungen-party-konzerte/monat/YYYY-MM`
 
@@ -179,6 +179,7 @@ Paginierung: `?p=N`, Abbruch wenn keine weiteren Events.
 
 ## Bekannte Einschränkungen
 
+- **regioactive.de Cloudflare-Block:** seit 19.04.2026 403 für alle 15 Städte → deaktiviert (Aufruf in `main()` sowie `QUELLEN`/`BADGE_CONFIG` auskommentiert). Funktionen + `REGIOACTIVE_STAEDTE` bleiben im Code; bei Reaktivierung einkommentieren. (In Recklinghausen analog seit 26.02.2026.)
 - **muensterland.com Geo-Blocking:** Deutsche IP erforderlich (GitHub Actions liefern 0 Events)
 - **Halle Münsterland URL:** `/veranstaltungen` → HTTP 404, Scraper funktioniert trotzdem
 - **Theater Münster:** Neue URL `neu.theater-muenster.com` (nicht `theater-muenster.com`)
