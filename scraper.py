@@ -81,6 +81,13 @@ class Veranstaltung:
     quelle: str = 'muensterland'  # 'muensterland' oder 'digitalhub'
     kategorie: str = ''  # z.B. 'Workshop', 'Meetup', 'Pitch'
 
+    def __post_init__(self):
+        # Scraper liefern vereinzelt None statt String (z.B. stadt bei
+        # muensterland.com); None crasht html.escape() und __lt__.
+        for feld in ('name', 'uhrzeit', 'ort', 'stadt', 'link', 'beschreibung', 'kategorie'):
+            if getattr(self, feld) is None:
+                setattr(self, feld, '')
+
     def datum_formatiert(self) -> str:
         """Formatiert das Datum als 'Mo 02.02.2026'."""
         tage = ['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So']
