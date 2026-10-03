@@ -160,7 +160,7 @@ Paginierung: `?p=N`, Abbruch wenn keine weiteren Events.
 ## Tests
 
 ```bash
-/Library/Frameworks/Python.framework/Versions/3.14/bin/python3 -m pytest tests/ -v
+.venv/bin/python -m pytest tests/ -v
 ```
 
 `tests/test_dedup.py` — testet `_normalisiere()`, `_veranstaltung_score()` und `entferne_duplikate()` aus `app.py`.

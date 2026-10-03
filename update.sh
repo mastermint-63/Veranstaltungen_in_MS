@@ -20,7 +20,7 @@ for html in veranstaltungen_*.html; do
 done
 
 # Veranstaltungen abrufen
-OUTPUT=$(/Library/Frameworks/Python.framework/Versions/3.14/bin/python3 app.py --no-browser 2>&1)
+OUTPUT=$("${PYTHON:-python3}" app.py --no-browser 2>&1)
 APP_EXIT=$?
 echo "$OUTPUT"
 if [ $APP_EXIT -ne 0 ]; then

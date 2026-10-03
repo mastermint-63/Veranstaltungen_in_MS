@@ -7,3 +7,4 @@ launchd.log
 *_session.json
 # HTML-Dateien werden für GitHub Pages benötigt
 # veranstaltungen_*.html
+.venv/
