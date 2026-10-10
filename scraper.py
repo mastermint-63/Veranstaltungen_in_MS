@@ -107,12 +107,12 @@ def _html_zu_text(html: str) -> str:
 
 def _parse_event(event: dict) -> Veranstaltung | None:
     """Parst ein einzelnes Event aus der API-Antwort."""
-    name = event.get('name', '').strip()
+    name = (event.get('name') or '').strip()
     if not name:
         return None
 
     # Datum und Uhrzeit
-    start_str = event.get('start_datetime', '')
+    start_str = event.get('start_datetime') or ''
     if not start_str:
         return None
 
@@ -130,13 +130,13 @@ def _parse_event(event: dict) -> Veranstaltung | None:
 
     # Ort und Stadt aus POI
     poi = event.get('poi') or {}
-    ort_name = poi.get('name', '')
+    ort_name = poi.get('name') or ''
     adresse = poi.get('address') or {}
-    stadt = adresse.get('city', '')
+    stadt = adresse.get('city') or ''
 
     ort_teile = [ort_name]
-    strasse = adresse.get('street', '')
-    hausnr = adresse.get('house_number', '')
+    strasse = adresse.get('street') or ''
+    hausnr = adresse.get('house_number') or ''
     if strasse:
         ort_teile.append(f"{strasse} {hausnr}".strip())
     ort = ', '.join(t for t in ort_teile if t)
@@ -146,7 +146,7 @@ def _parse_event(event: dict) -> Veranstaltung | None:
 
     # Hinweis für mehrtägige Veranstaltungen
     bis_hinweis = ''
-    end_str = event.get('end_datetime', '')
+    end_str = event.get('end_datetime') or ''
     if end_str:
         try:
             end_datum = datetime.fromisoformat(end_str).replace(tzinfo=None)
@@ -157,7 +157,7 @@ def _parse_event(event: dict) -> Veranstaltung | None:
             pass
 
     # Beschreibung
-    beschreibung_html = event.get('description_text', '')
+    beschreibung_html = event.get('description_text') or ''
     beschreibung = _html_zu_text(beschreibung_html)
     if bis_hinweis:
         beschreibung = bis_hinweis + (' · ' + beschreibung[:200] if beschreibung else '')
@@ -431,11 +431,11 @@ def _hole_regioactive_stadt(city_id: int, slug: str, stadt_name: str,
             events.append(data)
 
         for event in events:
-            name = event.get('name', '').strip()
+            name = (event.get('name') or '').strip()
             if not name:
                 continue
 
-            start = event.get('startDate', '')
+            start = event.get('startDate') or ''
             if not start:
                 continue
             try:

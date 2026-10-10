@@ -19,12 +19,20 @@ for html in veranstaltungen_*.html; do
     fi
 done
 
+# Repo muss sauber auf main stehen, sonst landen Commits auf einem detached HEAD
+if [ -d .git/rebase-merge ] || [ -d .git/rebase-apply ] || [ "$(git branch --show-current)" != "main" ]; then
+    echo "FEHLER: Git-Repo nicht auf main oder Rebase hängt – kein Lauf. Bitte von Hand lösen (git status)."
+    exit 1
+fi
+EXIT_CODE=0
+
 # Veranstaltungen abrufen
 OUTPUT=$("${PYTHON:-python3}" app.py --no-browser 2>&1)
 APP_EXIT=$?
 echo "$OUTPUT"
 if [ $APP_EXIT -ne 0 ]; then
     echo "FEHLER: app.py mit Exit $APP_EXIT abgebrochen"
+    EXIT_CODE=1
 fi
 
 # Prüfe auf Fehler (Timeouts, Connection-Errors)
@@ -84,14 +92,18 @@ else
     git commit -m "$COMMIT_MSG" 2>&1
 
     # Rebase auf Remote-Stand, falls divergiert (generierte HTML → kein Merge-Risiko)
-    git pull --rebase 2>&1
-
-    if git push 2>&1; then
+    if ! git pull --rebase 2>&1; then
+        git rebase --abort 2>&1
+        echo "Rebase fehlgeschlagen – abgebrochen, kein Push. Konflikt von Hand lösen."
+        PUSH_STATUS="Rebase-Konflikt, kein Push!"
+        EXIT_CODE=1
+    elif git push 2>&1; then
         echo "Push erfolgreich!"
         PUSH_STATUS="GitHub aktualisiert"
     else
         echo "Push fehlgeschlagen!"
         PUSH_STATUS="Push fehlgeschlagen!"
+        EXIT_CODE=1
     fi
 fi
 
@@ -138,3 +150,4 @@ fi
 
 echo ""
 echo "Fertig: $(date)"
+exit $EXIT_CODE
